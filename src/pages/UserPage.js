@@ -146,7 +146,13 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const handleButtonClick = () => {
+    alert('teste');
+  };
+  
   return (
+
+
     <>
       <Helmet>
         <title> User | Minimal UI </title>
@@ -157,7 +163,7 @@ export default function UserPage() {
           <Typography variant="h4" gutterBottom>
             User
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button variant="contained" onClick={handleButtonClick} startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
           </Button>
         </Stack>

@@ -74,7 +74,7 @@ export default function LoginPage() {
             </Typography>
 
             <Typography variant="body2" sx={{ mb: 5 }}>
-              Don’t have an account? {''}
+              Você não tem uma conta? {''}
               <Link variant="subtitle2">Get started</Link>
             </Typography>
 
