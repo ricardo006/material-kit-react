@@ -36,7 +36,7 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
         boxShadow: 0,
         textAlign: 'center',
         color: (theme) => theme.palette[color].darker,
-        bgcolor: (theme) => theme.palette[color].lighter,
+        bgcolor: (theme) => theme.palette[color].main,
         ...sx,
       }}
       {...other}

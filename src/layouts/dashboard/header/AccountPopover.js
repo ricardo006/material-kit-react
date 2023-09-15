@@ -47,7 +47,7 @@ export default function AccountPopover() {
               content: "''",
               width: '100%',
               height: '100%',
-              borderRadius: '50%',
+              borderRadius: '10%',
               position: 'absolute',
               bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
             },
@@ -95,7 +95,7 @@ export default function AccountPopover() {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: 'solid' }} />
 
         <MenuItem onClick={handleClose} sx={{ m: 1 }}>
           Logout

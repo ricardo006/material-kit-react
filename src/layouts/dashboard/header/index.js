@@ -50,14 +50,13 @@ export default function Header({ onOpenNav }) {
           onClick={onOpenNav}
           sx={{
             mr: 1,
-            color: 'text.primary',
+            color: '#263238',
             display: { lg: 'none' },
           }}
         >
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
@@ -68,7 +67,8 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <LanguagePopover />
+          {/* <LanguagePopover /> */}
+          <Searchbar />
           <NotificationsPopover />
           <AccountPopover />
         </Stack>
