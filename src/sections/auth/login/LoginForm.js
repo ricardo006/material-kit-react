@@ -20,7 +20,7 @@ export default function LoginForm() {
       <Stack spacing={3}>
         <TextField name="email" label="Email address" />
 
-        <TextField
+        <TextField sx={{backgroundColor: 'rgba(195, 202, 241, 0.20)'}}
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
@@ -43,7 +43,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton sx={{backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D'}} fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
         Entrar
       </LoadingButton>
     </>

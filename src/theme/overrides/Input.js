@@ -31,7 +31,7 @@ export default function Input(theme) {
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(theme.palette.grey[500], 0.12),
+          backgroundColor: '#C6FFEE',
           '&:hover': {
             backgroundColor: alpha(theme.palette.grey[500], 0.16),
           },

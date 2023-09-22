@@ -9,12 +9,17 @@ import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
+import background from '../illustrations/banner_betspace.png'; // Importe a imagem
 
 // ----------------------------------------------------------------------
-
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
+    // backgroundImage: `url(${backgroundImage})`, // Use a imagem importada como valor
+    backgroundImage: `url(${background})`,
+    backgroundColor: "#002732",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
 }));
 
@@ -24,21 +29,18 @@ const StyledSection = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  boxShadow: theme.customShadows.card,
-  backgroundColor: theme.palette.background.default,
+  background: 'linear-gradient(180deg, rgba(51, 255, 194, 0.10) 0%, rgba(51, 255, 194, 0.00) 100%)',
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  maxWidth: 580,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(8, 0),
 }));
-
-// ----------------------------------------------------------------------
 
 export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
@@ -50,33 +52,37 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
+
+        {mdUp && (
+          <Container maxWidth="sm">
+            {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
+              Hi, Welcome Back
+            </Typography> */}
+            {/* <img src="/assets/illustrations/Banner Betspace Sistema.png" alt="login" /> */}
+          </Container>
+        )}
+        {/* 
         <Logo
           sx={{
             position: 'fixed',
             top: { xs: 16, sm: 24, md: 40 },
             left: { xs: 16, sm: 24, md: 40 },
           }}
-        />
+        /> */}
 
-        {mdUp && (
-          <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <img src="/assets/illustrations/illustration_login.png" alt="login" />
-          </StyledSection>
-        )}
-
-        <Container maxWidth="sm">
+        <StyledSection>
           <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Minimal
+            <Typography sx={{ mb: 5, mt:5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+              Login
             </Typography>
 
-            <Typography variant="body2" sx={{ mb: 5 }}>
-              Você não tem uma conta? {''}
-              <Link variant="subtitle2">Get started</Link>
-            </Typography>
+            <LoginForm />
+
+            <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                Entre usando as redes sociais:
+              </Typography>
+            </Divider>
 
             <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">
@@ -92,15 +98,16 @@ export default function LoginPage() {
               </Button>
             </Stack>
 
-            <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
-              </Typography>
-            </Divider>
+            <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE' }}>
+              Você não tem uma conta? {''}
+              <Link variant="subtitle2">Cadastre-se</Link>
+            </Typography>
 
-            <LoginForm />
           </StyledContent>
-        </Container>
+
+
+        </StyledSection>
+
       </StyledRoot>
     </>
   );
