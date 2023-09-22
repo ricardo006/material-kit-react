@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-// components
 import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
@@ -18,7 +16,7 @@ export default function LoginForm() {
   return (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="email" label="Email address" sx={{backgroundColor: 'rgba(195, 202, 241, 0.20)'}} />
 
         <TextField sx={{backgroundColor: 'rgba(195, 202, 241, 0.20)'}}
           name="password"
@@ -49,3 +47,4 @@ export default function LoginForm() {
     </>
   );
 }
+

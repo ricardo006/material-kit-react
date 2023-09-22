@@ -1,15 +1,18 @@
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
+// routes
 // components
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
-import background from '../illustrations/banner_betspace.png'; // Importe a imagem
+import background from '../illustrations/banner_login_betspace.png'; // Importe a imagem
 
 // ----------------------------------------------------------------------
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -42,8 +45,14 @@ const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(8, 0),
 }));
 
+
 export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
+  const navigate = useNavigate();
+
+  const handleClickRegister = () => {
+    navigate('/register', { replace: true });
+  };
 
   return (
     <>
@@ -72,7 +81,7 @@ export default function LoginPage() {
 
         <StyledSection>
           <StyledContent>
-            <Typography sx={{ mb: 5, mt:5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+            <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
               Login
             </Typography>
 
@@ -100,14 +109,10 @@ export default function LoginPage() {
 
             <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE' }}>
               Você não tem uma conta? {''}
-              <Link variant="subtitle2">Cadastre-se</Link>
+              <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClickRegister}>Cadastre-se</Link>
             </Typography>
-
           </StyledContent>
-
-
         </StyledSection>
-
       </StyledRoot>
     </>
   );
