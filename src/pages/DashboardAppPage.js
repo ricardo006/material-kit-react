@@ -24,7 +24,7 @@ export default function DashboardAppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | Betspace </title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -51,8 +51,8 @@ export default function DashboardAppPage() {
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader="(+43%) than last year"
+              title="Ganhos por Equipes/Período"
+              subheader="(+43%) do que no ano passado"
               chartLabels={[
                 '01/01/2003',
                 '02/01/2003',

@@ -4,6 +4,8 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Box, Link } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import img from "./BetSpace.png";
 
 // ----------------------------------------------------------------------
 
@@ -17,12 +19,11 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const PRIMARY_DARK = theme.palette.primary.dark;
 
   // OR using local (public folder)
-  // -------------------------------------------------------
   const logo = (
     <Box
       component="img"
-      src="./../../components/logo/logo_betspace.png"
-      sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
+      src={img}
+      sx={{width: 80, height: 80, cursor: 'pointer', ...sx }}
     />
   );
 
@@ -80,7 +81,10 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
 
   return (
     <Link to="/" component={RouterLink} sx={{ display: 'contents' }}>
-      {logo} Betspace
+      {logo} 
+      <Typography sx={{ verticalAlign: 'middle', textAlign: 'left', fontSize: '22px', color: '#6FA9EB', margin: '28px', fontWeight: 600, fontFamily: 'Manrope'}}>
+        Betspace
+      </Typography>
     </Link>
   );
 });

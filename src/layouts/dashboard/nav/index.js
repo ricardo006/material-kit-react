@@ -54,13 +54,11 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
 
-      {/* Logo do sistema */}
-
-      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+      <Box sx={{ px: 2.5, m: 1, py: 3, display: 'inline-flex', backgroundColor: '#30557d1f', borderRadius: '10px'}}>
         <Logo />
       </Box>
 
-      <Box sx={{ mb: 5, mx: 2.5 }}>
+      <Box sx={{ mb: 2, m: 1, mt: 2}}>
         <Link underline="none">
           <StyledAccount>
             <Avatar src={account.photoURL} alt="photoURL" />
@@ -70,22 +68,8 @@ export default function Nav({ openNav, onCloseNav }) {
                 {account.displayName}
               </Typography>
 
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box>
-          </StyledAccount>
-        </Link>
-      </Box>
-
-      <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none">
-          <StyledAccount>
-            <Avatar src={account.photoURL} alt="photoURL" />
-
-            <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {account.saldo}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>

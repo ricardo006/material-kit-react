@@ -15,8 +15,18 @@ const navConfig = [
     icon: icon('ic_user'),
   },
   {
+    title: 'Relatórios',
+    path: '/dashboard/relatorios',
+    icon: icon('ic_user'),
+  },
+  {
     title: 'Apostas',
-    path: '/dashboard/products',
+    path: '/dashboard/apostas',
+    icon: icon('ic_cart'),
+  },
+  {
+    title: 'Caixa',
+    path: '/dashboard/caixa',
     icon: icon('ic_cart'),
   },
   {
