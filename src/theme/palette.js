@@ -8,7 +8,7 @@ const GREY = {
   300: '#164D89',
   400: '#3970AE',
   500: '#30557D',
-  600: '#3C6897',
+  600: '#B9DAFF',
   700: '#5485BC',
   800: '#6FA9EB',
   900: '#B9DAFF',
@@ -20,7 +20,7 @@ const PRIMARY = {
   main: '#33FFC2',
   dark: '#B6F4E2',
   darker: '#33FFC2',
-  contrastText: '#fff',
+  contrastText: '#023047',
 };
 
 const SECONDARY = {
@@ -29,7 +29,7 @@ const SECONDARY = {
   main: '#33FFC2',
   dark: '#B6F4E2',
   darker: '#B6F4E2',
-  contrastText: '#fff',
+  contrastText: '#023047',
 };
 
 const INFO = {
@@ -38,7 +38,7 @@ const INFO = {
   main: '#4361EE',
   dark: '#4361EE',
   darker: '#001D3D',
-  contrastText: '#fff',
+  contrastText: '#D0F2FF',
 };
 
 const SUCCESS = {
@@ -62,10 +62,10 @@ const WARNING = {
 const ERROR = {
   lighter: '#FF99AC',
   light: '#F32A50',
-  main: '#D00027',
+  main: '#FF1743',
   dark: '#B72136',
   darker: '#FF99AC',
-  contrastText: '#fff',
+  contrastText: '#FF99AC',
 };
 
 const CARD_VENDAS = {
