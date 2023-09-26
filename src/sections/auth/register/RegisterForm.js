@@ -17,8 +17,30 @@ export default function RegisterForm() {
 
     return (
         <>
-            <Stack spacing={3}>
-                <TextField name="email" label="Email address" sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} />
+            <Stack spacing={2}>
+                <TextField 
+                    name="name" 
+                    label="Nome Completo" 
+                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
+                />
+
+                <TextField 
+                    name="cpf" 
+                    label="CPF" 
+                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
+                />
+
+                <TextField 
+                    name="user" 
+                    label="Usuário" 
+                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
+                />
+
+                <TextField 
+                    name="email" 
+                    label="Email" 
+                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
+                />
 
                 <TextField sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
                     name="password"

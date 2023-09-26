@@ -5,10 +5,9 @@ import { Link, Container, Typography, Divider, Stack, Button } from '@mui/materi
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
-import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
-import { LoginForm } from '../sections/auth/login';
+import { RegisterForm } from '../sections/auth/register';
 import background from '../illustrations/banner_login_betspace.png'; // Importe a imagem
 
 // ----------------------------------------------------------------------
@@ -56,7 +55,7 @@ export default function RegisterPage() {
                 {mdUp && (
                     <Container maxWidth="sm">
                         {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+            Hi, Welcome Back
             </Typography> */}
                         {/* <img src="/assets/illustrations/Banner Betspace Sistema.png" alt="login" /> */}
                     </Container>
@@ -64,11 +63,11 @@ export default function RegisterPage() {
 
                 {/* 
         <Logo
-          sx={{
+        sx={{
             position: 'fixed',
             top: { xs: 16, sm: 24, md: 40 },
             left: { xs: 16, sm: 24, md: 40 },
-          }}
+        }}
         /> */}
 
                 <StyledSection>
@@ -77,7 +76,7 @@ export default function RegisterPage() {
                             Cadastre-se
                         </Typography>
 
-                        <LoginForm />
+                        <RegisterForm />
 
                         <Divider sx={{ my: 3 }}>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>

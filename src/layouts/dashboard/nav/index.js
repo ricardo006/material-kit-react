@@ -56,9 +56,9 @@ export default function Nav({ openNav, onCloseNav }) {
 
       {/* Logo do sistema */}
 
-      {/* <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+      <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
         <Logo />
-      </Box> */}
+      </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none">
