@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Button, Drawer, Divider, Typography, Avatar, Stack } from '@mui/material';
 // mock
 import account from '../../../_mock/account';
 // hooks
@@ -15,8 +15,6 @@ import NavSection from '../../../components/nav-section';
 //
 import navConfig from './config';
 
-// ----------------------------------------------------------------------
-
 const NAV_WIDTH = 280;
 
 const StyledAccount = styled('div')(({ theme }) => ({
@@ -26,8 +24,6 @@ const StyledAccount = styled('div')(({ theme }) => ({
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
   backgroundColor: alpha(theme.palette.grey[500], 0.12),
 }));
-
-// ----------------------------------------------------------------------
 
 Nav.propTypes = {
   openNav: PropTypes.bool,
@@ -68,7 +64,7 @@ export default function Nav({ openNav, onCloseNav }) {
                 {account.displayName}
               </Typography>
 
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.success' }}>
                 {account.saldo}
               </Typography>
 
@@ -79,6 +75,8 @@ export default function Nav({ openNav, onCloseNav }) {
           </StyledAccount>
         </Link>
       </Box>
+
+      <Divider sx={{ borderStyle: 'dashed' }} />
 
       <NavSection data={navConfig} />
 

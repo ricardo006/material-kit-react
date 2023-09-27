@@ -14,7 +14,6 @@ import Iconify from '../components/iconify';
 import { LoginForm } from '../sections/auth/login';
 import background from '../illustrations/banner_login_betspace.png'; // Importe a imagem
 
-// ----------------------------------------------------------------------
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',

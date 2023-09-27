@@ -5,8 +5,6 @@ import { Box, List, ListItemText } from '@mui/material';
 //
 import { StyledNavItem, StyledNavItemIcon } from './styles';
 
-// ----------------------------------------------------------------------
-
 NavSection.propTypes = {
   data: PropTypes.array,
 };
@@ -22,8 +20,6 @@ export default function NavSection({ data = [], ...other }) {
     </Box>
   );
 }
-
-// ----------------------------------------------------------------------
 
 NavItem.propTypes = {
   item: PropTypes.object,

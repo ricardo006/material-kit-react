@@ -47,12 +47,12 @@ const StyledCover = styled('img')({
   position: 'absolute',
 });
 
-BlogPostCard.propTypes = {
-  post: PropTypes.object.isRequired,
+CaixaPostCard.propTypes = {
+  caixas_values: PropTypes.object.isRequired,
   index: PropTypes.number,
 };
 
-export default function BlogPostCard({ post, index }) {
+export default function CaixaPostCard({ post, index }) {
   const { cover, title, view, comment, share, author, createdAt } = post;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;

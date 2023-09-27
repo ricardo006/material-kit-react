@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-const POST_TITLES = [
+const CAIXA_TITLES = [
   'Whiteboard Templates By Industry Leaders',
   'Tesla Cybertruck-inspired camper trailer for Tesla fans who can’t just wait for the truck!',
   'Saldo Total',
@@ -30,7 +30,7 @@ const POST_TITLES = [
 const posts = [...Array(23)].map((_, index) => ({
   id: faker.datatype.uuid(),
   cover: `/assets/images/covers/cover_${index + 1}.jpg`,
-  title: POST_TITLES[index + 1],
+  title: CAIXA_TITLES[index + 1],
   createdAt: faker.date.past(),
   view: faker.datatype.number(),
   comment: faker.datatype.number(),

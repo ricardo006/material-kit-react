@@ -10,14 +10,14 @@ const StyledPopper = styled((props) => <Popper placement="bottom-start" {...prop
   width: '280px !important',
 });
 
-BlogPostsSearch.propTypes = {
+CaixaPostsSearch.propTypes = {
   posts: PropTypes.array.isRequired,
 };
 
-export default function BlogPostsSearch({ posts }) {
+export default function CaixaPostsSearch({ posts }) {
   return (
     <Autocomplete
-      sx={{ width: 280 }}
+      sx={{ width: 300 }}
       autoHighlight
       popupIcon={null}
       PopperComponent={StyledPopper}
@@ -27,7 +27,7 @@ export default function BlogPostsSearch({ posts }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Search post..."
+          placeholder="Buscar lançamentos..."
           InputProps={{
             ...params.InputProps,
             startAdornment: (

@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 // @mui
 import { MenuItem, TextField } from '@mui/material';
 
-BlogPostsSort.propTypes = {
+CaixaPostsSort.propTypes = {
   options: PropTypes.array,
   onSort: PropTypes.func,
 };
 
-export default function BlogPostsSort({ options, onSort }) {
+export default function CaixaPostsSort({ options, onSort }) {
   return (
     <TextField select size="small" value="latest" onChange={onSort}>
       {options.map((option) => (

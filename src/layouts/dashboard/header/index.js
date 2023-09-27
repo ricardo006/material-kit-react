@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, Button, AppBar, Toolbar, IconButton } from '@mui/material';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -11,8 +14,6 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
-
-// ----------------------------------------------------------------------
 
 const NAV_WIDTH = 280;
 
@@ -32,11 +33,9 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   minHeight: HEADER_MOBILE,
   [theme.breakpoints.up('lg')]: {
     minHeight: HEADER_DESKTOP,
-    padding: theme.spacing(0, 5),
+    padding: theme.spacing(0, 4),
   },
 }));
-
-// ----------------------------------------------------------------------
 
 Header.propTypes = {
   onOpenNav: PropTypes.func,
@@ -45,17 +44,25 @@ Header.propTypes = {
 export default function Header({ onOpenNav }) {
   return (
     <StyledRoot>
-      <StyledToolbar>
+      <StyledToolbar> 
         <IconButton
           onClick={onOpenNav}
           sx={{
             mr: 1,
-            color: '#263238',
+            color: '#B9DAFF',
             display: { lg: 'none' },
           }}
         >
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
+
+        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{m: 2}} onClick={{}}>
+          Próximos Jogos
+        </Button>
+
+        <Button variant="outlined" startIcon={<AlbumOutlinedIcon />}>
+          Ao Vivo
+        </Button>
 
         <Box sx={{ flexGrow: 1 }} />
 

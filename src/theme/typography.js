@@ -22,8 +22,6 @@ export function responsiveFontSizes({ sm, md, lg }) {
   };
 }
 
-// ----------------------------------------------------------------------
-
 const FONT_PRIMARY = 'Manrope'; // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 

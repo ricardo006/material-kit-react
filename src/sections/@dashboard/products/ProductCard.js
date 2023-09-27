@@ -8,8 +8,6 @@ import { fCurrency } from '../../../utils/formatNumber';
 import Label from '../../../components/label';
 import { ColorPreview } from '../../../components/color-utils';
 
-// ----------------------------------------------------------------------
-
 const StyledProductImg = styled('img')({
   top: 0,
   width: '100%',
@@ -17,8 +15,6 @@ const StyledProductImg = styled('img')({
   objectFit: 'cover',
   position: 'absolute',
 });
-
-// ----------------------------------------------------------------------
 
 ShopProductCard.propTypes = {
   product: PropTypes.object,

@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import CaixaPage from './pages/CaixaPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -23,7 +24,7 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'relatorios', element: <BlogPage /> },
         { path: 'apostas', element: <BlogPage /> },
-        { path: 'caixa', element: <BlogPage /> },
+        { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },

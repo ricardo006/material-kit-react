@@ -2,9 +2,7 @@ import { Outlet } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 // components
-import Logo from '../../components/logo/logo_betspace.svg';
-
-// ----------------------------------------------------------------------
+// import imglogo from '../../components/logo/BetSpace.png';
 
 const StyledHeader = styled('header')(({ theme }) => ({
   top: 0,
@@ -18,15 +16,12 @@ const StyledHeader = styled('header')(({ theme }) => ({
   },
 }));
 
-// ----------------------------------------------------------------------
-
 export default function SimpleLayout() {
   return (
     <>
       <StyledHeader>
-        <Logo />
+        {/* <Logo /> */}
       </StyledHeader>
-
       <Outlet />
     </>
   );
