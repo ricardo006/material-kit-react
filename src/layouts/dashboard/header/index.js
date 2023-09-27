@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, Button, AppBar, Toolbar, IconButton } from '@mui/material';
@@ -42,6 +44,12 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+  const navigate = useNavigate();
+
+  const handleClickProxJogos = () => {
+    navigate('products', { replace: true });
+  };
+
   return (
     <StyledRoot>
       <StyledToolbar> 
@@ -56,7 +64,7 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{m: 2}} onClick={{}}>
+        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{m: 2}} onClick={handleClickProxJogos}>
           Próximos Jogos
         </Button>
 

@@ -4,6 +4,8 @@ import { Menu, Button, MenuItem, Typography } from '@mui/material';
 // component
 import Iconify from '../../../components/iconify';
 
+// ----------------------------------------------------------------------
+
 const SORT_BY_OPTIONS = [
   { value: 'featured', label: 'Featured' },
   { value: 'newest', label: 'Newest' },
