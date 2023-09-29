@@ -1,31 +1,34 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function WebSocketLive(apiKey, updateData) {
-    useEffect(() => {
-        // Substitua 'wss://example.com' pelo URL WebSocket fornecido pela API
-        const socket = new WebSocket(`wss://example.com?apikey=${apiKey}`);
+    let socket = null;
 
-        // Event listener para quando a conexão WebSocket é aberta
-        socket.addEventListener('open', (event) => {
-            console.log('WebSocket Connection Opened');
-        });
+    const socketLive = () => {
+        socket = new WebSocket(`wss://wss.apifootball.com/livescore?Widgetkey=${apiKey}&timezone=+03:00`);
 
-        // Event listener para receber mensagens WebSocket
-        socket.addEventListener('message', (event) => {
-            const newData = JSON.parse(event.data);
-            updateData(newData);
-        });
+        socket.onopen = function (e) {
+            console.log('Connected');
+            console.log('Waiting data...');
+        }
 
-        // Event listener para quando a conexão WebSocket é fechada
-        socket.addEventListener('close', (event) => {
-            console.log('WebSocket Connection Closed');
-        });
+        socket.onmessage = function (e) {
+            if (e.data) {
+                const receivedData = JSON.parse(e.data);
+                console.log(receivedData);
+                updateData(receivedData);
+            } else {
+                console.log('No new data!');
+            }
+        }
 
-        // Certifique-se de fechar a conexão WebSocket quando o componente é desmontado
-        return () => {
-            socket.close();
-        };
-    }, [apiKey, updateData]);
+        socket.onclose = function () {
+            socket = null;
+            setTimeout(socketLive, 1000);
+        }
+    };
+
+    socketLive();
 }
 
 export default WebSocketLive;
