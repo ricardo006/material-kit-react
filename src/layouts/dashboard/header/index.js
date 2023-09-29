@@ -47,8 +47,12 @@ export default function Header({ onOpenNav }) {
   const navigate = useNavigate();
 
   const handleClickProxJogos = () => {
-    navigate('products', { replace: true });
+    navigate('proximosjogos', { replace: true });
   };
+
+  const handleClickAoVivo = () => {
+    navigate('aovivo', { replace: true})
+  }
 
   return (
     <StyledRoot>
@@ -68,7 +72,7 @@ export default function Header({ onOpenNav }) {
           Próximos Jogos
         </Button>
 
-        <Button variant="outlined" startIcon={<AlbumOutlinedIcon />}>
+        <Button variant="outlined" startIcon={<AlbumOutlinedIcon />} onClick={handleClickAoVivo}>
           Ao Vivo
         </Button>
 

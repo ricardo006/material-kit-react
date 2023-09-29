@@ -49,17 +49,17 @@ export const FILTER_COLOR_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-ShopFilterSidebar.propTypes = {
+ProximosJogosFilterSidebar.propTypes = {
   openFilter: PropTypes.bool,
   onOpenFilter: PropTypes.func,
   onCloseFilter: PropTypes.func,
 };
 
-export default function ShopFilterSidebar({ openFilter, onOpenFilter, onCloseFilter }) {
+export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, onCloseFilter }) {
   return (
     <>
       <Button disableRipple color="inherit" endIcon={<Iconify icon="ic:round-filter-list" />} onClick={onOpenFilter}>
-        Filtros&nbsp;
+        Filters&nbsp;
       </Button>
 
       <Drawer
@@ -72,7 +72,7 @@ export default function ShopFilterSidebar({ openFilter, onOpenFilter, onCloseFil
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
-            Filtros
+            Filters
           </Typography>
           <IconButton onClick={onCloseFilter}>
             <Iconify icon="eva:close-fill" />

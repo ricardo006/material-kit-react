@@ -8,7 +8,8 @@ import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
+import ProximosJogosPage from './pages/ProximosJogosPage';
+import AoVivoPage from './pages/AoVivoPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import CaixaPage from './pages/CaixaPage';
 
@@ -21,7 +22,8 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
+        { path: 'proximosjogos', element: <ProximosJogosPage /> },
+        { path: 'aovivo', element: <AoVivoPage /> },
         { path: 'relatorios', element: <BlogPage /> },
         { path: 'apostas', element: <BlogPage /> },
         { path: 'caixa', element: <CaixaPage /> },

@@ -3,11 +3,13 @@ import { useState } from 'react';
 // @mui
 import { Container, Stack, Typography } from '@mui/material';
 // components
-import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
+import { ProximosJogosSort, ProximosJogosList, ProximosJogosWidget,  ProximosJogosFilterSidebar } from '../sections/@dashboard/proximosjogos';
 // mock
 import PRODUCTS from '../_mock/products';
 
-export default function ProductsPage() {
+
+
+export default function ProximosJogosPage() {
   const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -24,24 +26,24 @@ export default function ProductsPage() {
         <title> Próximos Jogos | Betspace </title>
       </Helmet>
 
-      <Container>
+      <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
           Próximos Jogos
         </Typography>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
+            <ProximosJogosFilterSidebar
               openFilter={openFilter}
               onOpenFilter={handleOpenFilter}
               onCloseFilter={handleCloseFilter}
             />
-            <ProductSort />
+            <ProximosJogosSort />
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
-        <ProductCartWidget />
+        <ProximosJogosList />
+        <ProximosJogosWidget />
       </Container>
     </>
   );
