@@ -5,7 +5,7 @@ function Predictions() {
     const [data, setData] = useState([]);
     const token = '5f64615daab4fd10651dc6fb3bfbea223db46a9f737c40de2d7fbf8673eb70c0'; // Substitua 'seu_token_aqui' pelo seu token real
     const baseUrl = 'https://apiv3.apifootball.com/';
-    const apiUrl = `${baseUrl}?action=get_predictions&from=2023-04-28&to=2023-04-29&APIkey=${token}`;
+    const apiUrl = `${baseUrl}?action=get_predictions&from=2023-10-02&to=2023-10-03&APIkey=${token}`;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +39,10 @@ function Predictions() {
         fetchData();
     }, [apiUrl]);
 
-    return data;
+    // Filtrar os dados em que match_status não seja "finished"
+    const filteredData = data.filter((item) => item.match_status !== 'Finished');
+
+    return filteredData;
 }
 
 export default Predictions;

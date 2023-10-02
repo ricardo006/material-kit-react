@@ -5,7 +5,7 @@ function WebSocketLive(apiKey, updateData) {
     let socket = null;
 
     const socketLive = () => {
-        socket = new WebSocket(`wss://wss.apifootball.com/livescore?Widgetkey=${apiKey}&timezone=+03:00`);
+        socket = new WebSocket(`wss://wss.apifootball.com/livescore?Widgetkey=${apiKey}&timezone=+08:00`);
 
         socket.onopen = function (e) {
             console.log('Connected');

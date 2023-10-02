@@ -8,10 +8,15 @@ const navConfig = [
   {
     title: 'Dashboard',
     path: '/dashboard/app',
-    icon: icon('ic_user'),
+    icon: icon('ic_analytics'),
   },
   {
     title: 'Usuários',
+    path: '/dashboard/user',
+    icon: icon('ic_user'),
+  },
+  {
+    title: 'Cambistas',
     path: '/dashboard/user',
     icon: icon('ic_user'),
   },
@@ -29,11 +34,6 @@ const navConfig = [
     title: 'Caixa',
     path: '/dashboard/caixa',
     icon: icon('ic_cart'),
-  },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: icon('ic_blog'),
   },
   {
     title: 'login',
