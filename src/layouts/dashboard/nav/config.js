@@ -17,7 +17,7 @@ const navConfig = [
   },
   {
     title: 'Cambistas',
-    path: '/dashboard/user',
+    path: 'cambistas',
     icon: icon('ic_user'),
   },
   {

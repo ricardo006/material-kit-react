@@ -56,7 +56,7 @@ export default function Header({ onOpenNav }) {
 
   return (
     <StyledRoot>
-      <StyledToolbar maxWidth="xl"> 
+      <StyledToolbar > 
         <IconButton
           onClick={onOpenNav}
           sx={{

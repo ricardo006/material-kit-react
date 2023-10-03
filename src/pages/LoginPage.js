@@ -56,7 +56,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> Login | Betspace </title>
       </Helmet>
 
       <StyledRoot>
@@ -106,9 +106,11 @@ export default function LoginPage() {
               </Button>
             </Stack>
 
-            <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE' }}>
+            <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE'}}>
               Você não tem uma conta? {''}
-              <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClickRegister}>Cadastre-se</Link>
+              <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClickRegister}>
+                Cadastre-se
+              </Link>
             </Typography>
           </StyledContent>
         </StyledSection>
