@@ -47,7 +47,7 @@ export default function RegisterPage() {
     return (
         <>
             <Helmet>
-                <title> Login | Betspace </title>
+                <title> Cadastre-se | Betspace </title>
             </Helmet>
 
             <StyledRoot>
