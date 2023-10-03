@@ -19,16 +19,16 @@ export default function BlogPage() {
   return (
     <>
       <Helmet>
-        <title> Blog | Minimal UI </title>
+        <title> Blog | Betspace </title>
       </Helmet>
 
-      <Container>
+      <Container maxWidth="xl">
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Blog
+            Apostas
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Post
+            Nova aposta
           </Button>
         </Stack>
 

@@ -6,6 +6,7 @@ import SimpleLayout from './layouts/simple';
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import CambistasPage from './pages/CambistasPage';
+import RelatoriosPage from './pages/RelatoriosPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Page404 from './pages/Page404';
@@ -26,7 +27,7 @@ export default function Router() {
         { path: 'cambistas', element: <CambistasPage /> },
         { path: 'proximosjogos', element: <ProximosJogosPage /> },
         { path: 'aovivo', element: <AoVivoPage /> },
-        { path: 'relatorios', element: <BlogPage /> },
+        { path: 'relatorios', element: <RelatoriosPage /> },
         { path: 'apostas', element: <BlogPage /> },
         { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },

@@ -20,15 +20,15 @@ export default function CaixaPage() {
         <title> Caixa | Betspace </title>
       </Helmet>
 
-      <Container>
+      <Container maxWidth="xl">
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             Caixa
           </Typography>
 
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+          {/* <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New Post
-          </Button>
+          </Button> */}
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
