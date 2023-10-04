@@ -4,18 +4,17 @@ const CAIXA_TITLES = [
   'Saldo Total',
   'Saldo Diário',
   'Lucro Total',
-  '✨What is Done is Done ✨',
+  'Lucro da última semana',
   'Fresh Prince',
   'Six Socks Studio',
   'vincenzo de cotiis’ crossing over showcases a research on contamination',
   'Simple, Great Looking Animations in Your Project | Video Tutorial',
 ];
-
 
 const SALDO_TITLES = [
   '2.200,00',
-  'Saldo Diário',
-  'Lucro Total',
+  '600,00',
+  '15.000,00',
   '✨What is Done is Done ✨',
   'Fresh Prince',
   'Six Socks Studio',
@@ -23,7 +22,7 @@ const SALDO_TITLES = [
   'Simple, Great Looking Animations in Your Project | Video Tutorial',
 ];
 
-const posts = [...Array(6)].map((_, index) => ({
+const posts = [...Array(5)].map((_, index) => ({
   id: faker.datatype.uuid(),
   cover: `/assets/images/covers/cover_${index + 1}.jpg`,
   title: CAIXA_TITLES[index],
