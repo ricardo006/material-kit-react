@@ -20,8 +20,6 @@ import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 import { ColorMultiPicker } from '../../../components/color-utils';
 
-// ----------------------------------------------------------------------
-
 export const SORT_BY_OPTIONS = [
   { value: 'featured', label: 'Featured' },
   { value: 'newest', label: 'Newest' },
@@ -47,8 +45,6 @@ export const FILTER_COLOR_OPTIONS = [
   '#FFC107',
 ];
 
-// ----------------------------------------------------------------------
-
 ProximosJogosFilterSidebar.propTypes = {
   openFilter: PropTypes.bool,
   onOpenFilter: PropTypes.func,
@@ -59,7 +55,8 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
   return (
     <>
       <Button disableRipple color="inherit" endIcon={<Iconify icon="ic:round-filter-list" />} onClick={onOpenFilter}>
-        Filters&nbsp;
+        Filtros
+        &nbsp;
       </Button>
 
       <Drawer
@@ -72,7 +69,7 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
-            Filters
+            Filtros
           </Typography>
           <IconButton onClick={onCloseFilter}>
             <Iconify icon="eva:close-fill" />
@@ -85,7 +82,7 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
           <Stack spacing={3} sx={{ p: 3 }}>
             <div>
               <Typography variant="subtitle1" gutterBottom>
-                Gender
+                Por Hora de Ínicio
               </Typography>
               <FormGroup>
                 {FILTER_GENDER_OPTIONS.map((item) => (
@@ -96,7 +93,7 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
 
             <div>
               <Typography variant="subtitle1" gutterBottom>
-                Category
+                Países
               </Typography>
               <RadioGroup>
                 {FILTER_CATEGORY_OPTIONS.map((item) => (
@@ -107,7 +104,7 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
 
             <div>
               <Typography variant="subtitle1" gutterBottom>
-                Colors
+                Competições Favoritas
               </Typography>
               <ColorMultiPicker
                 name="colors"

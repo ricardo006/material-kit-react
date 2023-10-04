@@ -5,7 +5,7 @@ import { Grid, Button, Container, Stack, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
 import { CaixaPostCard, CaixaPostsSort, CaixaPostsSearch } from '../sections/@dashboard/caixa';
 // mock
-import POSTS from '../_mock/caixa';
+import CAIXAS from '../_mock/caixa';
 
 const SORT_OPTIONS = [
   { value: 'latest', label: 'Latest' },
@@ -32,12 +32,12 @@ export default function CaixaPage() {
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <CaixaPostsSearch posts={POSTS} />
+          <CaixaPostsSearch posts={CAIXAS} />
           <CaixaPostsSort options={SORT_OPTIONS} />
         </Stack>
 
         <Grid container spacing={2}>
-          {POSTS.map((post, index) => (
+          {CAIXAS.map((post, index) => (
             <CaixaPostCard key={post.id} post={post} index={index} />
           ))}
         </Grid>

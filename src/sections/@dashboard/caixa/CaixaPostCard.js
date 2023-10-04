@@ -53,7 +53,7 @@ CaixaPostCard.propTypes = {
 };
 
 export default function CaixaPostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const { cover, title, view, comment, share, author, createdAt, saldo } = post;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;
 
@@ -127,8 +127,10 @@ export default function CaixaPostCard({ post, index }) {
             }),
           }}
         >
-          <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-            {fDate(createdAt)}
+          <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block', fontSize: 20, fontWeight: 600 }}>
+            {/* {fDate(createdAt)} */}
+            {title}
+
           </Typography>
 
           <StyledTitle
@@ -142,7 +144,7 @@ export default function CaixaPostCard({ post, index }) {
               }),
             }}
           >
-            {title}
+            {saldo}
           </StyledTitle>
 
           <StyledInfo>

@@ -4,8 +4,6 @@ import { Box, Checkbox } from '@mui/material';
 //
 import Icon from './Icon';
 
-// ----------------------------------------------------------------------
-
 ColorMultiPicker.propTypes = {
   sx: PropTypes.object,
   colors: PropTypes.array,

@@ -7,8 +7,6 @@ import { ProximosJogosSort, ProximosJogosList, ProximosJogosWidget,  ProximosJog
 // mock
 import PRODUCTS from '../_mock/products';
 
-
-
 export default function ProximosJogosPage() {
   const [openFilter, setOpenFilter] = useState(false);
 
