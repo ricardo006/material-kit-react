@@ -1,4 +1,12 @@
 // component
+import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone'; 
+import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
+import PersonPinTwoToneIcon from '@mui/icons-material/PersonPinTwoTone';
+import InsightsTwoToneIcon from '@mui/icons-material/InsightsTwoTone';
+import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
+import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
+import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
+
 import SvgColor from '../../../components/svg-color';
 // import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 
@@ -8,32 +16,37 @@ const navConfig = [
   {
     title: 'Dashboard',
     path: '/dashboard/app',
-    icon: icon('ic_analytics'),
+    icon: <DashboardTwoToneIcon/>,
+  },
+  {
+    title: 'Futebol',
+    path: '/dashboard/futebol',
+    icon: <SportsSoccerTwoToneIcon />,
   },
   {
     title: 'Usuários',
     path: '/dashboard/user',
-    icon: icon('ic_user'),
+    icon: <PeopleAltTwoToneIcon />,
   },
   {
     title: 'Cambistas',
     path: 'cambistas',
-    icon: icon('ic_user'),
+    icon: <PersonPinTwoToneIcon/>,
   },
   {
     title: 'Relatórios',
     path: '/dashboard/relatorios',
-    icon: icon('ic_user'),
+    icon: <InsightsTwoToneIcon/>,
   },
   {
     title: 'Apostas',
     path: '/dashboard/apostas',
-    icon: icon('ic_cart'),
+    icon: <AutoAwesomeMotionTwoToneIcon/>,
   },
   {
     title: 'Caixa',
     path: '/dashboard/caixa',
-    icon: icon('ic_cart'),
+    icon: <MonetizationOnTwoToneIcon/>,
   },
   {
     title: 'login',

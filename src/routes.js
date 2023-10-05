@@ -13,6 +13,7 @@ import Page404 from './pages/Page404';
 import ProximosJogosPage from './pages/ProximosJogosPage';
 import AoVivoPage from './pages/AoVivoPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import FutebolPage from './pages/FutebolPage';
 import CaixaPage from './pages/CaixaPage';
 
 export default function Router() {
@@ -31,6 +32,8 @@ export default function Router() {
         { path: 'apostas', element: <BlogPage /> },
         { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'futebol', element: <FutebolPage /> },
+
       ],
     },
     {

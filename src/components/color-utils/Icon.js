@@ -5,8 +5,6 @@ import { Box } from '@mui/material';
 //
 import Iconify from '../iconify';
 
-// ----------------------------------------------------------------------
-
 Icon.propTypes = {
   sx: PropTypes.object,
   checked: PropTypes.bool,

@@ -128,9 +128,7 @@ export default function CaixaPostCard({ post, index }) {
           }}
         >
           <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block', fontSize: 20, fontWeight: 600 }}>
-            {/* {fDate(createdAt)} */}
             {title}
-
           </Typography>
 
           <StyledTitle

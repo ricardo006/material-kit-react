@@ -23,7 +23,7 @@ export default function JogosList({ products, ...other }) {
           <CardContent>
             <Grid>
               <Box display="flex" alignItems="center">
-                <Chip icon={<AlarmOutlinedIcon />} variant="outlined" label={item.match_status} />
+                <Chip icon={<AlarmOutlinedIcon />} variant="outlined" label={item.match_status}/>
                 <Avatar src={item.country_logo} alt={item.country_name} sx={{ width: 42, height: 42, marginRight: 1 }} />
                 <Typography variant="body2" color="textSecondary" sx={{ marginLeft: 1, marginRight: 1 }}>
                   {item.country_name}&nbsp;|&nbsp;{item.league_name}&nbsp;
