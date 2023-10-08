@@ -16,6 +16,7 @@ import {
     AppWidgetSummary,
     AppCurrentSubject,
     AppConversionRates,
+    AppChipMercados,
 } from '../sections/@dashboard/app';
 
 export default function FutebolPage() {
@@ -33,20 +34,8 @@ export default function FutebolPage() {
                 </Typography>
 
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Total de Vendas" color="cl_vendas" total={714000} icon={'ant-design:android-filled'} />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Total de Clientes" total={1352831} color="cl_clientes" icon={'ant-design:apple-filled'} />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Total de Bilhetes" total={1723315} color="cl_bilhetes" icon={'ant-design:windows-filled'} />
-                    </Grid>
-
-                    <Grid item xs={12} sm={6} md={3}>
-                        <AppWidgetSummary title="Comissão Anterior" total={234} color="cl_comissao" icon={'ant-design:bug-filled'} />
+                    <Grid item xs={12} sm={12} md={12}>
+                        <AppChipMercados title="Total de Vendas" color="cl_vendas" total={714000} icon={'ant-design:android-filled'} />
                     </Grid>
 
                     <Grid item xs={12} md={6} lg={8}>

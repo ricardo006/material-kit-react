@@ -7,8 +7,6 @@ import { fShortenNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/iconify';
 
-// ----------------------------------------------------------------------
-
 const StyledIcon = styled('div')(({ theme }) => ({
   margin: 'auto',
   display: 'flex',
