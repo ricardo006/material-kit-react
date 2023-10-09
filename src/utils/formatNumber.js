@@ -16,6 +16,13 @@ export function fPercent(number) {
   return result(format, '.0');
 }
 
+export function fDecimal(number) {
+  if (typeof number !== 'number') {
+      return ''; // Retorna uma string vazia se o número não for válido
+  }
+  return number.toFixed(2); // Formata o número com duas casas decimais
+}
+
 export function fShortenNumber(number) {
   const format = number ? numeral(number).format('0.00a') : '';
 
