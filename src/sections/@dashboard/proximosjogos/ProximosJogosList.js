@@ -23,8 +23,6 @@ export default function ProximosJogosList({ products, ...other }) {
 
   const handleCardClick = (item) => {
     alert(item )
-    //redirecionar para página com mercados dos jogos
-    
   };
 
   return (

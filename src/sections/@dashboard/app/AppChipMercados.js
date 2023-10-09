@@ -609,6 +609,9 @@ export default function UserPage() {
     const [iconType, setIconType] = useState('star');
     const [concatenatedText, setConcatenatedText] = useState('');
     const [iconTypes, setIconTypes] = useState(rows.map(() => 'star'));
+    const [selectedCells, setSelectedCells] = useState([]);
+    const [eventosClicados, setEventosClicados] = useState([]);
+    const [clicadas, setClicadas] = useState([]);
 
     const handleOpenMenu = (event) => {
         setOpen(event.currentTarget);
@@ -648,25 +651,73 @@ export default function UserPage() {
         updatedIconTypes[id - 1] = updatedIconTypes[id - 1] === 'star' ? 'grade' : 'star';
         setIconTypes(updatedIconTypes);
     };
+    const handleClickEvent = (rowId, evento, oddCasa, oddEmpate, oddFora) => {
+        const eventoExistente = eventosClicados.find(
+            (event) => event.rowId === rowId && event.evento === evento
+        );
+
+        const mesmoIdEventoExistente = eventosClicados.find(
+            (event) => event.rowId === rowId && event.evento !== evento
+        );
+
+        if (eventoExistente) {
+            // Remova o evento da lista de eventos clicados
+            setEventosClicados((prevEventos) =>
+                prevEventos.filter(
+                    (event) => !(event.rowId === rowId && event.evento === evento)
+                )
+            );
+
+            // Remova o ID da célula clicada do estado clicadas
+            setClicadas((prevClicadas) =>
+                prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
+            );
+        } else if (mesmoIdEventoExistente) {
+            alert("Você não pode escolher dois eventos de categorias diferentes na mesma aposta.");
+        } else {
+            // Adicione o novo evento à lista de eventos clicados
+            setEventosClicados((prevEventos) => [
+                ...prevEventos,
+                {
+                    rowId,
+                    evento,
+                    oddCasa,
+                    oddEmpate,
+                    oddFora,
+                },
+            ]);
+
+            // Adicione o ID da célula clicada ao estado clicadas
+            setClicadas((prevClicadas) => [...prevClicadas, `${rowId}-${evento}`]);
+        }
+    };
+
+    // Em outro lugar do seu código, onde você deseja verificar os eventos clicados:
+    alert(eventosClicados.map((evento) => evento.evento).join(', '));
+    console.log(eventosClicados);
 
     return (
         <>
             <Container maxWidth="xl">
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={12}>
                         {' '}
                         {/* Chips */}
+                        <Scrollbar>
+
                         <Stack direction="row" spacing={1} sx={{ mt: 5, mb: 5 }}>
                             {marketsData.map((market) => (
                                 <Chip
                                     key={market.id}
                                     label={market.label}
                                     color={market.color}
-                                    sx={{ cursor: 'pointer' }}
+                                    sx={{ cursor: 'pointer', fontWeight: 'bold' }}
                                     onClick={() => handleMarketClick(market.label)}
                                 />
                             ))}
                         </Stack>
+                        </Scrollbar>
+
                     </Grid>
 
                     <Grid item xs={12} md={12}>
@@ -722,7 +773,7 @@ export default function UserPage() {
                                                                 />
                                                             </TableCell>
 
-                                                            <TableCell align="left" sx={{ width: { xs: 20, md: 200 } }}>
+                                                            <TableCell align="left" sx={{ width: { xs: 20, md: 200 }, fontWeight: 'bold' }}>
                                                                 <Typography variant="subtitle2" noWrap>
                                                                     {timeCasa}
                                                                 </Typography>
@@ -733,7 +784,7 @@ export default function UserPage() {
 
                                                             <TableCell
                                                                 align="left"
-                                                                sx={{ backgroundColor: '#023047', textAlign: 'center', p: 2, minWidth: 70 }}
+                                                                sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
                                                             >
                                                                 <Typography
                                                                     variant="body2"
@@ -751,38 +802,59 @@ export default function UserPage() {
                                                                 </Typography>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
+                                                            <TableCell
+                                                                sx={{
+                                                                    textAlign: 'center',
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                }}
+                                                                onClick={() => handleClickEvent(id, 'Casa', oddCasa, oddEmpate, oddFora)}
+                                                            >
+                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>{timeCasa}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
                                                                             label={`${fDecimal(oddCasa)}`}
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
+                                                            <TableCell
+                                                                sx={{
+                                                                    textAlign: 'center',
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                }}
+                                                                onClick={() => handleClickEvent(id, 'Empate', oddCasa, oddEmpate, oddFora)}
+                                                            >
+                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>
                                                                         <Typography variant="body2">Empate</Typography>
                                                                     </Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
                                                                             label={`${fDecimal(oddEmpate)}`}
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
+                                                            <TableCell
+                                                                sx={{
+                                                                    textAlign: 'center',
+                                                                    cursor: 'pointer',
+                                                                    backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                }}
+                                                                onClick={() => handleClickEvent(id, 'Fora', oddCasa, oddEmpate, oddFora)}
+                                                            >
+                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>{timeFora}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
                                                                             label={`${fDecimal(oddFora)}`}
                                                                         />
                                                                     </Grid>
