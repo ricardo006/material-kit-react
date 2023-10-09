@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
+import NavigationIcon from '@mui/icons-material/Navigation';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import {
     Chip,
+    Fab,
     Stack,
     Grid,
     Typography,
@@ -606,12 +608,12 @@ export default function UserPage() {
     const [open, setOpen] = useState(null);
     const [selected, setSelected] = useState([]);
     const [activeMarket, setActiveMarket] = useState(null);
-    const [iconType, setIconType] = useState('star');
     const [concatenatedText, setConcatenatedText] = useState('');
     const [iconTypes, setIconTypes] = useState(rows.map(() => 'star'));
     const [selectedCells, setSelectedCells] = useState([]);
     const [eventosClicados, setEventosClicados] = useState([]);
     const [clicadas, setClicadas] = useState([]);
+    const [totalSelecoes, setTotalSelecoes] = useState(0);
 
     const handleOpenMenu = (event) => {
         setOpen(event.currentTarget);
@@ -651,6 +653,18 @@ export default function UserPage() {
         updatedIconTypes[id - 1] = updatedIconTypes[id - 1] === 'star' ? 'grade' : 'star';
         setIconTypes(updatedIconTypes);
     };
+
+    const calcularTotalSelecoes = () => {
+        return eventosClicados.length;
+    };
+
+
+    // Atualize o texto do botão quando o estado eventosClicados for modificado
+    useEffect(() => {
+        // Use a função setTotalSelecoes para atualizar o estado totalSelecoes
+        setTotalSelecoes(calcularTotalSelecoes());
+    }, [eventosClicados]);
+
     const handleClickEvent = (rowId, evento, oddCasa, oddEmpate, oddFora) => {
         const eventoExistente = eventosClicados.find(
             (event) => event.rowId === rowId && event.evento === evento
@@ -701,23 +715,19 @@ export default function UserPage() {
             <Container maxWidth="xl">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
-                        {' '}
-                        {/* Chips */}
                         <Scrollbar>
-
-                        <Stack direction="row" spacing={1} sx={{ mt: 5, mb: 5 }}>
-                            {marketsData.map((market) => (
-                                <Chip
-                                    key={market.id}
-                                    label={market.label}
-                                    color={market.color}
-                                    sx={{ cursor: 'pointer', fontWeight: 'bold' }}
-                                    onClick={() => handleMarketClick(market.label)}
-                                />
-                            ))}
-                        </Stack>
+                            <Stack direction="row" spacing={1} sx={{ mt: 5, mb: 5 }}>
+                                {marketsData.map((market) => (
+                                    <Chip
+                                        key={market.id}
+                                        label={market.label}
+                                        color={market.color}
+                                        sx={{ cursor: 'pointer', fontWeight: 'bold' }}
+                                        onClick={() => handleMarketClick(market.label)}
+                                    />
+                                ))}
+                            </Stack>
                         </Scrollbar>
-
                     </Grid>
 
                     <Grid item xs={12} md={12}>
@@ -890,6 +900,14 @@ export default function UserPage() {
                             />
                         </Card>
                     </Grid>
+
+                    <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
+                        <Fab hover variant="extended">
+                            <NavigationIcon sx={{ mr: 1 }} />
+                            Apostar ({totalSelecoes} seleções) {/* Texto do botão com o total de seleções */}
+                        </Fab>
+                    </Grid>
+
                 </Grid>
             </Container>
 

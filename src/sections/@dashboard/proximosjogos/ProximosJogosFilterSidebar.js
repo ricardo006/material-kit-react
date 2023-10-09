@@ -62,7 +62,7 @@ export default function ProximosJogosFilterSidebar({ openFilter, onOpenFilter, o
       </Button>
 
       <Drawer
-        anchor="right"
+        anchor="bottom"
         open={openFilter}
         onClose={onCloseFilter}
         PaperProps={{
