@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
+import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import {
@@ -706,10 +707,6 @@ export default function UserPage() {
         }
     };
 
-    // Em outro lugar do seu código, onde você deseja verificar os eventos clicados:
-    alert(eventosClicados.map((evento) => evento.evento).join(', '));
-    console.log(eventosClicados);
-
     return (
         <>
             <Container maxWidth="xl">
@@ -783,7 +780,7 @@ export default function UserPage() {
                                                                 />
                                                             </TableCell>
 
-                                                            <TableCell align="left" sx={{ width: { xs: 20, md: 200 }, fontWeight: 'bold' }}>
+                                                            <TableCell align="left" sx={{ width: { xs: 70, md: 300 }, fontWeight: 'bold' }}>
                                                                 <Typography variant="subtitle2" noWrap>
                                                                     {timeCasa}
                                                                 </Typography>
@@ -817,6 +814,8 @@ export default function UserPage() {
                                                                     textAlign: 'center',
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                    color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                    width: {xs: 20, md: 200}
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Casa', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -824,7 +823,8 @@ export default function UserPage() {
                                                                     <Grid item>{timeCasa}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
+
                                                                             label={`${fDecimal(oddCasa)}`}
                                                                         />
                                                                     </Grid>
@@ -836,6 +836,8 @@ export default function UserPage() {
                                                                     textAlign: 'center',
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                    color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                    width: {xs: 20, md: 200}
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Empate', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -845,7 +847,7 @@ export default function UserPage() {
                                                                     </Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
                                                                             label={`${fDecimal(oddEmpate)}`}
                                                                         />
                                                                     </Grid>
@@ -857,6 +859,8 @@ export default function UserPage() {
                                                                     textAlign: 'center',
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                    color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                    width: {xs: 20, md: 200}
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Fora', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -864,7 +868,7 @@ export default function UserPage() {
                                                                     <Grid item>{timeFora}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2', fontWeight: 'bold' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
                                                                             label={`${fDecimal(oddFora)}`}
                                                                         />
                                                                     </Grid>
@@ -901,12 +905,24 @@ export default function UserPage() {
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Fab hover variant="extended">
-                            <NavigationIcon sx={{ mr: 1 }} />
-                            Apostar ({totalSelecoes} seleções) {/* Texto do botão com o total de seleções */}
-                        </Fab>
-                    </Grid>
+                    {totalSelecoes > 0 && (
+                        <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
+                            <Fab
+                                variant="extended"
+                                sx={{
+                                    backgroundColor: '#33FFC2',
+                                    '&:hover': {
+                                        backgroundColor: '#023047', 
+                                        color: '#33FFC2', 
+                                    },
+                                    color: '#023047', 
+                                }}
+                            >
+                                <AutoAwesomeMotionTwoToneIcon sx={{ mr: 1 }} />
+                                Apostar {totalSelecoes} seleções
+                            </Fab>
+                        </Grid>
+                    )}
 
                 </Grid>
             </Container>
