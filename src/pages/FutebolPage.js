@@ -30,14 +30,14 @@ export default function FutebolPage() {
 
             <Container maxWidth="xl">
                 <Typography variant="h4" sx={{ mb: 5 }}>
-                    Olá, seja bem-vindo
+                    Futebol (230)
                 </Typography>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12}>
                         <AppChipMercados title="Total de Vendas" color="cl_vendas" total={714000} icon={'ant-design:android-filled'} />
                     </Grid>
-
+{/* 
                     <Grid item xs={12} md={6} lg={8}>
                         <AppWebsiteVisits
                             title="Ganhos por Equipes/Período"
@@ -199,7 +199,7 @@ export default function FutebolPage() {
                                 { id: '5', label: 'Sprint Showcase' },
                             ]}
                         />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
             </Container>
         </>
