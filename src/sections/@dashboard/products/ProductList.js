@@ -33,10 +33,24 @@ export default function ProductList({ products, ...other }) {
     return 'Nenhum comentário disponível';
   };
 
+  const handleCardClick = (item) => {
+    alert(item)
+  };
 
   return (
     <Container maxWidth="xl">
       {data.map((item) => (
+        <Card
+        key={item.match_id}
+        style={{
+          margin: '10px',
+          padding: '10px',
+          backgroundColor: '#183D66',
+          borderRadius: 10,
+          cursor: 'pointer',
+        }}
+        onClick={() => handleCardClick(item.match_id)} // Adiciona o evento onClick
+      >
         <Grid
           item
           xs={12}
@@ -85,6 +99,8 @@ export default function ProductList({ products, ...other }) {
             </Grid>
           </CardContent>
         </Grid>
+        </Card>
+
       ))}
     </Container>
   );
