@@ -711,7 +711,7 @@ export default function UserPage() {
                                                                 scope="row"
                                                                 padding="none"
                                                                 sx={{
-                                                                    width: { xs: '50px', md: '100px' },
+                                                                    width: { xs: '60px', md: '100px' },
                                                                     textAlign: 'center',
                                                                 }}
                                                             >
@@ -751,38 +751,38 @@ export default function UserPage() {
                                                                 </Typography>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>{timeCasa}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
                                                                             label={`${fDecimal(oddCasa)}`}
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>
                                                                         <Typography variant="body2">Empate</Typography>
                                                                     </Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
                                                                             label={`${fDecimal(oddEmpate)}`}
                                                                         />
                                                                     </Grid>
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center', cursor: 'pointer' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>{timeFora}</Grid>
                                                                     <Grid item>
                                                                         <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#33FFC2' }}
                                                                             label={`${fDecimal(oddFora)}`}
                                                                         />
                                                                     </Grid>
