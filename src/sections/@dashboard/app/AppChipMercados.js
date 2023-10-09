@@ -722,7 +722,7 @@ export default function UserPage() {
                                                                 />
                                                             </TableCell>
 
-                                                            <TableCell align="left" sx={{ width: { xs: 250, md: 200 } }}>
+                                                            <TableCell align="left" sx={{ width: { xs: 20, md: 200 } }}>
                                                                 <Typography variant="subtitle2" noWrap>
                                                                     {timeCasa}
                                                                 </Typography>
@@ -751,7 +751,7 @@ export default function UserPage() {
                                                                 </Typography>
                                                             </TableCell>
 
-                                                            <TableCell align="center" sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>{timeCasa}</Grid>
                                                                     <Grid item>
@@ -763,7 +763,7 @@ export default function UserPage() {
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell align="center" sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>
                                                                         <Typography variant="body2">Empate</Typography>
@@ -777,7 +777,7 @@ export default function UserPage() {
                                                                 </Grid>
                                                             </TableCell>
 
-                                                            <TableCell align="center" sx={{ textAlign: 'center' }}>
+                                                            <TableCell sx={{ textAlign: 'center' }}>
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{borderRadius: 10}}>
                                                                     <Grid item>{timeFora}</Grid>
                                                                     <Grid item>
