@@ -15,7 +15,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
   alignItems: 'center',
   top: theme.spacing(16),
   height: theme.spacing(5),
-  paddingLeft: theme.spacing(2),
+  // paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(1.25),
   boxShadow: theme.customShadows.z20,

@@ -733,7 +733,7 @@ export default function UserPage() {
                                 <TableContainer sx={{ minWidth: 800, border: 0 }}>
                                     <Table sx={{ borderCollapse: 'collapse' }}>
                                         <TableRow style={{ height: 53 }}>
-                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047' }}>
+                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#B6F4E2', fontWeight: 'bold' }}>
                                                 <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
                                             </TableCell>
                                         </TableRow>
@@ -748,8 +748,8 @@ export default function UserPage() {
                                                     const iconType = iconTypes[id - 1];
 
                                                     return (
-                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
-                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer' }}>
+                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{backgroundColor: '#001D3D'}}>
+                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D'}}>
                                                                 {iconType === 'star' ? (
                                                                     <StarOutlineTwoToneIcon
                                                                         checked={selectedUser}
@@ -757,7 +757,7 @@ export default function UserPage() {
                                                                     />
                                                                 ) : (
                                                                     <GradeTwoToneIcon
-                                                                        sx={{ color: '#33FFC2' }}
+                                                                        sx={{ color: '#33FFC2'}}
                                                                         checked={selectedUser}
                                                                         onClick={(event) => handleClick(event, id)}
                                                                     />
