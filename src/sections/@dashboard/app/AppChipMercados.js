@@ -927,41 +927,47 @@ export default function UserPage() {
                             borderTopLeftRadius: 20,
                         }}
                     >
-                        <List>
-                            <Scrollbar>
+                        <Scrollbar>
+                            <List>
                                 {eventosClicados.map((evento, index) => (
                                     <ListItem key={index}>
                                         <ListItemText primary={`Confronto: ${evento.timeCasa} vs ${evento.timeFora}`} />
                                     </ListItem>
                                 ))}
-                            </Scrollbar>
+                            </List>
+                        </Scrollbar>
 
-                            <ListItem>
-                                <ListItemText
-                                    primary={
-                                        <TextField
-                                            label="Valor da Aposta"
-                                            variant="outlined"
-                                            fullWidth
-                                            type="number"
-                                            value={valorAposta}
-                                            onChange={(e) => setValorAposta(parseFloat(e.target.value))}
-                                        />
-                                    }
-                                />
-                            </ListItem>
 
-                            <ListItem>
-                                <ListItemText
-                                    primary={`Odds Totais: ${calcularOddsTotais().toFixed(2)}`}
-                                />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText
-                                    primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
-                                />
-                            </ListItem>
-                        </List>
+                        <ListItem>
+                            <ListItemText
+                                primary={
+                                    <TextField
+                                        label="Valor da Aposta"
+                                        variant="outlined"
+                                        fullWidth
+                                        type="number"
+                                        value={valorAposta}
+                                        onChange={(e) => setValorAposta(parseFloat(e.target.value))}
+                                    />
+                                }
+                            />
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText
+                                primary={`Odds Totais: ${calcularOddsTotais().toFixed(2)}`}
+                            />
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemText
+                                primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
+                            />
+                        </ListItem>
+
+                        <Button variant="contained" disableElevation fullWidth sx={{borderRadius: 0, height: 80,}}>
+                            Confirmar Aposta
+                        </Button>
                     </Drawer>
                 </Grid>
             </Container>
