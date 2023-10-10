@@ -959,13 +959,19 @@ export default function UserPage() {
                             />
                         </ListItem>
 
-                        <ListItem>
+                        <ListItem sx={{mb: 2}}>
                             <ListItemText
                                 primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
                             />
                         </ListItem>
 
-                        <Button variant="contained" disableElevation fullWidth sx={{borderRadius: 0, height: 80,}}>
+                        <Button variant="contained" disableElevation fullWidth sx={{
+                            borderTopLeftRadius: 20,   // Canto superior esquerdo
+                            borderTopRightRadius: 20,  // Canto superior direito
+                            borderBottomRightRadius: 0, // Canto inferior direito
+                            borderBottomLeftRadius: 0,  // Canto inferior esquerdo
+                            height: 80,
+                        }}>
                             Confirmar Aposta
                         </Button>
                     </Drawer>
