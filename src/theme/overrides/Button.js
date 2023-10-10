@@ -15,7 +15,7 @@ export default function Button(theme) {
           height: 48,
         },
         containedInherit: {
-          color: theme.palette.grey[800],
+          color: theme.palette.grey[900],
           boxShadow: theme.customShadows.z8,
           '&:hover': {
             backgroundColor: theme.palette.grey[400],

@@ -9,12 +9,10 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 function FabButton({ eventosClicados, onNavigateClick }) {
     const [totalSelecoes, setTotalSelecoes] = useState(0);
 
-    // Função para calcular o total de seleções
     const calcularTotalSelecoes = () => {
         return eventosClicados.length;
     };
 
-    // UseEffect para atualizar o estado totalSelecoes sempre que o estado eventosClicados for modificado
     useEffect(() => {
         setTotalSelecoes(calcularTotalSelecoes());
     }, [eventosClicados]);
@@ -24,7 +22,7 @@ function FabButton({ eventosClicados, onNavigateClick }) {
             {totalSelecoes > 0 && (
                 <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
                     <Fab
-                        onClick={onNavigateClick} // Chame a função onNavigateClick quando o botão for clicado
+                        onClick={onNavigateClick}
                         variant="extended"
                         sx={{
                             backgroundColor: '#33FFC2',

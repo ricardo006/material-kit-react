@@ -24,7 +24,15 @@ import {
     TablePagination,
     Checkbox,
     Avatar,
+    List,
+    ListItem,
+    ListItemText,
+    Drawer,
+    TextField,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
+import FabButton from '../../../components/button-apostar/FabButton';
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
@@ -594,47 +602,52 @@ const rows = [
     },
 ];
 
-const TABLE_HEAD = [
-    { id: 'name', label: 'Brasil - Campeonato Brasileiro Série A', alignRight: false },
-    { id: 'company', label: '', alignRight: false },
-    { id: 'role', label: '', alignRight: false },
-    { id: 'isVerified', label: '', alignRight: false },
-    { id: 'status', label: 'Resultado Final', alignRight: false },
-    { id: '' },
-    { id: '' },
-    { id: '' },
-];
-
 export default function UserPage() {
+    const theme = useTheme();
     const [open, setOpen] = useState(null);
     const [selected, setSelected] = useState([]);
     const [activeMarket, setActiveMarket] = useState(null);
     const [concatenatedText, setConcatenatedText] = useState('');
     const [iconTypes, setIconTypes] = useState(rows.map(() => 'star'));
-    const [selectedCells, setSelectedCells] = useState([]);
     const [eventosClicados, setEventosClicados] = useState([]);
     const [clicadas, setClicadas] = useState([]);
     const [totalSelecoes, setTotalSelecoes] = useState(0);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [valorAposta, setValorAposta] = useState(0);
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const anchor = isMobile ? 'bottom' : 'right';
+    const drawerWidth = 400;
 
-    const handleOpenMenu = (event) => {
-        setOpen(event.currentTarget);
+    const openDrawer = () => {
+        setIsDrawerOpen(true);
     };
 
-    const handleCloseMenu = () => {
-        setOpen(null);
+    const closeDrawer = () => {
+        setIsDrawerOpen(false);
+    };
+
+    const calcularOddsTotais = () => {
+        const oddsSelecionadas = eventosClicados.map((evento) => {
+            // Use a lógica adequada para escolher as odds corretas com base nas seleções do usuário
+            return evento.oddSelecionada; // Substitua por sua lógica
+        });
+
+        const oddsTotais = oddsSelecionadas.reduce((acc, odd) => acc * odd, 1);
+        return oddsTotais;
+    };
+
+    // Função para calcular os possíveis retornos
+    const calcularPossiveisRetornos = () => {
+        const oddsTotais = calcularOddsTotais();
+        const possiveisRetornos = valorAposta * oddsTotais;
+        return possiveisRetornos;
     };
 
     const handleMarketClick = (market) => {
         setActiveMarket(market);
 
-        // Defina o rótulo concatenado aqui com base no marketId ou em outra lógica desejada
         const newLabel = `Brasil - Campeonato Brasileiro Série A (${market})`;
         setConcatenatedText(newLabel);
-    };
-
-    const handleButtonClick = () => {
-        // Coloque o código que você deseja executar quando o botão for clicado aqui
-        alert('Botão clicado!');
     };
 
     const handleClick = (event, id) => {
@@ -650,7 +663,6 @@ export default function UserPage() {
 
         setSelected(newSelected);
 
-        // Altere o tipo de ícone apenas para a linha clicada
         updatedIconTypes[id - 1] = updatedIconTypes[id - 1] === 'star' ? 'grade' : 'star';
         setIconTypes(updatedIconTypes);
     };
@@ -659,10 +671,7 @@ export default function UserPage() {
         return eventosClicados.length;
     };
 
-
-    // Atualize o texto do botão quando o estado eventosClicados for modificado
     useEffect(() => {
-        // Use a função setTotalSelecoes para atualizar o estado totalSelecoes
         setTotalSelecoes(calcularTotalSelecoes());
     }, [eventosClicados]);
 
@@ -676,21 +685,18 @@ export default function UserPage() {
         );
 
         if (eventoExistente) {
-            // Remova o evento da lista de eventos clicados
             setEventosClicados((prevEventos) =>
                 prevEventos.filter(
                     (event) => !(event.rowId === rowId && event.evento === evento)
                 )
             );
 
-            // Remova o ID da célula clicada do estado clicadas
             setClicadas((prevClicadas) =>
                 prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
             );
         } else if (mesmoIdEventoExistente) {
             alert("Você não pode escolher dois eventos de categorias diferentes na mesma aposta.");
         } else {
-            // Adicione o novo evento à lista de eventos clicados
             setEventosClicados((prevEventos) => [
                 ...prevEventos,
                 {
@@ -702,10 +708,11 @@ export default function UserPage() {
                 },
             ]);
 
-            // Adicione o ID da célula clicada ao estado clicadas
             setClicadas((prevClicadas) => [...prevClicadas, `${rowId}-${evento}`]);
         }
     };
+
+    console.log(eventosClicados)
 
     return (
         <>
@@ -748,8 +755,8 @@ export default function UserPage() {
                                                     const iconType = iconTypes[id - 1];
 
                                                     return (
-                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{backgroundColor: '#001D3D'}}>
-                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D'}}>
+                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D' }}>
+                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
                                                                 {iconType === 'star' ? (
                                                                     <StarOutlineTwoToneIcon
                                                                         checked={selectedUser}
@@ -757,7 +764,7 @@ export default function UserPage() {
                                                                     />
                                                                 ) : (
                                                                     <GradeTwoToneIcon
-                                                                        sx={{ color: '#33FFC2'}}
+                                                                        sx={{ color: '#33FFC2' }}
                                                                         checked={selectedUser}
                                                                         onClick={(event) => handleClick(event, id)}
                                                                     />
@@ -780,7 +787,7 @@ export default function UserPage() {
                                                                 />
                                                             </TableCell>
 
-                                                            <TableCell align="left" sx={{ width: { xs: 70, md: 300 }, fontWeight: 'bold' }}>
+                                                            <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
                                                                 <Typography variant="subtitle2" noWrap>
                                                                     {timeCasa}
                                                                 </Typography>
@@ -815,7 +822,7 @@ export default function UserPage() {
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
                                                                     color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: {xs: 20, md: 200}
+                                                                    width: { xs: 40, md: 200 }
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Casa', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -837,7 +844,7 @@ export default function UserPage() {
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
                                                                     color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: {xs: 20, md: 200}
+                                                                    width: { xs: 40, md: 200 }
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Empate', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -860,7 +867,7 @@ export default function UserPage() {
                                                                     cursor: 'pointer',
                                                                     backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
                                                                     color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: {xs: 20, md: 200}
+                                                                    width: { xs: 40, md: 200 }
                                                                 }}
                                                                 onClick={() => handleClickEvent(id, 'Fora', oddCasa, oddEmpate, oddFora)}
                                                             >
@@ -905,29 +912,59 @@ export default function UserPage() {
                         </Card>
                     </Grid>
 
-                    {totalSelecoes > 0 && (
-                        <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                            <Fab
-                                variant="extended"
-                                sx={{
-                                    backgroundColor: '#33FFC2',
-                                    '&:hover': {
-                                        backgroundColor: '#023047', 
-                                        color: '#33FFC2', 
-                                    },
-                                    color: '#023047', 
-                                }}
-                            >
-                                <AutoAwesomeMotionTwoToneIcon sx={{ mr: 1 }} />
-                                Apostar {totalSelecoes} seleções
-                            </Fab>
-                        </Grid>
-                    )}
+                    <FabButton eventosClicados={eventosClicados} onNavigateClick={openDrawer} />
 
+                    <Drawer
+                        anchor={anchor}
+                        open={isDrawerOpen}
+                        onClose={closeDrawer}
+                        sx={{
+                            width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                            flexShrink: 0,
+                            '& .MuiDrawer-paper': {
+                                width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                            },
+                            borderTopLeftRadius: 20,
+                        }}
+                    >
+                        <List>
+                            <Scrollbar>
+                                {eventosClicados.map((evento, index) => (
+                                    <ListItem key={index}>
+                                        <ListItemText primary={`Confronto: ${evento.timeCasa} vs ${evento.timeFora}`} />
+                                    </ListItem>
+                                ))}
+                            </Scrollbar>
+
+                            <ListItem>
+                                <ListItemText
+                                    primary={
+                                        <TextField
+                                            label="Valor da Aposta"
+                                            variant="outlined"
+                                            fullWidth
+                                            type="number"
+                                            value={valorAposta}
+                                            onChange={(e) => setValorAposta(parseFloat(e.target.value))}
+                                        />
+                                    }
+                                />
+                            </ListItem>
+
+                            <ListItem>
+                                <ListItemText
+                                    primary={`Odds Totais: ${calcularOddsTotais().toFixed(2)}`}
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText
+                                    primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
+                                />
+                            </ListItem>
+                        </List>
+                    </Drawer>
                 </Grid>
             </Container>
-
-            {/* Popover aqui */}
         </>
     );
 }

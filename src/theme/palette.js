@@ -10,8 +10,8 @@ const GREY = {
   500: '#30557D',
   600: '#B9DAFF',
   700: '#5485BC',
-  800: '#6FA9EB',
-  900: '#B9DAFF',
+  800: '#B9DAFF',
+  900: '#30557D',
 };
 
 const PRIMARY = {
