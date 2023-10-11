@@ -959,15 +959,45 @@ export default function UserPage() {
                                             <Grid item xs={1}>
                                                 <SportsSoccerTwoToneIcon />
                                             </Grid>
-                                            <Grid item xs={11}>
-                                                <Typography variant="body1" sx={{mb: .5}}>
-                                                    {evento.timeCasa} vs {evento.timeFora}
+                                            <Grid item xs={9}>
+                                                <Typography variant="body2" sx={{ mb: 1, fontSize: 15, fontWeight: 600}}>
+                                                    {evento.timeCasa} X {evento.timeFora}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <IconButton
+                                                    className="lixeira-button" // Classe CSS para o IconButton
+                                                    sx={{
+                                                        mr: 1,
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
+                                                    <DeleteTwoToneIcon />
+                                                </IconButton>
+                                            </Grid>
+
+                                            <Grid item xs={12}>
+                                                <Typography variant="subtitle" sx={{
+                                                    fontSize: 14,
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center'
+                                                }}>
+                                                    {evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}` : evento.evento === "Empate" ? `Vencedor da partida: ${evento.timeEmpate}` : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''}
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={12}>
+                                                <Typography variant="subtitle" sx={{
+                                                    fontSize: 14,
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center'
+                                                }}>
+                                                    {evento.evento === 'Casa' ? `Odd: ${evento.oddCasa}` : evento.evento === "Empate" ? `Odd: ${evento.oddEmpate}` : evento.evento === 'Fora' ? `Odd: ${evento.oddFora}` : ''}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
-
-
-                                        <DeleteTwoToneIcon />
                                     </ListItem>
                                 ))}
                             </List>
