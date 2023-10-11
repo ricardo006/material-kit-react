@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
+import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import {
@@ -675,7 +677,9 @@ export default function UserPage() {
         setTotalSelecoes(calcularTotalSelecoes());
     }, [eventosClicados]);
 
-    const handleClickEvent = (rowId, evento, oddCasa, oddEmpate, oddFora) => {
+    const handleClickEvent = (rowId, evento, timeCasa, timeFora, oddCasa, oddEmpate, oddFora) => {
+
+        console.log(timeCasa)
         const eventoExistente = eventosClicados.find(
             (event) => event.rowId === rowId && event.evento === evento
         );
@@ -705,12 +709,15 @@ export default function UserPage() {
                     oddCasa,
                     oddEmpate,
                     oddFora,
+                    timeCasa,  // Adicione timeCasa
+                    timeFora,  // Adicione timeFora
                 },
             ]);
 
             setClicadas((prevClicadas) => [...prevClicadas, `${rowId}-${evento}`]);
         }
     };
+
 
     console.log(eventosClicados)
 
@@ -824,7 +831,7 @@ export default function UserPage() {
                                                                     color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                     width: { xs: 40, md: 200 }
                                                                 }}
-                                                                onClick={() => handleClickEvent(id, 'Casa', oddCasa, oddEmpate, oddFora)}
+                                                                onClick={() => handleClickEvent(id, 'Casa', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
                                                             >
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>{timeCasa}</Grid>
@@ -846,7 +853,7 @@ export default function UserPage() {
                                                                     color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                     width: { xs: 40, md: 200 }
                                                                 }}
-                                                                onClick={() => handleClickEvent(id, 'Empate', oddCasa, oddEmpate, oddFora)}
+                                                                onClick={() => handleClickEvent(id, 'Empate', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
                                                             >
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>
@@ -869,7 +876,7 @@ export default function UserPage() {
                                                                     color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                     width: { xs: 40, md: 200 }
                                                                 }}
-                                                                onClick={() => handleClickEvent(id, 'Fora', oddCasa, oddEmpate, oddFora)}
+                                                                onClick={() => handleClickEvent(id, 'Fora', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
                                                             >
                                                                 <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                     <Grid item>{timeFora}</Grid>
@@ -920,23 +927,51 @@ export default function UserPage() {
                         onClose={closeDrawer}
                         sx={{
                             width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                            overflowY: 'auto', height: '100%',
                             flexShrink: 0,
                             '& .MuiDrawer-paper': {
                                 width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                                overflowY: 'auto', height: '100%'
                             },
                             borderTopLeftRadius: 20,
                         }}
                     >
-                        <Scrollbar>
-                            <List>
+
+                        <Scrollbar sx={{ overflowY: 'auto', height: '100%' }}>
+                            <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 {eventosClicados.map((evento, index) => (
-                                    <ListItem key={index}>
-                                        <ListItemText primary={`Confronto: ${evento.timeCasa} vs ${evento.timeFora}`} />
+                                    <ListItem
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            p: 2,
+                                            width: '92%',
+                                            border: '2px solid #183D66',
+                                            backgroundColor: '#183D66',
+                                            mb: 2, // Espaço entre os elementos da lista
+                                            borderRadius: 2,
+                                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                        }}
+                                        key={index}
+                                    >
+                                        <Grid container spacing={2} alignItems="center">
+                                            <Grid item xs={1}>
+                                                <SportsSoccerTwoToneIcon />
+                                            </Grid>
+                                            <Grid item xs={11}>
+                                                <Typography variant="body1" sx={{mb: .5}}>
+                                                    {evento.timeCasa} vs {evento.timeFora}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+
+
+                                        <DeleteTwoToneIcon />
                                     </ListItem>
                                 ))}
                             </List>
                         </Scrollbar>
-
 
                         <ListItem>
                             <ListItemText
@@ -959,17 +994,17 @@ export default function UserPage() {
                             />
                         </ListItem>
 
-                        <ListItem sx={{mb: 2}}>
+                        <ListItem sx={{ mb: 2 }}>
                             <ListItemText
                                 primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
                             />
                         </ListItem>
 
                         <Button variant="contained" disableElevation fullWidth sx={{
-                            borderTopLeftRadius: 20,   // Canto superior esquerdo
-                            borderTopRightRadius: 20,  // Canto superior direito
-                            borderBottomRightRadius: 0, // Canto inferior direito
-                            borderBottomLeftRadius: 0,  // Canto inferior esquerdo
+                            borderTopLeftRadius: 20,
+                            borderTopRightRadius: 20,
+                            borderBottomRightRadius: 0,
+                            borderBottomLeftRadius: 0,
                             height: 80,
                         }}>
                             Confirmar Aposta
