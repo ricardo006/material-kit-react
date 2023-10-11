@@ -3,7 +3,6 @@ import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
 import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import NavigationIcon from '@mui/icons-material/Navigation';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import {
     Chip,
@@ -949,7 +948,7 @@ export default function UserPage() {
                                             width: '92%',
                                             border: '2px solid #183D66',
                                             backgroundColor: '#183D66',
-                                            mb: 2, // Espaço entre os elementos da lista
+                                            mb: 2,
                                             borderRadius: 2,
                                             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
                                         }}
@@ -960,7 +959,7 @@ export default function UserPage() {
                                                 <SportsSoccerTwoToneIcon />
                                             </Grid>
                                             <Grid item xs={9}>
-                                                <Typography variant="body2" sx={{ mb: 1, fontSize: 15, fontWeight: 600}}>
+                                                <Typography variant="body2" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
                                                     {evento.timeCasa} X {evento.timeFora}
                                                 </Typography>
                                             </Grid>
