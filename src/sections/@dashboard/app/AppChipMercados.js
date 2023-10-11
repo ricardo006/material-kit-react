@@ -4,6 +4,7 @@ import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionT
 import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
+import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 import {
     Chip,
     Fab,
@@ -37,7 +38,7 @@ import FabButton from '../../../components/button-apostar/FabButton';
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
-import { fDecimal } from '../../../utils/formatNumber';
+import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -699,20 +700,18 @@ export default function UserPage() {
         }
     };
 
-  const calcularOddsTotais = () => {
-  const oddsTotais = eventosClicados.reduce((acc, evento) => {
-    const oddKey = `odd${evento.evento}`;
-    const odd = evento[oddKey];
-    if (typeof odd === 'number' && !Number.isNaN(odd) && odd > 0) {
-      return acc * odd;
-    }
-    return acc;
-  }, 1);
+    const calcularOddsTotais = () => {
+        const oddsTotais = eventosClicados.reduce((acc, evento) => {
+            const oddKey = `odd${evento.evento}`;
+            const odd = evento[oddKey];
+            if (typeof odd === 'number' && !Number.isNaN(odd) && odd > 0.0001) {
+                return acc * odd;
+            }
+            return acc;
+        }, 1);
 
-  return oddsTotais;
-};
-
-
+        return oddsTotais;
+    };
 
     const calcularPossiveisRetornos = () => {
         const oddsTotais = calcularOddsTotais();
@@ -754,8 +753,8 @@ export default function UserPage() {
                                         <TableBody sx={{ border: 0 }}>
                                             {activeMarket !== null ? (
                                                 rows.map((row, index) => {
-                                                    const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora } =
-                                                        row;
+                                                    const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora }
+                                                        = row;
                                                     const id = index + 1;
                                                     const selectedUser = selected.indexOf(id) !== -1;
                                                     const iconType = iconTypes[id - 1];
@@ -930,11 +929,45 @@ export default function UserPage() {
                             flexShrink: 0,
                             '& .MuiDrawer-paper': {
                                 width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
-                                overflowY: 'auto', height: '100%'
+                                overflowY: 'auto', height: '100%',
                             },
-                            borderTopLeftRadius: 20,
                         }}
                     >
+
+                        <Grid container sx={{ backgroundColor: '#023047', p: 3, mb: 2, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
+                            <Grid item xs={8}>
+                                <Typography
+                                    variant="h6"
+                                    sx={{
+                                        textAlign: 'left',
+                                        display: 'flex',
+                                        color: '#33FFC2',
+                                        borderBottomLeftRadius: 0,
+                                        borderBottomRightRadius: 0,
+                                        py: 1,
+                                    }}
+                                >
+                                    Cupom de Aposta
+                                </Typography>
+                            </Grid>
+
+                            <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <Button
+                                    sx={{
+                                        backgroundColor: '#073b4c',
+                                        color: '#33FFC2',
+                                        textTransform: 'none', // Para manter o texto "Fechar" em letras 
+                                        p: 1
+                                    }}
+                                    onClick={closeDrawer} // Substitua 'closeDrawer' pela função que fecha o Drawer
+                                >
+                                    <HighlightOffTwoToneIcon />
+                                    <Typography variant="body2" sx={{ml: 1, fontWeight: 600}}>
+                                        Fechar
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                        </Grid>
 
                         <Scrollbar sx={{ overflowY: 'auto', height: '100%' }}>
                             <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -946,11 +979,10 @@ export default function UserPage() {
                                             alignItems: 'center',
                                             p: 2,
                                             width: '92%',
-                                            border: '2px solid #183D66',
-                                            backgroundColor: '#183D66',
+                                            border: '.5px solid rgba(0, 0, 0, 0.2)',
                                             mb: 2,
-                                            borderRadius: 2,
-                                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                                            borderRadius: 3,
+                                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
                                         }}
                                         key={index}
                                     >
@@ -960,7 +992,7 @@ export default function UserPage() {
                                             </Grid>
 
                                             <Grid item xs={9}>
-                                                <Typography variant="body2" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
+                                                <Typography variant="body1" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
                                                     {evento.timeCasa} X {evento.timeFora}
                                                 </Typography>
                                             </Grid>
@@ -970,7 +1002,9 @@ export default function UserPage() {
                                                     className="lixeira-button" // Classe CSS para o IconButton
                                                     sx={{
                                                         mr: 1,
-                                                        textAlign: 'center'
+                                                        mb: 2,
+                                                        textAlign: 'center',
+                                                        color: '#FF99AC'
                                                     }}
                                                 >
                                                     <DeleteTwoToneIcon />
@@ -982,9 +1016,14 @@ export default function UserPage() {
                                                     fontSize: 14,
                                                     display: 'flex',
                                                     justifyContent: 'space-between',
-                                                    alignItems: 'center'
+                                                    alignItems: 'center',
+                                                    color: '#6FA9EB'
                                                 }}>
-                                                    {evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}` : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}` : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''}
+                                                    {
+                                                        evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}`
+                                                            : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}`
+                                                                : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''
+                                                    }
                                                 </Typography>
                                             </Grid>
 
@@ -993,9 +1032,14 @@ export default function UserPage() {
                                                     fontSize: 14,
                                                     display: 'flex',
                                                     justifyContent: 'space-between',
-                                                    alignItems: 'center'
+                                                    alignItems: 'center',
+                                                    color: '#6FA9EB'
                                                 }}>
-                                                    {evento.evento === 'Casa' ? `Odd: ${evento.oddCasa}` : evento.evento === 'Empate' ? `Odd: ${evento.oddEmpate}` : evento.evento === 'Fora' ? `Odd: ${evento.oddFora}` : ''}
+                                                    {
+                                                        evento.evento === 'Casa' ? `Odd: ${fDecimal(evento.oddCasa)}`
+                                                            : evento.evento === 'Empate' ? `Odd: ${fDecimal(evento.oddEmpate)}`
+                                                                : evento.evento === 'Fora' ? `Odd: ${fDecimal(evento.oddFora)}` : ''
+                                                    }
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -1027,7 +1071,7 @@ export default function UserPage() {
 
                         <ListItem sx={{ mb: 2 }}>
                             <ListItemText
-                                primary={`Possíveis Retornos: ${calcularPossiveisRetornos().toFixed(2)}`}
+                                primary={`Possíveis Retornos: R$ ${fCurrency(Number.isNaN(calcularPossiveisRetornos())) ? '' : calcularPossiveisRetornos().toFixed(2)}`}
                             />
                         </ListItem>
 
@@ -1037,6 +1081,7 @@ export default function UserPage() {
                             borderBottomRightRadius: 0,
                             borderBottomLeftRadius: 0,
                             height: 80,
+                            fontSize: 16
                         }}>
                             Confirmar Aposta
                         </Button>
