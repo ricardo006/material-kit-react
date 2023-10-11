@@ -7,7 +7,7 @@ function GetCountries() {
     const apiUrl = `https://apiv3.apifootball.com/?action=get_countries&APIkey=${apiKey}`;
 
     useEffect(() => {
-        // Função para buscar dados da API
+        // Função para buscar dados de Países da API
         const fetchData = async () => {
             try {
                 const response = await axios.get(apiUrl);

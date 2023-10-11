@@ -39,6 +39,7 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 import { fDecimal, fCurrency } from '../../../utils/formatNumber';
+import GetCountries from '../../../api/GetCountries';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -620,6 +621,9 @@ export default function UserPage() {
     const anchor = isMobile ? 'bottom' : 'right';
     const drawerWidth = 400;
 
+    const countriesData = GetCountries();
+    console.log(countriesData);
+
     const openDrawer = () => {
         setIsDrawerOpen(true);
     };
@@ -720,12 +724,29 @@ export default function UserPage() {
     };
 
     return (
+
         <>
             <Container maxWidth="xl">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={12}>
                         <Scrollbar>
-                            <Stack direction="row" spacing={1} sx={{ mt: 5, mb: 5 }}>
+                            <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                {countriesData.map((countrie) => (
+                                    <Chip
+                                        avatar={<Avatar alt="Pais" src={countrie.country_logo} />}
+                                        key={countrie.country_id}
+                                        label={countrie.country_name}
+                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                        onClick={() => handleMarketClick(countrie.country_name)}
+                                    />
+                                ))}
+                            </Stack>
+                        </Scrollbar>
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Scrollbar>
+                            <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
                                 {marketsData.map((market) => (
                                     <Chip
                                         key={market.id}
@@ -962,7 +983,7 @@ export default function UserPage() {
                                     onClick={closeDrawer} // Substitua 'closeDrawer' pela função que fecha o Drawer
                                 >
                                     <HighlightOffTwoToneIcon />
-                                    <Typography variant="body2" sx={{ml: 1, fontWeight: 600}}>
+                                    <Typography variant="body2" sx={{ ml: 1, fontWeight: 600 }}>
                                         Fechar
                                     </Typography>
                                 </Button>
