@@ -627,23 +627,6 @@ export default function UserPage() {
         setIsDrawerOpen(false);
     };
 
-    const calcularOddsTotais = () => {
-        const oddsSelecionadas = eventosClicados.map((evento) => {
-            // Use a lógica adequada para escolher as odds corretas com base nas seleções do usuário
-            return evento.oddSelecionada; // Substitua por sua lógica
-        });
-
-        const oddsTotais = oddsSelecionadas.reduce((acc, odd) => acc * odd, 1);
-        return oddsTotais;
-    };
-
-    // Função para calcular os possíveis retornos
-    const calcularPossiveisRetornos = () => {
-        const oddsTotais = calcularOddsTotais();
-        const possiveisRetornos = valorAposta * oddsTotais;
-        return possiveisRetornos;
-    };
-
     const handleMarketClick = (market) => {
         setActiveMarket(market);
 
@@ -678,7 +661,6 @@ export default function UserPage() {
 
     const handleClickEvent = (rowId, evento, timeCasa, timeFora, oddCasa, oddEmpate, oddFora) => {
 
-        console.log(timeCasa)
         const eventoExistente = eventosClicados.find(
             (event) => event.rowId === rowId && event.evento === evento
         );
@@ -717,8 +699,26 @@ export default function UserPage() {
         }
     };
 
+  const calcularOddsTotais = () => {
+  const oddsTotais = eventosClicados.reduce((acc, evento) => {
+    const oddKey = `odd${evento.evento}`;
+    const odd = evento[oddKey];
+    if (typeof odd === 'number' && !Number.isNaN(odd) && odd > 0) {
+      return acc * odd;
+    }
+    return acc;
+  }, 1);
 
-    console.log(eventosClicados)
+  return oddsTotais;
+};
+
+
+
+    const calcularPossiveisRetornos = () => {
+        const oddsTotais = calcularOddsTotais();
+        const possiveisRetornos = valorAposta * oddsTotais;
+        return possiveisRetornos;
+    };
 
     return (
         <>
@@ -958,11 +958,13 @@ export default function UserPage() {
                                             <Grid item xs={1}>
                                                 <SportsSoccerTwoToneIcon />
                                             </Grid>
+
                                             <Grid item xs={9}>
                                                 <Typography variant="body2" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
                                                     {evento.timeCasa} X {evento.timeFora}
                                                 </Typography>
                                             </Grid>
+
                                             <Grid item xs={2}>
                                                 <IconButton
                                                     className="lixeira-button" // Classe CSS para o IconButton
@@ -982,7 +984,7 @@ export default function UserPage() {
                                                     justifyContent: 'space-between',
                                                     alignItems: 'center'
                                                 }}>
-                                                    {evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}` : evento.evento === "Empate" ? `Vencedor da partida: ${evento.timeEmpate}` : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''}
+                                                    {evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}` : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}` : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''}
                                                 </Typography>
                                             </Grid>
 
@@ -993,7 +995,7 @@ export default function UserPage() {
                                                     justifyContent: 'space-between',
                                                     alignItems: 'center'
                                                 }}>
-                                                    {evento.evento === 'Casa' ? `Odd: ${evento.oddCasa}` : evento.evento === "Empate" ? `Odd: ${evento.oddEmpate}` : evento.evento === 'Fora' ? `Odd: ${evento.oddFora}` : ''}
+                                                    {evento.evento === 'Casa' ? `Odd: ${evento.oddCasa}` : evento.evento === 'Empate' ? `Odd: ${evento.oddEmpate}` : evento.evento === 'Fora' ? `Odd: ${evento.oddFora}` : ''}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -1005,7 +1007,7 @@ export default function UserPage() {
                         <ListItem>
                             <ListItemText
                                 primary={
-                                    <TextField
+                                    <TextField sx={{ mt: 2 }}
                                         label="Valor da Aposta"
                                         variant="outlined"
                                         fullWidth
@@ -1029,7 +1031,7 @@ export default function UserPage() {
                             />
                         </ListItem>
 
-                        <Button variant="contained" disableElevation fullWidth sx={{
+                        <Button variant="contained" fullWidth sx={{
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
                             borderBottomRightRadius: 0,
