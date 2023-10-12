@@ -42,6 +42,7 @@ import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 import GetCountries from '../../../api/GetCountries';
+import GetStadings from '../../../api/GetStadings';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -622,9 +623,12 @@ export default function UserPage() {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const anchor = isMobile ? 'bottom' : 'right';
     const drawerWidth = 400;
+    const [stadingsData, setStadingsData] = useState([]);
+    const [data, setData] = useState([]);
+    const [selectedCountryId, setSelectedCountryId] = useState(null);
 
     const countriesData = GetCountries();
-    console.log(countriesData);
+    // console.log(countriesData)
 
     const openDrawer = () => {
         setIsDrawerOpen(true);
@@ -725,21 +729,40 @@ export default function UserPage() {
         return possiveisRetornos;
     };
 
-    return (
+    const onDataUpdate = (fetchedData) => {
+        setData(fetchedData);
+    };
 
+    const fetchDataByCountryId = (countryId) => {
+
+        if (countryId !== selectedCountryId) {
+            alert(countryId)
+
+            console.log(GetStadings(152, onDataUpdate));
+            setSelectedCountryId(152);
+        }
+
+    };
+
+
+    return (
         <>
             <Container maxWidth="xl">
-                <Grid container spacing={2}>
+
+                <Grid container spacing={3}>
                     <Grid item xs={12} md={12}>
+                        <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                            Filtre pelo País ({countriesData.length})
+                        </Typography>
                         <Scrollbar>
                             <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                {countriesData.map((countrie) => (
+                                {countriesData.map((country) => (
                                     <Chip
-                                        avatar={<Avatar alt="Pais" src={countrie.country_logo} />}
-                                        key={countrie.country_id}
-                                        label={countrie.country_name}
+                                        avatar={<Avatar alt="Countries" src={country.country_logo} />}
+                                        key={country.country_id}
+                                        label={country.country_name}
                                         sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
-                                        onClick={() => handleMarketClick(countrie.country_name)}
+                                        onClick={() => fetchDataByCountryId(country.country_id)}
                                     />
                                 ))}
                             </Stack>
@@ -747,388 +770,406 @@ export default function UserPage() {
                     </Grid>
 
                     <Grid item xs={12} md={12}>
+                        <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                            Lista de Ligas ({data.length})
+                        </Typography>
                         <Scrollbar>
                             <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                {marketsData.map((market) => (
-                                    <Chip active
-                                        key={market.id}
-                                        label={market.label}
-                                        color={market.color}
-                                        sx={{
-                                            cursor: 'pointer',
-                                            fontWeight: 'bold',
-                                            backgroundColor: '#023047',
-                                            color: '#33FFC2',
-                                            '&:hover': {
-                                                backgroundColor: '#33FFC2', // Cor de fundo quando o mouse estiver sobre o chip
-                                                color: '#023047', // Cor do texto quando o mouse estiver sobre o chip
-                                            },
-                                        }}
-                                        onClick={() => handleMarketClick(market.label)}
+                                {data.map((league) => (
+                                    <Chip
+                                        avatar={<Avatar alt="Countries" src={league.country_logo} />}
+                                        key={league.league_name}
+                                        label={league.country_name}
+                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                        onClick={() => fetchDataByCountryId(league.country_id)}
                                     />
                                 ))}
                             </Stack>
                         </Scrollbar>
                     </Grid>
+                </Grid>
 
-                    <Grid item xs={12} md={12}>
-                        <Card>
+
+                <Grid item xs={12} md={12}>
+                    <Card>
+                        <Scrollbar>
                             <Scrollbar>
-                                <TableContainer sx={{ minWidth: 800, border: 0 }}>
-                                    <Table sx={{ borderCollapse: 'collapse' }}>
-                                        <TableRow style={{ height: 53 }}>
-                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
-                                                <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
-                                            </TableCell>
-                                        </TableRow>
-
-                                        <TableBody sx={{ border: 0 }}>
-                                            {activeMarket !== null ? (
-                                                rows.map((row, index) => {
-                                                    const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora }
-                                                        = row;
-                                                    const id = index + 1;
-                                                    const selectedUser = selected.indexOf(id) !== -1;
-                                                    const iconType = iconTypes[id - 1];
-
-                                                    return (
-                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D' }}>
-                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
-                                                                {iconType === 'star' ? (
-                                                                    <StarOutlineTwoToneIcon
-                                                                        checked={selectedUser}
-                                                                        onClick={(event) => handleClick(event, id)}
-                                                                    />
-                                                                ) : (
-                                                                    <GradeTwoToneIcon
-                                                                        sx={{ color: '#33FFC2' }}
-                                                                        checked={selectedUser}
-                                                                        onClick={(event) => handleClick(event, id)}
-                                                                    />
-                                                                )}
-                                                            </TableCell>
-
-                                                            <TableCell
-                                                                component="th"
-                                                                scope="row"
-                                                                padding="none"
-                                                                sx={{
-                                                                    width: { xs: '60px', md: '100px' },
-                                                                    textAlign: 'center',
-                                                                }}
-                                                            >
-                                                                <Chip
-                                                                    label={`${tempoJogo} '`}
-                                                                    icon={<AlarmOutlinedIcon />}
-                                                                    onClick={handleClick}
-                                                                    sx={{ backgroundColor: '#183D66', color: '#33FFC2' }}
-                                                                />
-                                                            </TableCell>
-
-                                                            <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
-                                                                <Typography variant="subtitle2" noWrap>
-                                                                    {timeCasa}
-                                                                </Typography>
-                                                                <Typography variant="subtitle2" noWrap>
-                                                                    {timeFora}
-                                                                </Typography>
-                                                            </TableCell>
-
-                                                            <TableCell
-                                                                align="left"
-                                                                sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
-                                                            >
-                                                                <Typography
-                                                                    variant="body2"
-                                                                    noWrap
-                                                                    sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
-                                                                >
-                                                                    {placarCasa}
-                                                                </Typography>
-                                                                <Typography
-                                                                    variant="body2"
-                                                                    noWrap
-                                                                    sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
-                                                                >
-                                                                    {placarFora}
-                                                                </Typography>
-                                                            </TableCell>
-
-                                                            <TableCell
-                                                                sx={{
-                                                                    textAlign: 'center',
-                                                                    cursor: 'pointer',
-                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
-                                                                    color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: { xs: 40, md: 200 }
-                                                                }}
-                                                                onClick={() => handleClickEvent(id, 'Casa', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                            >
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                    <Grid item>{timeCasa}</Grid>
-                                                                    <Grid item>
-                                                                        <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
-
-                                                                            label={`${fDecimal(oddCasa)}`}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </TableCell>
-
-                                                            <TableCell
-                                                                sx={{
-                                                                    textAlign: 'center',
-                                                                    cursor: 'pointer',
-                                                                    backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
-                                                                    color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: { xs: 40, md: 200 }
-                                                                }}
-                                                                onClick={() => handleClickEvent(id, 'Empate', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                            >
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                    <Grid item>
-                                                                        <Typography variant="body2">Empate</Typography>
-                                                                    </Grid>
-                                                                    <Grid item>
-                                                                        <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
-                                                                            label={`${fDecimal(oddEmpate)}`}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </TableCell>
-
-                                                            <TableCell
-                                                                sx={{
-                                                                    textAlign: 'center',
-                                                                    cursor: 'pointer',
-                                                                    backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
-                                                                    color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                    width: { xs: 40, md: 200 }
-                                                                }}
-                                                                onClick={() => handleClickEvent(id, 'Fora', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                            >
-                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                    <Grid item>{timeFora}</Grid>
-                                                                    <Grid item>
-                                                                        <Chip
-                                                                            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
-                                                                            label={`${fDecimal(oddFora)}`}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </TableCell>
-
-                                                            <TableCell align="center">+233</TableCell>
-                                                        </TableRow>
-                                                    );
-                                                })
-                                            ) : (
-                                                <TableRow style={{ height: 53 }}>
-                                                    <TableCell colSpan={12}>
-                                                        <Typography variant="subtitle1">
-                                                            Clique em um mercado para exibir a tabela correspondente.
-                                                        </Typography>
-                                                    </TableCell>
-                                                </TableRow>
-                                            )}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
+                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
+                                    {marketsData.map((market) => (
+                                        <Chip active
+                                            key={market.id}
+                                            label={market.label}
+                                            color={market.color}
+                                            sx={{
+                                                cursor: 'pointer',
+                                                fontWeight: 'bold',
+                                                backgroundColor: '#023047',
+                                                color: '#33FFC2',
+                                                '&:hover': {
+                                                    backgroundColor: '#33FFC2', // Cor de fundo quando o mouse estiver sobre o chip
+                                                    color: '#023047', // Cor do texto quando o mouse estiver sobre o chip
+                                                },
+                                            }}
+                                            onClick={() => handleMarketClick(market.label)}
+                                        />
+                                    ))}
+                                </Stack>
                             </Scrollbar>
 
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
-                                component="div"
-                                count={rows.length}
-                                rowsPerPage={5}
-                                page={0}
-                            // onPageChange={handleChangePage}
-                            // onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
-                        </Card>
-                    </Grid>
+                            <TableContainer sx={{ minWidth: 800, border: 0 }}>
+                                <Table sx={{ borderCollapse: 'collapse' }}>
+                                    <TableRow style={{ height: 53 }}>
+                                        <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
+                                            <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
+                                        </TableCell>
+                                    </TableRow>
 
-                    <FabButton eventosClicados={eventosClicados} onNavigateClick={openDrawer} />
+                                    <TableBody sx={{ border: 0 }}>
+                                        {activeMarket !== null ? (
+                                            rows.map((row, index) => {
+                                                const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora }
+                                                    = row;
+                                                const id = index + 1;
+                                                const selectedUser = selected.indexOf(id) !== -1;
+                                                const iconType = iconTypes[id - 1];
 
-                    <Drawer
-                        anchor={anchor}
-                        open={isDrawerOpen}
-                        onClose={closeDrawer}
-                        sx={{
-                            width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
-                            overflowY: 'auto', height: '100%',
-                            flexShrink: 0,
-                            '& .MuiDrawer-paper': {
-                                width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
-                                overflowY: 'auto', height: '100%',
-                            },
-                        }}
-                    >
+                                                return (
+                                                    <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D' }}>
+                                                        <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
+                                                            {iconType === 'star' ? (
+                                                                <StarOutlineTwoToneIcon
+                                                                    checked={selectedUser}
+                                                                    onClick={(event) => handleClick(event, id)}
+                                                                />
+                                                            ) : (
+                                                                <GradeTwoToneIcon
+                                                                    sx={{ color: '#33FFC2' }}
+                                                                    checked={selectedUser}
+                                                                    onClick={(event) => handleClick(event, id)}
+                                                                />
+                                                            )}
+                                                        </TableCell>
 
-                        <Grid container sx={{ backgroundColor: '#023047', p: 3, mb: 2, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
-                            <Grid item xs={8}>
-                                <Typography
-                                    variant="h6"
-                                    sx={{
-                                        textAlign: 'left',
-                                        display: 'flex',
-                                        color: '#33FFC2',
-                                        borderBottomLeftRadius: 0,
-                                        borderBottomRightRadius: 0,
-                                        py: 1,
-                                    }}
-                                >
-                                    Cupom de Aposta{''}
-                                </Typography>
+                                                        <TableCell
+                                                            component="th"
+                                                            scope="row"
+                                                            padding="none"
+                                                            sx={{
+                                                                width: { xs: '60px', md: '100px' },
+                                                                textAlign: 'center',
+                                                            }}
+                                                        >
+                                                            <Chip
+                                                                label={`${tempoJogo} '`}
+                                                                icon={<AlarmOutlinedIcon />}
+                                                                onClick={handleClick}
+                                                                sx={{ backgroundColor: '#183D66', color: '#33FFC2' }}
+                                                            />
+                                                        </TableCell>
 
-                                <Typography variant="body2" sx={{ color: '#B6F4E2' }}>
-                                    {totalSelecoes > 1
-                                        ? `${totalSelecoes} seleções`
-                                        : totalSelecoes === 1
-                                            ? '1 seleção'
-                                            : ''}
-                                </Typography>
-                            </Grid>
+                                                        <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
+                                                            <Typography variant="subtitle2" noWrap>
+                                                                {timeCasa}
+                                                            </Typography>
+                                                            <Typography variant="subtitle2" noWrap>
+                                                                {timeFora}
+                                                            </Typography>
+                                                        </TableCell>
 
-                            <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <Button
-                                    sx={{
-                                        backgroundColor: '#073b4c',
-                                        color: '#33FFC2',
-                                        textTransform: 'none', // Para manter o texto "Fechar" em letras 
-                                        p: 1
-                                    }}
-                                    onClick={closeDrawer} // Substitua 'closeDrawer' pela função que fecha o Drawer
-                                >
-                                    <HighlightOffTwoToneIcon />
-                                    <Typography variant="body2" sx={{ ml: 1, fontWeight: 600 }}>
-                                        Fechar
-                                    </Typography>
-                                </Button>
-                            </Grid>
-                        </Grid>
+                                                        <TableCell
+                                                            align="left"
+                                                            sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
+                                                        >
+                                                            <Typography
+                                                                variant="body2"
+                                                                noWrap
+                                                                sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
+                                                            >
+                                                                {placarCasa}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="body2"
+                                                                noWrap
+                                                                sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
+                                                            >
+                                                                {placarFora}
+                                                            </Typography>
+                                                        </TableCell>
 
-                        <Scrollbar sx={{ overflowY: 'auto', height: '100%' }}>
-                            <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                {eventosClicados.map((evento, index) => (
-                                    <ListItem
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            p: 2,
-                                            width: '92%',
-                                            border: '.5px solid rgba(0, 0, 0, 0.2)',
-                                            mb: 2,
-                                            borderRadius: 3,
-                                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                                        }}
-                                        key={index}
-                                    >
-                                        <Grid container spacing={2} alignItems="center">
-                                            <Grid item xs={1}>
-                                                <SportsSoccerTwoToneIcon />
-                                            </Grid>
+                                                        <TableCell
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                                cursor: 'pointer',
+                                                                backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                width: { xs: 40, md: 200 }
+                                                            }}
+                                                            onClick={() => handleClickEvent(id, 'Casa', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
+                                                        >
+                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                <Grid item>{timeCasa}</Grid>
+                                                                <Grid item>
+                                                                    <Chip
+                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
 
-                                            <Grid item xs={9}>
-                                                <Typography variant="body1" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
-                                                    {evento.timeCasa} X {evento.timeFora}
-                                                </Typography>
-                                            </Grid>
+                                                                        label={`${fDecimal(oddCasa)}`}
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </TableCell>
 
-                                            <Grid item xs={2}>
-                                                <IconButton
-                                                    className="lixeira-button" // Classe CSS para o IconButton
-                                                    sx={{
-                                                        mr: 1,
-                                                        mb: 2,
-                                                        textAlign: 'center',
-                                                        color: '#FF99AC'
-                                                    }}
-                                                >
-                                                    <DeleteTwoToneIcon />
-                                                </IconButton>
-                                            </Grid>
+                                                        <TableCell
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                                cursor: 'pointer',
+                                                                backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                width: { xs: 40, md: 200 }
+                                                            }}
+                                                            onClick={() => handleClickEvent(id, 'Empate', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
+                                                        >
+                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                <Grid item>
+                                                                    <Typography variant="body2">Empate</Typography>
+                                                                </Grid>
+                                                                <Grid item>
+                                                                    <Chip
+                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
+                                                                        label={`${fDecimal(oddEmpate)}`}
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </TableCell>
 
-                                            <Grid item xs={12}>
-                                                <Typography variant="subtitle" sx={{
-                                                    fontSize: 14,
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                    color: '#6FA9EB'
-                                                }}>
-                                                    {
-                                                        evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}`
-                                                            : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}`
-                                                                : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''
-                                                    }
-                                                </Typography>
-                                            </Grid>
+                                                        <TableCell
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                                cursor: 'pointer',
+                                                                backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                width: { xs: 40, md: 200 }
+                                                            }}
+                                                            onClick={() => handleClickEvent(id, 'Fora', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
+                                                        >
+                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                <Grid item>{timeFora}</Grid>
+                                                                <Grid item>
+                                                                    <Chip
+                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
+                                                                        label={`${fDecimal(oddFora)}`}
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </TableCell>
 
-                                            <Grid item xs={12}>
-                                                <Typography variant="subtitle" sx={{
-                                                    fontSize: 14,
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                    color: '#6FA9EB'
-                                                }}>
-                                                    {
-                                                        evento.evento === 'Casa' ? `Odd: ${fDecimal(evento.oddCasa)}`
-                                                            : evento.evento === 'Empate' ? `Odd: ${fDecimal(evento.oddEmpate)}`
-                                                                : evento.evento === 'Fora' ? `Odd: ${fDecimal(evento.oddFora)}` : ''
-                                                    }
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </ListItem>
-                                ))}
-                            </List>
+                                                        <TableCell align="center">+233</TableCell>
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : (
+                                            <TableRow style={{ height: 53 }}>
+                                                <TableCell colSpan={12}>
+                                                    <Typography variant="subtitle1">
+                                                        Clique em um mercado para exibir a tabela correspondente.
+                                                    </Typography>
+                                                </TableCell>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         </Scrollbar>
 
-                        <ListItem>
-                            <ListItemText
-                                primary={
-                                    <TextField sx={{ mt: 2 }}
-                                        label="Valor da Aposta"
-                                        variant="outlined"
-                                        fullWidth
-                                        type="number"
-                                        value={valorAposta}
-                                        onChange={(e) => setValorAposta(parseFloat(e.target.value))}
-                                    />
-                                }
-                            />
-                        </ListItem>
-
-                        <ListItem>
-                            <ListItemText
-                                primary={`Odds Totais: ${calcularOddsTotais().toFixed(2)}`}
-                            />
-                        </ListItem>
-
-                        <ListItem sx={{ mb: 2 }}>
-                            <ListItemText
-                                primary={`Possíveis Retornos: R$ ${fCurrency(Number.isNaN(calcularPossiveisRetornos())) ? '' : calcularPossiveisRetornos().toFixed(2)}`}
-                            />
-                        </ListItem>
-
-                        <Button variant="contained" fullWidth sx={{
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,
-                            borderBottomRightRadius: 0,
-                            borderBottomLeftRadius: 0,
-                            height: 80,
-                            fontSize: 16
-                        }}>
-                            Confirmar Aposta
-                        </Button>
-                    </Drawer>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={rows.length}
+                            rowsPerPage={5}
+                            page={0}
+                        // onPageChange={handleChangePage}
+                        // onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Card>
                 </Grid>
-            </Container>
+
+                <FabButton eventosClicados={eventosClicados} onNavigateClick={openDrawer} />
+
+                <Drawer
+                    anchor={anchor}
+                    open={isDrawerOpen}
+                    onClose={closeDrawer}
+                    sx={{
+                        width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                        overflowY: 'auto', height: '100%',
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: isMobile ? '100%' : drawerWidth, // Largura total em dispositivos móveis, largura definida em desktop
+                            overflowY: 'auto', height: '100%',
+                        },
+                    }}
+                >
+
+                    <Grid container sx={{ backgroundColor: '#023047', p: 3, mb: 2, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
+                        <Grid item xs={8}>
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    textAlign: 'left',
+                                    display: 'flex',
+                                    color: '#33FFC2',
+                                    borderBottomLeftRadius: 0,
+                                    borderBottomRightRadius: 0,
+                                    py: 1,
+                                }}
+                            >
+                                Cupom de Aposta{''}
+                            </Typography>
+
+                            <Typography variant="body2" sx={{ color: '#B6F4E2' }}>
+                                {totalSelecoes > 1
+                                    ? `${totalSelecoes} seleções`
+                                    : totalSelecoes === 1
+                                        ? '1 seleção'
+                                        : ''}
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                            <Button
+                                sx={{
+                                    backgroundColor: '#073b4c',
+                                    color: '#33FFC2',
+                                    textTransform: 'none', // Para manter o texto "Fechar" em letras 
+                                    p: 1
+                                }}
+                                onClick={closeDrawer} // Substitua 'closeDrawer' pela função que fecha o Drawer
+                            >
+                                <HighlightOffTwoToneIcon />
+                                <Typography variant="body2" sx={{ ml: 1, fontWeight: 600 }}>
+                                    Fechar
+                                </Typography>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Scrollbar sx={{ overflowY: 'auto', height: '100%' }}>
+                        <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            {eventosClicados.map((evento, index) => (
+                                <ListItem
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        p: 2,
+                                        width: '92%',
+                                        border: '.5px solid rgba(0, 0, 0, 0.2)',
+                                        mb: 2,
+                                        borderRadius: 3,
+                                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                                    }}
+                                    key={index}
+                                >
+                                    <Grid container spacing={2} alignItems="center">
+                                        <Grid item xs={1}>
+                                            <SportsSoccerTwoToneIcon />
+                                        </Grid>
+
+                                        <Grid item xs={9}>
+                                            <Typography variant="body1" sx={{ mb: 1, fontSize: 15, fontWeight: 600 }}>
+                                                {evento.timeCasa} X {evento.timeFora}
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item xs={2}>
+                                            <IconButton
+                                                className="lixeira-button" // Classe CSS para o IconButton
+                                                sx={{
+                                                    mr: 1,
+                                                    mb: 2,
+                                                    textAlign: 'center',
+                                                    color: '#FF99AC'
+                                                }}
+                                            >
+                                                <DeleteTwoToneIcon />
+                                            </IconButton>
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <Typography variant="subtitle" sx={{
+                                                fontSize: 14,
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                color: '#6FA9EB'
+                                            }}>
+                                                {
+                                                    evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}`
+                                                        : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}`
+                                                            : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''
+                                                }
+                                            </Typography>
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <Typography variant="subtitle" sx={{
+                                                fontSize: 14,
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                color: '#6FA9EB'
+                                            }}>
+                                                {
+                                                    evento.evento === 'Casa' ? `Odd: ${fDecimal(evento.oddCasa)}`
+                                                        : evento.evento === 'Empate' ? `Odd: ${fDecimal(evento.oddEmpate)}`
+                                                            : evento.evento === 'Fora' ? `Odd: ${fDecimal(evento.oddFora)}` : ''
+                                                }
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Scrollbar>
+
+                    <ListItem>
+                        <ListItemText
+                            primary={
+                                <TextField sx={{ mt: 2 }}
+                                    label="Valor da Aposta"
+                                    variant="outlined"
+                                    fullWidth
+                                    type="number"
+                                    value={valorAposta}
+                                    onChange={(e) => setValorAposta(parseFloat(e.target.value))}
+                                />
+                            }
+                        />
+                    </ListItem>
+
+                    <ListItem>
+                        <ListItemText
+                            primary={`Odds Totais: ${calcularOddsTotais().toFixed(2)}`}
+                        />
+                    </ListItem>
+
+                    <ListItem sx={{ mb: 2 }}>
+                        <ListItemText
+                            primary={`Possíveis Retornos: R$ ${fCurrency(Number.isNaN(calcularPossiveisRetornos())) ? '' : calcularPossiveisRetornos().toFixed(2)}`}
+                        />
+                    </ListItem>
+
+                    <Button variant="contained" fullWidth sx={{
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20,
+                        borderBottomRightRadius: 0,
+                        borderBottomLeftRadius: 0,
+                        height: 80,
+                        fontSize: 16
+                    }}>
+                        Confirmar Aposta
+                    </Button>
+                </Drawer>
+            </Container >
         </>
     );
 }
