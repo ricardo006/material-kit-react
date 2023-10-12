@@ -3,6 +3,7 @@ import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionT
 import {
     Fab,
     Grid,
+    Typography,
 } from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
@@ -34,7 +35,14 @@ function FabButton({ eventosClicados, onNavigateClick }) {
                         }}
                     >
                         <AutoAwesomeMotionTwoToneIcon sx={{ mr: 1 }} />
-                        Apostar {totalSelecoes} seleções
+                        <Typography sx={{ fontWeight: 600 }}>
+                            Apostar {' '}
+                            {totalSelecoes > 1
+                                ? `${totalSelecoes} seleções`
+                                : totalSelecoes === 1
+                                    ? '1 seleção'
+                                    : ''}
+                        </Typography>
                     </Fab>
                 </Grid>
             )}

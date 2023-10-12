@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Button, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Container, Box, Stack, Button, AppBar, Toolbar, IconButton } from '@mui/material';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
 import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
@@ -51,12 +51,12 @@ export default function Header({ onOpenNav }) {
   };
 
   const handleClickAoVivo = () => {
-    navigate('aovivo', { replace: true})
+    navigate('aovivo', { replace: true })
   }
 
   return (
     <StyledRoot>
-      <StyledToolbar > 
+      <StyledToolbar maxW>
         <IconButton
           onClick={onOpenNav}
           sx={{
@@ -68,7 +68,7 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{m: 2}} onClick={handleClickProxJogos}>
+        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{ m: 2 }} onClick={handleClickProxJogos}>
           Próximos Jogos
         </Button>
 

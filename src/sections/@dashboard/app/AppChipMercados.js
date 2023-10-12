@@ -5,6 +5,8 @@ import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
+import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
+
 import {
     Chip,
     Fab,
@@ -695,8 +697,8 @@ export default function UserPage() {
                     oddCasa,
                     oddEmpate,
                     oddFora,
-                    timeCasa,  // Adicione timeCasa
-                    timeFora,  // Adicione timeFora
+                    timeCasa,
+                    timeFora,
                 },
             ]);
 
@@ -748,11 +750,20 @@ export default function UserPage() {
                         <Scrollbar>
                             <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
                                 {marketsData.map((market) => (
-                                    <Chip
+                                    <Chip active
                                         key={market.id}
                                         label={market.label}
                                         color={market.color}
-                                        sx={{ cursor: 'pointer', fontWeight: 'bold' }}
+                                        sx={{
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                            backgroundColor: '#023047',
+                                            color: '#33FFC2',
+                                            '&:hover': {
+                                                backgroundColor: '#33FFC2', // Cor de fundo quando o mouse estiver sobre o chip
+                                                color: '#023047', // Cor do texto quando o mouse estiver sobre o chip
+                                            },
+                                        }}
                                         onClick={() => handleMarketClick(market.label)}
                                     />
                                 ))}
@@ -766,7 +777,7 @@ export default function UserPage() {
                                 <TableContainer sx={{ minWidth: 800, border: 0 }}>
                                     <Table sx={{ borderCollapse: 'collapse' }}>
                                         <TableRow style={{ height: 53 }}>
-                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#B6F4E2', fontWeight: 'bold' }}>
+                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
                                                 <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
                                             </TableCell>
                                         </TableRow>
@@ -808,6 +819,7 @@ export default function UserPage() {
                                                             >
                                                                 <Chip
                                                                     label={`${tempoJogo} '`}
+                                                                    icon={<AlarmOutlinedIcon />}
                                                                     onClick={handleClick}
                                                                     sx={{ backgroundColor: '#183D66', color: '#33FFC2' }}
                                                                 />
@@ -968,7 +980,15 @@ export default function UserPage() {
                                         py: 1,
                                     }}
                                 >
-                                    Cupom de Aposta
+                                    Cupom de Aposta{''}
+                                </Typography>
+
+                                <Typography variant="body2" sx={{ color: '#B6F4E2' }}>
+                                    {totalSelecoes > 1
+                                        ? `${totalSelecoes} seleções`
+                                        : totalSelecoes === 1
+                                            ? '1 seleção'
+                                            : ''}
                                 </Typography>
                             </Grid>
 

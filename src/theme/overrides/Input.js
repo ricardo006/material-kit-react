@@ -1,7 +1,5 @@
 import { alpha } from '@mui/material/styles';
 
-// ----------------------------------------------------------------------
-
 export default function Input(theme) {
   return {
     MuiInputBase: {
@@ -53,7 +51,7 @@ export default function Input(theme) {
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: alpha(theme.palette.grey[500], 0.32),
+            borderColor: alpha(theme.palette.grey[600], 0.32),
           },
           '&.Mui-disabled': {
             '& .MuiOutlinedInput-notchedOutline': {
