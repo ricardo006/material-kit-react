@@ -50,7 +50,9 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
 
-      <Box sx={{ px: 2.5, m: 1, py: 3, display: 'inline-flex', backgroundColor: '#30557d1f', borderRadius: '10px' }}>
+      <Box sx={{
+        px: 1, ml: 1, mr: 1, mt: 2, py: 3, display: 'inline-flex', backgroundColor: '#001D3D', boxShadow: '0px 5px 15px 0px rgba(0, 0, 0, 0.15)', borderRadius: '10px'
+      }}>
         <Logo />
       </Box>
 
@@ -105,7 +107,7 @@ export default function Nav({ openNav, onCloseNav }) {
           </Button> */}
         </Stack>
       </Box>
-    </Scrollbar>
+    </Scrollbar >
   );
 
   return (

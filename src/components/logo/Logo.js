@@ -23,7 +23,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
     <Box
       component="img"
       src={img}
-      sx={{width: 80, height: 80, cursor: 'pointer', ...sx }}
+      sx={{ width: 80, height: 80, cursor: 'pointer', ...sx }}
     />
   );
 
@@ -81,8 +81,8 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
 
   return (
     <Link to="/" component={RouterLink} sx={{ display: 'contents' }}>
-      {logo} 
-      <Typography sx={{ verticalAlign: 'middle', textAlign: 'left', fontSize: '22px', color: '#6FA9EB', margin: '28px', fontWeight: 600, fontFamily: 'Manrope'}}>
+      {logo}
+      <Typography sx={{ verticalAlign: 'middle', textAlign: 'left', fontSize: '28px', color: '#6FA9EB', margin: '20px', fontWeight: 600, }}>
         Betspace
       </Typography>
     </Link>

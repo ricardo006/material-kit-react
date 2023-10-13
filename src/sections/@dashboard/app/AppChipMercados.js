@@ -790,7 +790,7 @@ export default function UserPage() {
                                                 avatar={<Avatar alt="Countries" src={country.country_logo} />}
                                                 key={country.country_id}
                                                 label={country.country_name}
-                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
                                                 onClick={() => selectCountry(country.country_id)}
                                             />
                                         ))
@@ -816,10 +816,14 @@ export default function UserPage() {
                                     {competitionsData !== null ? (
                                         competitionsData.map((league) => (
                                             <Chip
-                                                avatar={<Avatar alt="Leagues" src={league.league_logo} />}
+                                                avatar={
+                                                    league.country_logo
+                                                        ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
+                                                        : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
+                                                }
                                                 key={league.league_id}
                                                 label={league.league_name}
-                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
                                             />
                                         ))
                                     ) : (
@@ -831,8 +835,8 @@ export default function UserPage() {
                     </Grid>
                 </Grid>
 
-                <Grid container>
-                    <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
+                <Grid container >
+                    <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', boxShadow: '0px 5px 15px 0px rgba(0, 0, 0, 0.15)', borderRadius: 3 }}>
                         <Scrollbar>
                             <Scrollbar>
                                 <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
