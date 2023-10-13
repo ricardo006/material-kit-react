@@ -775,7 +775,7 @@ export default function UserPage() {
     return (
         <>
             <Container maxWidth="xl">
-                <Grid container spacing={3}>
+                <Grid spacing={3}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={12}>
                             <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
@@ -802,7 +802,7 @@ export default function UserPage() {
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={3}>
+                    <Grid spacing={3} sx={{ mt: 2 }}>
                         <Grid item xs={12} md={12}>
                             <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
                                 Filtre pela Liga ({competitionsData.length})
@@ -831,8 +831,8 @@ export default function UserPage() {
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={12} sx={{ mt: 2 }}>
+                <Grid container>
+                    <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
                         <Scrollbar>
                             <Scrollbar>
                                 <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
@@ -857,7 +857,7 @@ export default function UserPage() {
                                 </Stack>
                             </Scrollbar>
 
-                            <TableContainer sx={{ minWidth: 800, border: 0 }}>
+                            <TableContainer sx={{ minWidth: 900, p: 0 }}>
                                 <Table sx={{ borderCollapse: 'collapse' }}>
                                     <TableRow style={{ height: 53 }}>
                                         <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
@@ -875,7 +875,7 @@ export default function UserPage() {
                                                 const iconType = iconTypes[id - 1];
 
                                                 return (
-                                                    <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D' }}>
+                                                    <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0 }}>
                                                         <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
                                                             {iconType === 'star' ? (
                                                                 <StarOutlineTwoToneIcon
