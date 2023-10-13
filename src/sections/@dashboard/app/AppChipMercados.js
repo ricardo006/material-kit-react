@@ -779,7 +779,7 @@ export default function UserPage() {
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={12}>
                             <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                Filtre pelo País ({countriesData ? countriesData.length : 0})
+                                Filtrar por país ({countriesData ? countriesData.length : 0})
                             </Typography>
 
                             <Scrollbar>
@@ -805,7 +805,7 @@ export default function UserPage() {
                     <Grid spacing={3} sx={{ mt: 2 }}>
                         <Grid item xs={12} md={12}>
                             <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                Filtre pela Liga ({competitionsData.length})
+                                Filtrar por liga ({competitionsData.length})
                             </Typography>
                             <Competitions
                                 countryId={selectedCountryId}
@@ -1015,7 +1015,7 @@ export default function UserPage() {
                                             <TableRow style={{ height: 53 }}>
                                                 <TableCell colSpan={12}>
                                                     <Typography variant="subtitle1">
-                                                        Clique em um mercado para exibir a tabela correspondente.
+                                                        Nenhuma opção disponível
                                                     </Typography>
                                                 </TableCell>
                                             </TableRow>
