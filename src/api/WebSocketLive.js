@@ -24,7 +24,7 @@ function WebSocketLive(apiKey, updateData) {
 
         socket.onclose = function () {
             socket = null;
-            setTimeout(socketLive, 1000);
+            setTimeout(socketLive, 2000);
         }
     };
 

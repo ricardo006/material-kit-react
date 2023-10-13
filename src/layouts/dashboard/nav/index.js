@@ -50,11 +50,11 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
 
-      <Box sx={{ px: 2.5, m: 1, py: 3, display: 'inline-flex', backgroundColor: '#30557d1f', borderRadius: '10px'}}>
+      <Box sx={{ px: 2.5, m: 1, py: 3, display: 'inline-flex', backgroundColor: '#30557d1f', borderRadius: '10px' }}>
         <Logo />
       </Box>
 
-      <Box sx={{ mb: 2, m: 1, mt: 2}}>
+      <Box sx={{ mb: 2, m: 1, mt: 2 }}>
         <Link underline="none">
           <StyledAccount>
             <Avatar src={account.photoURL} alt="photoURL" />

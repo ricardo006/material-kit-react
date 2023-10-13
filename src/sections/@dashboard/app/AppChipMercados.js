@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
 import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
@@ -43,6 +45,7 @@ import Scrollbar from '../../../components/scrollbar';
 import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 import GetCountries from '../../../api/GetCountries';
 import GetStadings from '../../../api/GetStadings';
+import Competitions from '../../../api/Competitions';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -626,9 +629,17 @@ export default function UserPage() {
     const [stadingsData, setStadingsData] = useState([]);
     const [data, setData] = useState([]);
     const [selectedCountryId, setSelectedCountryId] = useState(null);
+    const [competitionsData, setCompetitionsData] = useState([]);
+    const [countryId, setCountryId] = useState(152);
+    // const [countriesData, setCountriesData] = useState([]);
 
     const countriesData = GetCountries();
-    // console.log(countriesData)
+
+    useEffect(() => {
+        if (countriesData.length > 0) {
+            console.log(countriesData);
+        }
+    }, [countriesData]);
 
     const openDrawer = () => {
         setIsDrawerOpen(true);
@@ -733,65 +744,95 @@ export default function UserPage() {
         setData(fetchedData);
     };
 
-    const fetchDataByCountryId = (countryId) => {
-
-        if (countryId !== selectedCountryId) {
-            alert(countryId)
-
-            console.log(GetStadings(152, onDataUpdate));
-            setSelectedCountryId(152);
-        }
-
+    const onDataUpdateCompetitions = (data) => {
+        setCompetitionsData(data);
     };
 
+    const selectCountry = (countryId) => {
+        setSelectedCountryId(countryId);
+    };
+
+    useEffect(() => {
+
+        if (selectedCountryId) {
+            // Verifique se os dados das competições ainda não foram carregados
+            if (!competitionsData) {
+                // Se ainda não foram carregados, faça a solicitação
+                const fetchData = async () => {
+                    try {
+                        const response = await Competitions(selectedCountryId);
+                        setCompetitionsData(response);
+                    } catch (error) {
+                        console.error('Erro ao buscar dados da API de competições:', error);
+                    }
+                };
+
+                fetchData();
+            }
+        }
+    }, [selectedCountryId, competitionsData]);
 
     return (
         <>
             <Container maxWidth="xl">
-
                 <Grid container spacing={3}>
-                    <Grid item xs={12} md={12}>
-                        <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                            Filtre pelo País ({countriesData.length})
-                        </Typography>
-                        <Scrollbar>
-                            <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                {countriesData.map((country) => (
-                                    <Chip
-                                        avatar={<Avatar alt="Countries" src={country.country_logo} />}
-                                        key={country.country_id}
-                                        label={country.country_name}
-                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
-                                        onClick={() => fetchDataByCountryId(country.country_id)}
-                                    />
-                                ))}
-                            </Stack>
-                        </Scrollbar>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={12}>
+                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                Filtre pelo País ({countriesData ? countriesData.length : 0})
+                            </Typography>
+
+                            <Scrollbar>
+                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                    {countriesData ? (
+                                        countriesData.map((country) => (
+                                            <Chip
+                                                avatar={<Avatar alt="Countries" src={country.country_logo} />}
+                                                key={country.country_id}
+                                                label={country.country_name}
+                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                                onClick={() => selectCountry(country.country_id)}
+                                            />
+                                        ))
+                                    ) : (
+                                        <p>Carregando dados...</p>
+                                    )}
+                                </Stack>
+                            </Scrollbar>
+                        </Grid>
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
-                        <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                            Lista de Ligas ({data.length})
-                        </Typography>
-                        <Scrollbar>
-                            <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                {data.map((league) => (
-                                    <Chip
-                                        avatar={<Avatar alt="Countries" src={league.country_logo} />}
-                                        key={league.league_name}
-                                        label={league.country_name}
-                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
-                                        onClick={() => fetchDataByCountryId(league.country_id)}
-                                    />
-                                ))}
-                            </Stack>
-                        </Scrollbar>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} md={12}>
+                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                Filtre pela Liga ({competitionsData.length})
+                            </Typography>
+                            <Competitions
+                                countryId={selectedCountryId}
+                                onDataUpdateCompetitions={onDataUpdateCompetitions}
+                            />
+                            <Scrollbar>
+                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                    {competitionsData !== null ? (
+                                        competitionsData.map((league) => (
+                                            <Chip
+                                                avatar={<Avatar alt="Leagues" src={league.league_logo} />}
+                                                key={league.league_id}
+                                                label={league.league_name}
+                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047' }}
+                                            />
+                                        ))
+                                    ) : (
+                                        <p>Carregando dados...</p>
+                                    )}
+                                </Stack>
+                            </Scrollbar>
+                        </Grid>
                     </Grid>
                 </Grid>
 
-
-                <Grid item xs={12} md={12}>
-                    <Card>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={12} sx={{ mt: 2 }}>
                         <Scrollbar>
                             <Scrollbar>
                                 <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
@@ -863,7 +904,7 @@ export default function UserPage() {
                                                                 label={`${tempoJogo} '`}
                                                                 icon={<AlarmOutlinedIcon />}
                                                                 onClick={handleClick}
-                                                                sx={{ backgroundColor: '#183D66', color: '#33FFC2' }}
+                                                                sx={{ backgroundColor: '#183D66', color: '#33FFC2', fontWeight: 600 }}
                                                             />
                                                         </TableCell>
 
@@ -989,7 +1030,7 @@ export default function UserPage() {
                         // onPageChange={handleChangePage}
                         // onRowsPerPageChange={handleChangeRowsPerPage}
                         />
-                    </Card>
+                    </Grid>
                 </Grid>
 
                 <FabButton eventosClicados={eventosClicados} onNavigateClick={openDrawer} />

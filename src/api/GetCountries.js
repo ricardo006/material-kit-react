@@ -3,23 +3,26 @@ import axios from 'axios';
 
 function GetCountries() {
     const [data, setData] = useState([]);
-    const apiKey = '5f64615daab4fd10651dc6fb3bfbea223db46a9f737c40de2d7fbf8673eb70c0';
+    const apiKey = 'c70bc4f31d5e867eedd3c02338e22640f1e034547e42814d35851acdef493c3b';
     const apiUrl = `https://apiv3.apifootball.com/?action=get_countries&APIkey=${apiKey}`;
 
     useEffect(() => {
-        // Função para buscar dados de Países da API
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(apiUrl);
-                setData(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar dados da API:', error);
-            }
-        };
+        // Verificamos se já temos os dados de países antes de fazer uma nova requisição
+        if (data.length === 0) {
+            // Função para buscar dados de Países da API
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get(apiUrl);
+                    setData(response.data);
+                } catch (error) {
+                    console.error('Erro ao buscar dados da API:', error);
+                }
+            };
 
-        // Chame a função para buscar dados quando o componente for montado
-        fetchData();
-    }, []);
+            // Chame a função para buscar dados apenas se ainda não os tivermos
+            fetchData();
+        }
+    }, [data, apiUrl]);
 
     return data;
 }

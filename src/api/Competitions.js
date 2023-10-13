@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
-const Competitions = ({ countryId, onDataUpdate }) => {
-    const [data, setData] = useState([]);
-    const apiKey = '5f64615daab4fd10651dc6fb3bfbea223db46a9f737c40de2d7fbf8673eb70c0';
+function Competitions({ countryId, onDataUpdateCompetitions }) {
+    const apiKey = 'c70bc4f31d5e867eedd3c02338e22640f1e034547e42814d35851acdef493c3b';
     const apiUrl = `https://apiv3.apifootball.com/?action=get_leagues&country_id=${countryId}&APIkey=${apiKey}`;
-    // ao selecionar um país passar para listar as ligas deste país
 
     useEffect(() => {
         let isMounted = true;
@@ -14,7 +12,7 @@ const Competitions = ({ countryId, onDataUpdate }) => {
             try {
                 const response = await axios.get(apiUrl);
                 if (isMounted) {
-                    onDataUpdate(response.data);
+                    onDataUpdateCompetitions(response.data);
                 }
             } catch (error) {
                 console.error('Erro ao buscar dados da API:', error);
@@ -26,9 +24,9 @@ const Competitions = ({ countryId, onDataUpdate }) => {
         return () => {
             isMounted = false; // Define a variável para false quando o componente é desmontado
         };
-    }, [countryId, onDataUpdate, apiUrl]);
+    }, [countryId, onDataUpdateCompetitions]);
 
-    return data;
+    return null; // Não retorna nada, pois esta função é usada para buscar e atualizar os dados no componente pai
 };
 
 export default Competitions;

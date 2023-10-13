@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function GetOdds () {
+function GetOdds() {
     const [data, setData] = useState([]);
-    const apiKey = '5f64615daab4fd10651dc6fb3bfbea223db46a9f737c40de2d7fbf8673eb70c0';
+    const apiKey = 'c70bc4f31d5e867eedd3c02338e22640f1e034547e42814d35851acdef493c3b';
     const apiUrl = `https://apiv3.apifootball.com/?action=get_odds&from=2023-09-30&to=2023-09-30&APIkey=${apiKey}`;
 
     useEffect(() => {
