@@ -2,13 +2,12 @@ import { faker } from '@faker-js/faker';
 
 const CAIXA_TITLES = [
   'Saldo Total',
-  'Saldo Diário',
+  'Entradas',
+  'Saídas',
+  'Lançamentos', // totais de lançamentos 
+  'Comissões',
+  'Saldo do dia',
   'Lucro Total',
-  'Lucro da última semana',
-  'Fresh Prince',
-  'Six Socks Studio',
-  'vincenzo de cotiis’ crossing over showcases a research on contamination',
-  'Simple, Great Looking Animations in Your Project | Video Tutorial',
 ];
 
 const SALDO_TITLES = [
@@ -22,7 +21,7 @@ const SALDO_TITLES = [
   'Simple, Great Looking Animations in Your Project | Video Tutorial',
 ];
 
-const posts = [...Array(5)].map((_, index) => ({
+const posts = [...Array(7)].map((_, index) => ({
   id: faker.datatype.uuid(),
   cover: `/assets/images/covers/cover_${index + 1}.jpg`,
   title: CAIXA_TITLES[index],

@@ -39,8 +39,6 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
   );
 }
 
-// ----------------------------------------------------------------------
-
 NewsItem.propTypes = {
   news: PropTypes.shape({
     description: PropTypes.string,

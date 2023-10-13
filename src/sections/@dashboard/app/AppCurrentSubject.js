@@ -30,8 +30,6 @@ const StyledChartWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-// ----------------------------------------------------------------------
-
 AppCurrentSubject.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,

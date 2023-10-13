@@ -41,66 +41,81 @@ export default function ProductList({ products, ...other }) {
     <Container maxWidth="xl">
       {data.map((item) => (
         <Card
-        key={item.match_id}
-        style={{
-          margin: '10px',
-          padding: '10px',
-          backgroundColor: '#183D66',
-          borderRadius: 10,
-          cursor: 'pointer',
-        }}
-        onClick={() => handleCardClick(item.match_id)} // Adiciona o evento onClick
-      >
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
           key={item.match_id}
-          style={{ margin: '10px', padding: '10px', backgroundColor: '#183D66', borderRadius: 10 }}
+          style={{
+            margin: '10px',
+            padding: '10px',
+            backgroundColor: '#183D66',
+            borderRadius: 10,
+            cursor: 'pointer',
+          }}
+          onClick={() => handleCardClick(item.match_id)}
         >
-          <CardContent>
-            <Grid>
-              <Box item xs={12} sm={12} md={12} display="flex" alignItems="center">
-                <Avatar
-                  src={item.country_logo}
-                  alt={item.country_name}
-                  sx={{ width: 32, height: 32, marginRight: 1 }}
-                />
-                <Typography variant="body2" color="textSecondary" sx={{ marginLeft: 1, marginRight: 1 }}>
-                  {item.country_name}&nbsp;|&nbsp;{item.league_name}&nbsp;
-                </Typography>
-              </Box>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            key={item.match_id}
+            style={{ margin: '10px', padding: '10px', backgroundColor: '#183D66', borderRadius: 10 }}
+          >
+            <CardContent>
+              <Grid>
+                <Box item xs={12} sm={12} md={12} display="flex" alignItems="center">
+                  <Avatar
+                    src={item.country_logo}
+                    alt={item.country_name}
+                    sx={{ width: 32, height: 32, marginRight: 1 }}
+                  />
+                  <Typography variant="body2" color="textSecondary" sx={{ marginLeft: 1, marginRight: 1 }}>
+                    {item.country_name}&nbsp;|&nbsp;{item.league_name}&nbsp;
+                  </Typography>
+                </Box>
 
-              <Box item xs={12} sm={12} md={12} display="flex" alignItems="center">
-                <Chip
-                  id="match-status-chip"
-                  icon={<AlarmOutlinedIcon />}
-                  variant="outlined"
-                  label={item.match_status}
-                  sx={{ marginRight: '8px', transition: 'background-color 0.5s ease-in-out' }}
-                />
+                <Box item xs={12} sm={12} md={12} display="flex" alignItems="center">
+                  <Chip
+                    id="match-status-chip"
+                    icon={<AlarmOutlinedIcon />}
+                    variant="outlined"
+                    label={item.match_status}
+                    sx={{ marginRight: '8px', transition: 'background-color 0.5s ease-in-out' }}
+                  />
 
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  sx={{ fontWeight: 900, mt: 1, display: 'flex', alignItems: 'center' }}
-                >
-                  {item.match_hometeam_name}&nbsp;{item.match_hometeam_score}&nbsp;x&nbsp;{item.match_awayteam_score}
-                  &nbsp;{item.match_awayteam_name}
-                </Typography>
-              </Box>
+                  <Typography
+                    variant="h5"
+                    gutterBottom
+                    sx={{ fontWeight: 900, mt: 1, display: 'flex', alignItems: 'center' }}
+                  >
+                    {item.match_hometeam_name}&nbsp;{item.match_hometeam_score}&nbsp;x&nbsp;{item.match_awayteam_score}
+                    &nbsp;{item.match_awayteam_name}
+                  </Typography>
+                </Box>
 
-              <Grid item xs={12} sm={12} md={12}>
-                <Typography variant="p" color="textSecondary">
-                  {getLastComment(data)}
-                </Typography>
+                <Grid item xs={12} sm={12} md={12}>
+                  <Typography variant="p" color="textSecondary">
+                    {getLastComment(data)}
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={12}>
+                  {item.live_odds && item.live_odds.slice(0, 3).map((odd, index) => (
+                    <React.Fragment key={index}>
+                      <Typography variant="p" color="textSecondary">
+                        Odd {index + 1}:
+                        Handicap: {odd.handicap}
+                        Odd Name: {odd.odd_name}
+                        Suspended: {odd.suspended}
+                        Type: {odd.type}
+                        Updated: {odd.upd}
+                        Value: {odd.value}
+                      </Typography>
+                    </React.Fragment>
+                  ))}
+                </Grid>
               </Grid>
-            </Grid>
-          </CardContent>
-        </Grid>
+            </CardContent>
+          </Grid>
         </Card>
-
       ))}
     </Container>
   );

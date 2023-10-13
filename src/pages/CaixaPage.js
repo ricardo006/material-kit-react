@@ -25,10 +25,6 @@ export default function CaixaPage() {
           <Typography variant="h4" gutterBottom>
             Caixa
           </Typography>
-
-          {/* <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Post
-          </Button> */}
         </Stack>
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">

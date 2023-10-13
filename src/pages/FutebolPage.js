@@ -8,16 +8,8 @@ import { Grid, Container, Stack, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
 // sections
 import {
-    AppTasks,
-    AppNewsUpdate,
-    AppOrderTimeline,
-    AppCurrentVisits,
-    AppWebsiteVisits,
-    AppTrafficBySite,
-    AppWidgetSummary,
-    AppCurrentSubject,
-    AppConversionRates,
-    AppChipMercados,
+    AppStadings,
+    AppChipMercados
 } from '../sections/@dashboard/app';
 
 
@@ -31,13 +23,15 @@ export default function FutebolPage() {
             </Helmet>
 
             <Container maxWidth="xl">
-                <Typography variant="h4" sx={{ mb: 5 }}>
-                    Futebol (230)
-                </Typography>
+                {/* <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <AppStadings />
+                    </Grid>
+                </Grid> */}
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12}>
-                        <AppChipMercados title="Total de Vendas" color="cl_vendas" total={714000} icon={'ant-design:android-filled'} />
+                        <AppChipMercados />
                     </Grid>
                 </Grid>
             </Container>

@@ -649,13 +649,6 @@ export default function UserPage() {
         setIsDrawerOpen(false);
     };
 
-    const handleMarketClick = (market) => {
-        setActiveMarket(market);
-
-        const newLabel = `Brasil - Campeonato Brasileiro Série A (${market})`;
-        setConcatenatedText(newLabel);
-    };
-
     const handleClick = (event, id) => {
         const selectedIndex = selected.indexOf(id);
         const updatedIconTypes = [...iconTypes];
@@ -771,6 +764,14 @@ export default function UserPage() {
             }
         }
     }, [selectedCountryId, competitionsData]);
+
+    const handleMarketClick = (market) => {
+        setActiveMarket(market);
+
+        const newLabel = `${countriesData.map(country => country.country_name).join(', ')} - Campeonato Brasileiro Série A (${market})`;
+        setConcatenatedText(newLabel);
+    };
+
 
     return (
         <>

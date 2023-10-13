@@ -127,7 +127,7 @@ export default function CaixaPostCard({ post, index }) {
             }),
           }}
         >
-          <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block', fontSize: 20, fontWeight: 600 }}>
+          <Typography gutterBottom variant="caption" sx={{ color: 'text.success', display: 'block', fontSize: 20, fontWeight: 600 }}>
             {title}
           </Typography>
 
@@ -144,8 +144,6 @@ export default function CaixaPostCard({ post, index }) {
           >
             {saldo}
           </StyledTitle>
-
-          
         </CardContent>
       </Card>
     </Grid>
