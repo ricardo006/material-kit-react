@@ -71,7 +71,7 @@ const ERROR = {
 const CARD_VENDAS = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#00B2CA',
+  main: '#0077b6',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
@@ -80,7 +80,7 @@ const CARD_VENDAS = {
 const CARD_CLIENTES = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#4361EE',
+  main: '#731dd8',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
@@ -89,7 +89,7 @@ const CARD_CLIENTES = {
 const CARD_BILHETES = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#F55C7A',
+  main: '#28ada8',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
@@ -98,7 +98,7 @@ const CARD_BILHETES = {
 const CARD_COMISSAO = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#FE7F2D',
+  main: '#f79d65',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',

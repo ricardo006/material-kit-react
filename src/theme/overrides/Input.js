@@ -29,7 +29,7 @@ export default function Input(theme) {
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          backgroundColor: '#C6FFEE',
+          backgroundColor: 'transparent', // Define o fundo como transparente
           '&:hover': {
             backgroundColor: alpha(theme.palette.grey[500], 0.16),
           },
@@ -39,10 +39,13 @@ export default function Input(theme) {
           '&.Mui-disabled': {
             backgroundColor: theme.palette.action.disabledBackground,
           },
+          '& input:-webkit-autofill': {
+            backgroundColor: '#cbf3f0', // Fundo transparente quando preenchido automaticamente
+          },
         },
         underline: {
           '&:before': {
-            borderBottomColor: alpha(theme.palette.grey[500], 0.56),
+            borderBottomColor: alpha(theme.palette.grey[600], 0.56),
           },
         },
       },

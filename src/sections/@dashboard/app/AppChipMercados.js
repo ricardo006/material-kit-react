@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
@@ -8,8 +7,15 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import StarOutlineTwoToneIcon from '@mui/icons-material/StarOutlineTwoTone';
 import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
+import PublicIcon from '@mui/icons-material/Public';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 
 import {
+    Box,
+    CardHeader,
+    Tabs,
+    Tab,
+    CardContent,
     Chip,
     Fab,
     Stack,
@@ -42,10 +48,12 @@ import FabButton from '../../../components/button-apostar/FabButton';
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
+import ModalConfirmBet from '../../../components/modal/ModalConfirmBet';
 import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 import GetCountries from '../../../api/GetCountries';
 import GetStadings from '../../../api/GetStadings';
 import Competitions from '../../../api/Competitions';
+import CustomAlert from '../../../components/alert';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -69,6 +77,9 @@ const rows = [
         oddCasa: 2.16,
         oddEmpate: 3.03,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 2,
@@ -80,6 +91,9 @@ const rows = [
         oddCasa: 1.8,
         oddEmpate: 2.8,
         oddFora: 3.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 3,
@@ -91,6 +105,9 @@ const rows = [
         oddCasa: 3.5,
         oddEmpate: 3.0,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 4,
@@ -102,6 +119,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 2.5,
         oddFora: 2.8,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 5,
@@ -113,6 +133,9 @@ const rows = [
         oddCasa: 1.5,
         oddEmpate: 3.2,
         oddFora: 4.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 6,
@@ -124,6 +147,9 @@ const rows = [
         oddCasa: 2.2,
         oddEmpate: 2.9,
         oddFora: 3.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 7,
@@ -135,6 +161,9 @@ const rows = [
         oddCasa: 2.8,
         oddEmpate: 2.7,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 8,
@@ -146,6 +175,9 @@ const rows = [
         oddCasa: 1.7,
         oddEmpate: 2.8,
         oddFora: 3.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 9,
@@ -157,6 +189,9 @@ const rows = [
         oddCasa: 2.5,
         oddEmpate: 2.5,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 10,
@@ -168,6 +203,9 @@ const rows = [
         oddCasa: 3.03,
         oddEmpate: 2.8,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 11,
@@ -179,6 +217,9 @@ const rows = [
         oddCasa: 1.65,
         oddEmpate: 3.0,
         oddFora: 3.8,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 12,
@@ -190,6 +231,9 @@ const rows = [
         oddCasa: 2.94,
         oddEmpate: 2.6,
         oddFora: 2.3,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 13,
@@ -201,6 +245,9 @@ const rows = [
         oddCasa: 2.13,
         oddEmpate: 2.9,
         oddFora: 3.1,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.16,
     },
     {
         id: 14,
@@ -212,6 +259,9 @@ const rows = [
         oddCasa: 1.91,
         oddEmpate: 2.8,
         oddFora: 3.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 15,
@@ -223,6 +273,9 @@ const rows = [
         oddCasa: 2.86,
         oddEmpate: 2.7,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 16,
@@ -234,6 +287,9 @@ const rows = [
         oddCasa: 2.2,
         oddEmpate: 2.8,
         oddFora: 2.9,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 17,
@@ -245,6 +301,9 @@ const rows = [
         oddCasa: 3.0,
         oddEmpate: 2.7,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 18,
@@ -256,6 +315,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 3.0,
         oddFora: 3.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 19,
@@ -267,6 +329,9 @@ const rows = [
         oddCasa: 3.2,
         oddEmpate: 2.8,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 20,
@@ -278,6 +343,9 @@ const rows = [
         oddCasa: 1.8,
         oddEmpate: 2.7,
         oddFora: 3.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 21,
@@ -289,6 +357,9 @@ const rows = [
         oddCasa: 2.5,
         oddEmpate: 2.7,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 22,
@@ -300,6 +371,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 2.8,
         oddFora: 3.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 23,
@@ -311,6 +385,9 @@ const rows = [
         oddCasa: 3.5,
         oddEmpate: 3.0,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 24,
@@ -322,6 +399,9 @@ const rows = [
         oddCasa: 2.2,
         oddEmpate: 2.9,
         oddFora: 3.1,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 25,
@@ -333,6 +413,9 @@ const rows = [
         oddCasa: 1.9,
         oddEmpate: 2.8,
         oddFora: 3.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 26,
@@ -344,6 +427,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 3.0,
         oddFora: 3.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 27,
@@ -355,6 +441,9 @@ const rows = [
         oddCasa: 2.5,
         oddEmpate: 2.5,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 28,
@@ -366,6 +455,9 @@ const rows = [
         oddCasa: 3.0,
         oddEmpate: 2.8,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 29,
@@ -377,6 +469,9 @@ const rows = [
         oddCasa: 2.8,
         oddEmpate: 2.7,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 30,
@@ -388,6 +483,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 2.9,
         oddFora: 3.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 31,
@@ -399,6 +497,9 @@ const rows = [
         oddCasa: 2.8,
         oddEmpate: 2.7,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 32,
@@ -410,6 +511,9 @@ const rows = [
         oddCasa: 2.2,
         oddEmpate: 2.8,
         oddFora: 2.9,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 33,
@@ -421,6 +525,9 @@ const rows = [
         oddCasa: 3.0,
         oddEmpate: 2.7,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 34,
@@ -432,6 +539,9 @@ const rows = [
         oddCasa: 1.6,
         oddEmpate: 3.0,
         oddFora: 3.8,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 35,
@@ -443,6 +553,9 @@ const rows = [
         oddCasa: 2.9,
         oddEmpate: 2.6,
         oddFora: 2.3,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 36,
@@ -454,6 +567,9 @@ const rows = [
         oddCasa: 2.1,
         oddEmpate: 2.9,
         oddFora: 3.1,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 37,
@@ -465,6 +581,9 @@ const rows = [
         oddCasa: 1.9,
         oddEmpate: 2.8,
         oddFora: 3.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 38,
@@ -476,6 +595,9 @@ const rows = [
         oddCasa: 2.8,
         oddEmpate: 2.7,
         oddFora: 2.2,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 39,
@@ -487,6 +609,9 @@ const rows = [
         oddCasa: 2.0,
         oddEmpate: 3.0,
         oddFora: 3.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 40,
@@ -498,6 +623,9 @@ const rows = [
         oddCasa: 3.2,
         oddEmpate: 2.8,
         oddFora: 2.0,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 41,
@@ -509,6 +637,9 @@ const rows = [
         oddCasa: 2.1,
         oddEmpate: 3.0,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 42,
@@ -517,9 +648,12 @@ const rows = [
         timeFora: 'Time de Fora 42',
         placarCasa: 3,
         placarFora: 0,
-        oddCasa: 1.5,
-        oddEmpate: 3.2,
-        oddFora: 4.0,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
+        oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 43,
@@ -528,9 +662,12 @@ const rows = [
         timeFora: 'Time de Fora 43',
         placarCasa: 2,
         placarFora: 2,
-        oddCasa: 2.2,
-        oddEmpate: 2.9,
-        oddFora: 3.0,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
+        oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 44,
@@ -539,9 +676,12 @@ const rows = [
         timeFora: 'Time de Fora 44',
         placarCasa: 0,
         placarFora: 1,
-        oddCasa: 2.8,
-        oddEmpate: 2.7,
-        oddFora: 2.2,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
+        oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 45,
@@ -550,9 +690,12 @@ const rows = [
         timeFora: 'Time de Fora 45',
         placarCasa: 1,
         placarFora: 0,
-        oddCasa: 1.7,
-        oddEmpate: 2.8,
-        oddFora: 3.5,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
+        oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 46,
@@ -561,9 +704,12 @@ const rows = [
         timeFora: 'Time de Fora 46',
         placarCasa: 0,
         placarFora: 0,
-        oddCasa: 2.5,
-        oddEmpate: 2.5,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
         oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 47,
@@ -572,9 +718,12 @@ const rows = [
         timeFora: 'Time de Fora 47',
         placarCasa: 1,
         placarFora: 2,
-        oddCasa: 3.0,
-        oddEmpate: 2.8,
-        oddFora: 2.2,
+        oddCasa: 2.1,
+        oddEmpate: 3.0,
+        oddFora: 2.5,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 48,
@@ -586,6 +735,9 @@ const rows = [
         oddCasa: 1.6,
         oddEmpate: 3.0,
         oddFora: 3.8,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 49,
@@ -597,6 +749,9 @@ const rows = [
         oddCasa: 2.9,
         oddEmpate: 2.6,
         oddFora: 2.3,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
     {
         id: 50,
@@ -608,12 +763,14 @@ const rows = [
         oddCasa: 2.1,
         oddEmpate: 2.9,
         oddFora: 3.1,
+        odd1x: 3.16,
+        odd12: 4.16,
+        odd2x: 1.23,
     },
 ];
 
 export default function UserPage() {
     const theme = useTheme();
-    const [open, setOpen] = useState(null);
     const [selected, setSelected] = useState([]);
     const [activeMarket, setActiveMarket] = useState(null);
     const [concatenatedText, setConcatenatedText] = useState('');
@@ -631,9 +788,37 @@ export default function UserPage() {
     const [selectedCountryId, setSelectedCountryId] = useState(null);
     const [competitionsData, setCompetitionsData] = useState([]);
     const [countryId, setCountryId] = useState(152);
-    // const [countriesData, setCountriesData] = useState([]);
+    const [dataBet, setDataBet] = useState([]); // Inicialize o array de dados como vazio
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedChips, setSelectedChips] = useState([]);
+    const [erro, setErro] = useState(null);
+
+    // alert mensagem de erro 
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
     const countriesData = GetCountries();
+
+    const handleOpenAlert = (message) => {
+        setAlertMessage(message);
+        setAlertOpen(true);
+    };
+
+    const handleCloseAlert = () => {
+        setAlertOpen(false);
+    };
+
+    // Função para alternar entre as guias
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
+    };
+
+    const handleClickOpenModal = () => {
+        const newData = ['Item 1', 'Item 2', 'Item 3'];
+        setDataBet(newData);
+        setIsModalOpen(true);
+    };
 
     useEffect(() => {
         if (countriesData.length > 0) {
@@ -674,8 +859,7 @@ export default function UserPage() {
         setTotalSelecoes(calcularTotalSelecoes());
     }, [eventosClicados]);
 
-    const handleClickEvent = (rowId, evento, timeCasa, timeFora, oddCasa, oddEmpate, oddFora) => {
-
+    const handleClickEvent = (rowId, evento, timeCasa, timeFora, oddCasa, oddEmpate, oddFora, odd1x, odd12, odd2x) => {
         const eventoExistente = eventosClicados.find(
             (event) => event.rowId === rowId && event.evento === evento
         );
@@ -695,7 +879,8 @@ export default function UserPage() {
                 prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
             );
         } else if (mesmoIdEventoExistente) {
-            alert("Você não pode escolher dois eventos de categorias diferentes na mesma aposta.");
+            handleOpenAlert("Você não pode escolher dois eventos de categorias diferentes na mesma aposta.")
+
         } else {
             setEventosClicados((prevEventos) => [
                 ...prevEventos,
@@ -707,12 +892,17 @@ export default function UserPage() {
                     oddFora,
                     timeCasa,
                     timeFora,
+                    odd1x,
+                    odd12,
+                    odd2x
                 },
             ]);
 
             setClicadas((prevClicadas) => [...prevClicadas, `${rowId}-${evento}`]);
         }
     };
+
+    console.log(clicadas)
 
     const calcularOddsTotais = () => {
         const oddsTotais = eventosClicados.reduce((acc, evento) => {
@@ -765,98 +955,151 @@ export default function UserPage() {
         }
     }, [selectedCountryId, competitionsData]);
 
-    const handleMarketClick = (market) => {
-        setActiveMarket(market);
+    const handleMarketClick = (market, idChip) => {
+        if (selectedChips.includes(idChip)) {
+            // O Chip já está selecionado, portanto, desmarque-o
+            setSelectedChips([]);
+            setActiveMarket('');
+            setConcatenatedText('');
+        } else {
+            // O Chip não está selecionado, então defina-o como selecionado e atualize o activeMarket como uma string
+            setSelectedChips([idChip]);
+            setActiveMarket(market.toString());
 
-        const newLabel = `${countriesData.map(country => country.country_name).join(', ')} - Campeonato Brasileiro Série A (${market})`;
-        setConcatenatedText(newLabel);
+            const newLabel = `${selectedCountryId.country_name} - Campeonato Brasileiro Série A (${market})`;
+            setConcatenatedText(newLabel);
+        }
     };
 
+    console.log(activeMarket)
 
     return (
         <>
             <Container maxWidth="xl">
-                <Grid spacing={3}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={12}>
-                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                Filtrar por país ({countriesData ? countriesData.length : 0})
-                            </Typography>
+                <CustomAlert open={alertOpen} message={alertMessage} onClose={handleCloseAlert} />
+                <Card>
+                    <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 3, mt: 2, fontSixe: 12 }}>Filtros</Typography>
+                    <CardHeader
+                        action={
+                            <Tabs value={selectedTab} onChange={handleTabChange}
+                                sx={{
+                                    width: { xs: '100%', sm: 'auto' },
+                                }}>
+                                <Tab
+                                    label={
+                                        <Box display="flex" alignItems="center">
+                                            <PublicIcon />
+                                            &nbsp; Por País
+                                        </Box>
+                                    }
+                                />
+                                <Tab
+                                    label={
+                                        <Box display="flex" alignItems="center">
+                                            <SportsSoccerIcon />
+                                            &nbsp; Por Liga
+                                        </Box>
+                                    }
+                                />
+                                <Tab
+                                    icon={
+                                        <Box display="flex" alignItems="center">
+                                            <AutoAwesomeMotionTwoToneIcon />
+                                            &nbsp; Minhas Apostas
+                                        </Box>
+                                    }
+                                />
+                            </Tabs>
+                        }
+                    />
 
-                            <Scrollbar>
-                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                    {countriesData ? (
-                                        countriesData.map((country) => (
-                                            <Chip
-                                                avatar={<Avatar alt="Countries" src={country.country_logo} />}
-                                                key={country.country_id}
-                                                label={country.country_name}
-                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                                onClick={() => selectCountry(country.country_id)}
-                                            />
-                                        ))
-                                    ) : (
-                                        <p>Carregando dados...</p>
-                                    )}
-                                </Stack>
-                            </Scrollbar>
-                        </Grid>
-                    </Grid>
+                    <CardContent>
+                        {selectedTab === 0 &&
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} md={12}>
+                                    <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                        Filtrar por país ({countriesData ? countriesData.length : 0})
+                                    </Typography>
 
-                    <Grid spacing={3} sx={{ mt: 2 }}>
-                        <Grid item xs={12} md={12}>
-                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                Filtrar por liga ({competitionsData.length})
-                            </Typography>
-                            <Competitions
-                                countryId={selectedCountryId}
-                                onDataUpdateCompetitions={onDataUpdateCompetitions}
-                            />
-                            <Scrollbar>
-                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                    {competitionsData !== null ? (
-                                        competitionsData.map((league) => (
-                                            <Chip
-                                                avatar={
-                                                    league.country_logo
-                                                        ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
-                                                        : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
-                                                }
-                                                key={league.league_id}
-                                                label={league.league_name}
-                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                            />
-                                        ))
-                                    ) : (
-                                        <p>Carregando dados...</p>
-                                    )}
-                                </Stack>
-                            </Scrollbar>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                                    <Scrollbar>
+                                        <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                            {countriesData ? (
+                                                countriesData.map((country) => (
+                                                    <Chip
+                                                        avatar={<Avatar alt="Countries" src={country.country_logo} />}
+                                                        key={country.country_id}
+                                                        label={country.country_name}
+                                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
+                                                        onClick={() => selectCountry(country.country_id)}
+                                                    />
+                                                ))
+                                            ) : (
+                                                <p>Carregando dados...</p>
+                                            )}
+                                        </Stack>
+                                    </Scrollbar>
+                                </Grid>
+                            </Grid>
+                        }
 
-                <Grid container >
+                        {selectedTab === 1 &&
+                            <Grid spacing={3} sx={{ mt: 2 }}>
+                                <Grid item xs={12} md={12}>
+                                    <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                        Filtrar por liga ({competitionsData.length})
+                                    </Typography>
+                                    <Competitions
+                                        countryId={selectedCountryId}
+                                        onDataUpdateCompetitions={onDataUpdateCompetitions}
+                                    />
+                                    <Scrollbar>
+                                        <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                            {competitionsData !== null ? (
+                                                competitionsData.map((league) => (
+                                                    <Chip
+                                                        avatar={
+                                                            league.country_logo
+                                                                ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
+                                                                : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
+                                                        }
+                                                        key={league.league_id}
+                                                        label={league.league_name}
+                                                        sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
+                                                    />
+                                                ))
+                                            ) : (
+                                                <p>Carregando dados...</p>
+                                            )}
+                                        </Stack>
+                                    </Scrollbar>
+                                </Grid>
+                            </Grid>}
+                        {selectedTab === 2 && <Typography>Minhas Apostas</Typography>}
+                    </CardContent>
+                </Card>
+
+                <Grid container>
                     <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', boxShadow: '0px 5px 15px 0px rgba(0, 0, 0, 0.15)', borderRadius: 3 }}>
                         <Scrollbar>
                             <Scrollbar>
                                 <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
                                     {marketsData.map((market) => (
-                                        <Chip active
+                                        <Chip
                                             key={market.id}
                                             label={market.label}
                                             color={market.color}
+                                            variant={selectedChips.includes(market.id) ? 'outlined' : 'filled'}
                                             sx={{
                                                 cursor: 'pointer',
                                                 fontWeight: 'bold',
-                                                backgroundColor: '#023047',
-                                                color: '#33FFC2',
+                                                backgroundColor: selectedChips.includes(market.id) ? '#023047' : '#023047',
+                                                color: selectedChips.includes(market.id) ? '#33FFC2' : '#B6F4E2',
                                                 '&:hover': {
-                                                    backgroundColor: '#33FFC2', // Cor de fundo quando o mouse estiver sobre o chip
-                                                    color: '#023047', // Cor do texto quando o mouse estiver sobre o chip
+                                                    backgroundColor: '#023047',
+                                                    color: '#B6F4E2',
                                                 },
                                             }}
-                                            onClick={() => handleMarketClick(market.label)}
+                                            onClick={() => handleMarketClick(market.label, market.id)}
                                         />
                                     ))}
                                 </Stack>
@@ -873,7 +1116,7 @@ export default function UserPage() {
                                     <TableBody sx={{ border: 0 }}>
                                         {activeMarket !== null ? (
                                             rows.map((row, index) => {
-                                                const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora }
+                                                const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora, odd1x, odd12, odd2x }
                                                     = row;
                                                 const id = index + 1;
                                                 const selectedUser = selected.indexOf(id) !== -1;
@@ -942,73 +1185,413 @@ export default function UserPage() {
                                                             </Typography>
                                                         </TableCell>
 
-                                                        <TableCell
-                                                            sx={{
-                                                                textAlign: 'center',
-                                                                cursor: 'pointer',
-                                                                backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
-                                                                color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                width: { xs: 40, md: 200 }
-                                                            }}
-                                                            onClick={() => handleClickEvent(id, 'Casa', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                        >
-                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                <Grid item>{timeCasa}</Grid>
-                                                                <Grid item>
-                                                                    <Chip
-                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
+                                                        {activeMarket.toString() === 'Principais mercados' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 1 ?
+                                                            <>
+                                                                <TableCell
+                                                                    sx={{
+                                                                        textAlign: 'center',
+                                                                        cursor: 'pointer',
+                                                                        backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                        color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                        width: { xs: 40, md: 200 },
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        handleClickEvent(
+                                                                            id,
+                                                                            'Casa',
+                                                                            timeCasa,
+                                                                            timeFora,
+                                                                            oddCasa,
+                                                                            oddEmpate,
+                                                                            oddFora
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                        <Grid item>{timeCasa}</Grid>
+                                                                        <Grid item>
+                                                                            <Chip
+                                                                                sx={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'space-between',
+                                                                                    alignItems: 'center',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa'}`)
+                                                                                        ? '#33FFC2'
+                                                                                        : '#023047',
+                                                                                    color: clicadas.includes(`${id}-${'Casa'}`)
+                                                                                        ? '#023047'
+                                                                                        : '#33FFC2',
+                                                                                    fontWeight: 'bold',
+                                                                                }}
+                                                                                label={`${fDecimal(oddCasa)}`}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </TableCell>
 
-                                                                        label={`${fDecimal(oddCasa)}`}
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
+                                                                <TableCell
+                                                                    sx={{
+                                                                        textAlign: 'center',
+                                                                        cursor: 'pointer',
+                                                                        backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                        color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                        width: { xs: 40, md: 200 },
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        handleClickEvent(
+                                                                            id,
+                                                                            'Empate',
+                                                                            timeCasa,
+                                                                            timeFora,
+                                                                            oddCasa,
+                                                                            oddEmpate,
+                                                                            oddFora
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                        <Grid item>
+                                                                            <Typography variant="body2">Empate</Typography>
+                                                                        </Grid>
+                                                                        <Grid item>
+                                                                            <Chip
+                                                                                sx={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'space-between',
+                                                                                    alignItems: 'center',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Empate'}`)
+                                                                                        ? '#33FFC2'
+                                                                                        : '#023047',
+                                                                                    color: clicadas.includes(`${id}-${'Empate'}`)
+                                                                                        ? '#023047'
+                                                                                        : '#33FFC2',
+                                                                                    fontWeight: 'bold',
+                                                                                }}
+                                                                                label={`${fDecimal(oddEmpate)}`}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </TableCell>
+
+                                                                <TableCell
+                                                                    sx={{
+                                                                        textAlign: 'center',
+                                                                        cursor: 'pointer',
+                                                                        backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                        color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                        width: { xs: 40, md: 200 },
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        handleClickEvent(
+                                                                            id,
+                                                                            'Fora',
+                                                                            timeCasa,
+                                                                            timeFora,
+                                                                            oddCasa,
+                                                                            oddEmpate,
+                                                                            oddFora
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                        <Grid item>{timeFora}</Grid>
+                                                                        <Grid item>
+                                                                            <Chip
+                                                                                sx={{
+                                                                                    display: 'flex',
+                                                                                    justifyContent: 'space-between',
+                                                                                    alignItems: 'center',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Fora'}`)
+                                                                                        ? '#33FFC2'
+                                                                                        : '#023047',
+                                                                                    color: clicadas.includes(`${id}-${'Fora'}`)
+                                                                                        ? '#023047'
+                                                                                        : '#33FFC2',
+                                                                                    fontWeight: 'bold',
+                                                                                }}
+                                                                                label={`${fDecimal(oddFora)}`}
+                                                                            />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </TableCell>
+                                                            </>
+                                                            : activeMarket.toString() === 'Resultado Final' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 2 ?
+                                                                <>
+                                                                    <TableCell
+                                                                        sx={{
+                                                                            textAlign: 'center',
+                                                                            cursor: 'pointer',
+                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                            color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                            width: { xs: 40, md: 200 },
+                                                                        }}
+                                                                        onClick={() =>
+                                                                            handleClickEvent(
+                                                                                id,
+                                                                                'Casa',
+                                                                                timeCasa,
+                                                                                timeFora,
+                                                                                oddCasa,
+                                                                                oddEmpate,
+                                                                                oddFora
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                            <Grid item>{timeCasa}</Grid>
+                                                                            <Grid item>
+                                                                                <Chip
+                                                                                    sx={{
+                                                                                        display: 'flex',
+                                                                                        justifyContent: 'space-between',
+                                                                                        alignItems: 'center',
+                                                                                        backgroundColor: clicadas.includes(`${id}-${'Casa'}`)
+                                                                                            ? '#33FFC2'
+                                                                                            : '#023047',
+                                                                                        color: clicadas.includes(`${id}-${'Casa'}`)
+                                                                                            ? '#023047'
+                                                                                            : '#33FFC2',
+                                                                                        fontWeight: 'bold',
+                                                                                    }}
+                                                                                    label={`${fDecimal(oddCasa)}`}
+                                                                                />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </TableCell>
+
+                                                                    <TableCell
+                                                                        sx={{
+                                                                            textAlign: 'center',
+                                                                            cursor: 'pointer',
+                                                                            backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                            color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                            width: { xs: 40, md: 200 },
+                                                                        }}
+                                                                        onClick={() =>
+                                                                            handleClickEvent(
+                                                                                id,
+                                                                                'Empate',
+                                                                                timeCasa,
+                                                                                timeFora,
+                                                                                oddCasa,
+                                                                                oddEmpate,
+                                                                                oddFora
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                            <Grid item>
+                                                                                <Typography variant="body2">Empate</Typography>
+                                                                            </Grid>
+                                                                            <Grid item>
+                                                                                <Chip
+                                                                                    sx={{
+                                                                                        display: 'flex',
+                                                                                        justifyContent: 'space-between',
+                                                                                        alignItems: 'center',
+                                                                                        backgroundColor: clicadas.includes(`${id}-${'Empate'}`)
+                                                                                            ? '#33FFC2'
+                                                                                            : '#023047',
+                                                                                        color: clicadas.includes(`${id}-${'Empate'}`)
+                                                                                            ? '#023047'
+                                                                                            : '#33FFC2',
+                                                                                        fontWeight: 'bold',
+                                                                                    }}
+                                                                                    label={`${fDecimal(oddEmpate)}`}
+                                                                                />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </TableCell>
+
+                                                                    <TableCell
+                                                                        sx={{
+                                                                            textAlign: 'center',
+                                                                            cursor: 'pointer',
+                                                                            backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                            color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                            width: { xs: 40, md: 200 },
+                                                                        }}
+                                                                        onClick={() =>
+                                                                            handleClickEvent(
+                                                                                id,
+                                                                                'Fora',
+                                                                                timeCasa,
+                                                                                timeFora,
+                                                                                oddCasa,
+                                                                                oddEmpate,
+                                                                                oddFora
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                            <Grid item>{timeFora}</Grid>
+                                                                            <Grid item>
+                                                                                <Chip
+                                                                                    sx={{
+                                                                                        display: 'flex',
+                                                                                        justifyContent: 'space-between',
+                                                                                        alignItems: 'center',
+                                                                                        backgroundColor: clicadas.includes(`${id}-${'Fora'}`)
+                                                                                            ? '#33FFC2'
+                                                                                            : '#023047',
+                                                                                        color: clicadas.includes(`${id}-${'Fora'}`)
+                                                                                            ? '#023047'
+                                                                                            : '#33FFC2',
+                                                                                        fontWeight: 'bold',
+                                                                                    }}
+                                                                                    label={`${fDecimal(oddFora)}`}
+                                                                                />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </TableCell>
+                                                                </>
+                                                                : activeMarket.toString() === 'Dupla Chance' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 3 ?
+                                                                    <>
+                                                                        <TableCell
+                                                                            sx={{
+                                                                                textAlign: 'center',
+                                                                                cursor: 'pointer',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                width: { xs: 40, md: 200 },
+                                                                            }}
+                                                                            onClick={() =>
+                                                                                handleClickEvent(
+                                                                                    id,
+                                                                                    'Casa ou Empate',
+                                                                                    timeCasa,
+                                                                                    timeFora,
+                                                                                    oddCasa,
+                                                                                    oddEmpate,
+                                                                                    oddFora,
+                                                                                    odd1x,
+                                                                                    odd12,
+                                                                                    odd2x
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                <Grid item>{`${timeCasa} ou Empate`}</Grid>
+                                                                                <Grid item>
+                                                                                    <Chip
+                                                                                        sx={{
+                                                                                            display: 'flex',
+                                                                                            justifyContent: 'space-between',
+                                                                                            alignItems: 'center',
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                                ? '#33FFC2'
+                                                                                                : '#023047',
+                                                                                            color: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                                ? '#023047'
+                                                                                                : '#33FFC2',
+                                                                                            fontWeight: 'bold',
+                                                                                        }}
+                                                                                        label={`${fDecimal(odd1x)}`}
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </TableCell>
+
+                                                                        <TableCell
+                                                                            sx={{
+                                                                                textAlign: 'center',
+                                                                                cursor: 'pointer',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                width: { xs: 40, md: 200 },
+                                                                            }}
+                                                                            onClick={() =>
+                                                                                handleClickEvent(
+                                                                                    id,
+                                                                                    'Casa ou Fora',
+                                                                                    timeCasa,
+                                                                                    timeFora,
+                                                                                    oddCasa,
+                                                                                    oddEmpate,
+                                                                                    oddFora,
+                                                                                    odd1x,
+                                                                                    odd12,
+                                                                                    odd2x
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                <Grid item>
+                                                                                    <Grid item>{`${timeCasa} ou ${timeFora}`}</Grid>
+
+                                                                                </Grid>
+                                                                                <Grid item>
+                                                                                    <Chip
+                                                                                        sx={{
+                                                                                            display: 'flex',
+                                                                                            justifyContent: 'space-between',
+                                                                                            alignItems: 'center',
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                                ? '#33FFC2'
+                                                                                                : '#023047',
+                                                                                            color: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                                ? '#023047'
+                                                                                                : '#33FFC2',
+                                                                                            fontWeight: 'bold',
+                                                                                        }}
+                                                                                        label={`${fDecimal(odd12)}`}
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </TableCell>
+
+                                                                        <TableCell
+                                                                            sx={{
+                                                                                textAlign: 'center',
+                                                                                cursor: 'pointer',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                width: { xs: 40, md: 200 },
+                                                                            }}
+                                                                            onClick={() =>
+                                                                                handleClickEvent(
+                                                                                    id,
+                                                                                    'Fora ou Empate',
+                                                                                    timeCasa,
+                                                                                    timeFora,
+                                                                                    oddCasa,
+                                                                                    oddEmpate,
+                                                                                    oddFora,
+                                                                                    odd1x,
+                                                                                    odd12,
+                                                                                    odd2x
+                                                                                )
+                                                                            }
+                                                                        >
+                                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                <Grid item>{`${timeFora} ou Empate`}</Grid>
+                                                                                <Grid item>
+                                                                                    <Chip
+                                                                                        sx={{
+                                                                                            display: 'flex',
+                                                                                            justifyContent: 'space-between',
+                                                                                            alignItems: 'center',
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                                ? '#33FFC2'
+                                                                                                : '#023047',
+                                                                                            color: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                                ? '#023047'
+                                                                                                : '#33FFC2',
+                                                                                            fontWeight: 'bold',
+                                                                                        }}
+                                                                                        label={`${fDecimal(odd2x)}`}
+                                                                                    />
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </TableCell>
+                                                                    </>
+                                                                    : ''
+                                                        }
+
+                                                        <TableCell align="center" >
+                                                            {selectedChips}
+                                                            <p>{`market: ${activeMarket}`}</p>
                                                         </TableCell>
-
-                                                        <TableCell
-                                                            sx={{
-                                                                textAlign: 'center',
-                                                                cursor: 'pointer',
-                                                                backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
-                                                                color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                width: { xs: 40, md: 200 }
-                                                            }}
-                                                            onClick={() => handleClickEvent(id, 'Empate', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                        >
-                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                <Grid item>
-                                                                    <Typography variant="body2">Empate</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Chip
-                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
-                                                                        label={`${fDecimal(oddEmpate)}`}
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </TableCell>
-
-                                                        <TableCell
-                                                            sx={{
-                                                                textAlign: 'center',
-                                                                cursor: 'pointer',
-                                                                backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
-                                                                color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                width: { xs: 40, md: 200 }
-                                                            }}
-                                                            onClick={() => handleClickEvent(id, 'Fora', timeCasa, timeFora, oddCasa, oddEmpate, oddFora)}
-                                                        >
-                                                            <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                <Grid item>{timeFora}</Grid>
-                                                                <Grid item>
-                                                                    <Chip
-                                                                        sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#33FFC2' : '#023047', color: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : '#33FFC2', fontWeight: 'bold' }}
-                                                                        label={`${fDecimal(oddFora)}`}
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </TableCell>
-
-                                                        <TableCell align="center">+233</TableCell>
                                                     </TableRow>
                                                 );
                                             })
@@ -1073,9 +1656,9 @@ export default function UserPage() {
 
                             <Typography variant="body2" sx={{ color: '#B6F4E2' }}>
                                 {totalSelecoes > 1
-                                    ? `${totalSelecoes} seleções`
+                                    ? `${totalSelecoes} seleções (Múltipla)`
                                     : totalSelecoes === 1
-                                        ? '1 seleção'
+                                        ? '1 seleção (Simples)'
                                         : ''}
                             </Typography>
                         </Grid>
@@ -1151,7 +1734,10 @@ export default function UserPage() {
                                                 {
                                                     evento.evento === 'Casa' ? `Vencedor da partida: ${evento.timeCasa}`
                                                         : evento.evento === 'Empate' ? `Vencedor da partida: ${evento.evento}`
-                                                            : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}` : ''
+                                                            : evento.evento === 'Fora' ? `Vencedor da partida: ${evento.timeFora}`
+                                                                : evento.evento === 'Casa ou Fora' ? `Dupla Chance: ${evento.timeCasa} ou ${evento.timeFora}`
+                                                                    : evento.evento === 'Casa ou Empate' ? `Dupla Chance: ${evento.timeCasa} ou Empate`
+                                                                        : evento.evento === 'Fora ou Empate' ? `Dupla Chance: ${evento.timeFora} ou Empate` : ''
                                                 }
                                             </Typography>
                                         </Grid>
@@ -1167,7 +1753,10 @@ export default function UserPage() {
                                                 {
                                                     evento.evento === 'Casa' ? `Odd: ${fDecimal(evento.oddCasa)}`
                                                         : evento.evento === 'Empate' ? `Odd: ${fDecimal(evento.oddEmpate)}`
-                                                            : evento.evento === 'Fora' ? `Odd: ${fDecimal(evento.oddFora)}` : ''
+                                                            : evento.evento === 'Fora' ? `Odd: ${fDecimal(evento.oddFora)}`
+                                                                : evento.evento === 'Casa ou Fora' ? `Odd: ${evento.odd12}`
+                                                                    : evento.evento === 'Casa ou Empate' ? `Odd: ${evento.odd1x}`
+                                                                        : evento.evento === 'Fora ou Empate' ? `Odd: ${evento.odd2x}` : ''
                                                 }
                                             </Typography>
                                         </Grid>
@@ -1204,16 +1793,29 @@ export default function UserPage() {
                         />
                     </ListItem>
 
-                    <Button variant="contained" fullWidth sx={{
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
-                        borderBottomRightRadius: 0,
-                        borderBottomLeftRadius: 0,
-                        height: 80,
-                        fontSize: 16
-                    }}>
-                        Confirmar Aposta
-                    </Button>
+                    <div>
+                        <Button
+                            onClick={handleClickOpenModal}
+                            variant="contained"
+                            fullWidth
+                            sx={{
+                                borderTopLeftRadius: 20,
+                                borderTopRightRadius: 20,
+                                borderBottomRightRadius: 0,
+                                borderBottomLeftRadius: 0,
+                                height: 80,
+                                fontSize: 16
+                            }}
+                        >
+                            Confirmar Aposta
+                        </Button>
+
+                        <ModalConfirmBet
+                            data={dataBet}
+                            isOpen={isModalOpen} // Passe o estado para controlar a abertura do modal
+                            onClose={() => setIsModalOpen(false)} // Passe a função para fechar o modal
+                        />
+                    </div>
                 </Drawer>
             </Container >
         </>

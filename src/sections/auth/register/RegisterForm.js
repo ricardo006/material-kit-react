@@ -1,73 +1,126 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-// components
-import Iconify from '../../../components/iconify';
+import React, { useState } from 'react';
+import { Stack, TextField, FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material';
 
-export default function RegisterForm() {
-    const navigate = useNavigate();
+// Função para aplicar a máscara de CPF
+function formatCPF(value) {
+    // Remove todos os caracteres não numéricos
+    const numericValue = value.replace(/\D/g, '');
 
-    const [showPassword, setShowPassword] = useState(false);
+    // Aplica a máscara do CPF
+    return numericValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+}
 
-    const handleClick = () => {
-        navigate('/dashboard', { replace: true });
+// Função para aplicar a máscara de CEP
+function formatCEP(value) {
+    // Remove todos os caracteres não numéricos
+    const numericValue = value.replace(/\D/g, '');
+
+    // Aplica a máscara do CEP
+    return numericValue.replace(/(\d{5})(\d{3})/, '$1-$2');
+}
+
+function RegisterForm() {
+    const [cpf, setCpf] = useState('');
+    const [rg, setRg] = useState('');
+    const [cep, setCep] = useState('');
+    const [age, setAge] = useState('');
+    const [email, setEmail] = useState('');
+    const [isEmailValid, setIsEmailValid] = useState(true); // Estado para controlar a validade do e-mail
+
+    const handleCPFChange = (event) => {
+        const formattedCPF = formatCPF(event.target.value);
+        setCpf(formattedCPF);
+    };
+
+    const handleRGChange = (event) => {
+        const formattedRG = event.target.value;
+        setRg(formattedRG);
+    };
+
+    const handleCEPChange = (event) => {
+        const formattedCEP = formatCEP(event.target.value);
+        setCep(formattedCEP);
+    };
+
+    const handleAgeChange = (event) => {
+        setAge(event.target.value);
+    };
+
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+        setEmail(newEmail);
+        // Valide o formato do e-mail
+        setIsEmailValid(isEmailValid(newEmail));
+    };
+
+    const handleCadastroClick = () => {
+        // Implemente a lógica de cadastro aqui
     };
 
     return (
-        <>
-            <Stack spacing={2}>
-                <TextField 
-                    name="name" 
-                    label="Nome Completo" 
-                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
-                />
+        <Stack spacing={2}>
+            <TextField
+                name="nome_completo"
+                label="Nome Completo"
+            />
 
-                <TextField 
-                    name="cpf" 
-                    label="CPF" 
-                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
-                />
+            <TextField
+                name="nome_usuario"
+                label="Usuário"
+            />
 
-                <TextField 
-                    name="user" 
-                    label="Usuário" 
-                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
-                />
+            <TextField
+                name="email"
+                label="Email"
+                value={email}
+                onChange={handleEmailChange}
+                error={!isEmailValid} // Aplicar estilo de erro se o e-mail não for válido
+                helperText={!isEmailValid ? 'E-mail inválido' : ''}
+            />
 
-                <TextField 
-                    name="email" 
-                    label="Email" 
-                    sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)', borderRadius: '10px' }} 
-                />
+            <TextField
+                name="cpf"
+                label="CPF"
+                value={cpf}
+                onChange={handleCPFChange}
+            />
 
-                <TextField sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
-                    name="password"
-                    label="Password"
-                    type={showPassword ? 'text' : 'password'}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </Stack>
+            <TextField
+                name="rg"
+                label="RG"
+                value={rg}
+                onChange={handleRGChange}
+            />
 
-            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-                <Checkbox name="remember" label="Remember me" />
-                <Link variant="subtitle2" underline="hover">
-                    Esqueceu sua senha?
-                </Link>
-            </Stack>
+            <TextField
+                name="cep"
+                label="CEP"
+                value={cep}
+                onChange={handleCEPChange}
+            />
 
-            <LoadingButton sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }} fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+            <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel>Nacionalidade</InputLabel>
+                <Select
+                    value={age}
+                    onChange={handleAgeChange}
+                >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+            </FormControl>
+
+            <Button sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }} fullWidth size="large" type="submit" variant="contained" color="primary" onClick={handleCadastroClick}>
                 Cadastrar
-            </LoadingButton>
-        </>
+            </Button>
+
+            {/* <LoadingButton sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }} fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+                Cadastrar
+            </LoadingButton> */}
+        </Stack>
     );
 }
+
+export default RegisterForm;
