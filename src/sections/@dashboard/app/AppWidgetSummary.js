@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
-import { fShortenNumber } from '../../../utils/formatNumber';
+import { fShortenNumber, fCurrency, fNumber } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/iconify';
 
@@ -52,7 +52,17 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
         {icon}
       </StyledIcon>
 
-      <Typography variant="h3">{fShortenNumber(total)}</Typography>
+      {title === 'Total de Vendas em R$' ? (
+        <Typography variant="h3">{fCurrency(total)}</Typography>
+      ) : title === 'Comissão Anterior' ? (
+        <Typography variant="h3">{fCurrency(total)}</Typography>
+      ) : title === 'Total de Clientes' || title === 'Total de Bilhetes' ? (
+        <Typography variant="h3">{(total)}</Typography>
+      ) : (
+        <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
+          {title}
+        </Typography>
+      )}
 
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         {title}

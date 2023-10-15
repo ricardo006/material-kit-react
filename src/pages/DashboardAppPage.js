@@ -41,15 +41,15 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total de Vendas" color="cl_vendas" total={714000} icon={<MonetizationOnTwoToneIcon />} />
+            <AppWidgetSummary title="Total de Vendas em R$" color="cl_vendas" total={20000} icon={<MonetizationOnTwoToneIcon />} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total de Clientes" total={1352831} color="cl_clientes" icon={<GroupsTwoToneIcon />} />
+            <AppWidgetSummary title="Total de Clientes" total={200} color="cl_clientes" icon={<GroupsTwoToneIcon />} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Total de Bilhetes" total={1723315} color="cl_bilhetes" icon={<ReceiptTwoToneIcon />} />
+            <AppWidgetSummary title="Total de Bilhetes" total={100} color="cl_bilhetes" icon={<ReceiptTwoToneIcon />} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
