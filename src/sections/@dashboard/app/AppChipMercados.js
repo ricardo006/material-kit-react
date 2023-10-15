@@ -44,6 +44,7 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
+
 import FabButton from '../../../components/button-apostar/FabButton';
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
@@ -799,6 +800,12 @@ export default function UserPage() {
     const [alertMessage, setAlertMessage] = useState('');
 
     const countriesData = GetCountries();
+    // useEffect para fazer requisição só quando a página for carregada
+    useEffect(() => {
+        if (countriesData.length > 0) {
+            console.log(countriesData);
+        }
+    }, [countriesData]);
 
     const handleOpenAlert = (message) => {
         setAlertMessage(message);
@@ -819,12 +826,6 @@ export default function UserPage() {
         setDataBet(newData);
         setIsModalOpen(true);
     };
-
-    useEffect(() => {
-        if (countriesData.length > 0) {
-            console.log(countriesData);
-        }
-    }, [countriesData]);
 
     const openDrawer = () => {
         setIsDrawerOpen(true);
@@ -901,20 +902,48 @@ export default function UserPage() {
         }
     };
 
-    console.log(clicadas)
-
     const calcularOddsTotais = () => {
         const oddsTotais = eventosClicados.reduce((acc, evento) => {
-            const oddKey = `odd${evento.evento}`;
+            const { evento: tipoEvento } = evento; // Obtém o tipo de evento (Casa, Empate, Fora, etc.)
+
+            let oddKey;
+
+            switch (tipoEvento) {
+                case 'Casa':
+                    oddKey = 'oddCasa';
+                    break;
+                case 'Empate':
+                    oddKey = 'oddEmpate';
+                    break;
+                case 'Fora':
+                    oddKey = 'oddFora';
+                    break;
+                case 'Casa ou Empate':
+                    oddKey = 'odd1x';
+                    break;
+                case 'Casa ou Fora':
+                    oddKey = 'odd12';
+                    break;
+                case 'Fora ou Empate':
+                    oddKey = 'odd2x';
+                    break;
+                default:
+                    // Trate qualquer outro tipo de evento ou erro aqui
+                    break;
+            }
+
             const odd = evento[oddKey];
+
             if (typeof odd === 'number' && !Number.isNaN(odd) && odd > 0.0001) {
                 return acc * odd;
             }
             return acc;
         }, 1);
-
+        console.log(oddsTotais)
+        // corrigir esse retorno de 1
         return oddsTotais;
     };
+
 
     const calcularPossiveisRetornos = () => {
         const oddsTotais = calcularOddsTotais();
@@ -970,7 +999,16 @@ export default function UserPage() {
         }
     };
 
-    console.log(activeMarket)
+    const handleRemoveEvento = (rowId) => {
+        // Use a função filter para criar um novo array sem o evento correspondente ao rowId
+        const novoEventosClicados = eventosClicados.filter((evento) => evento.rowId !== rowId);
+
+        // Atualize o estado com o novo array de eventos
+        setEventosClicados(novoEventosClicados);
+    };
+
+    console.log(eventosClicados)
+
 
     return (
         <>
@@ -1708,15 +1746,16 @@ export default function UserPage() {
                                             </Typography>
                                         </Grid>
 
-                                        <Grid item xs={2}>
+                                        <Grid item xs={2} key={evento.rowId}>
                                             <IconButton
-                                                className="lixeira-button" // Classe CSS para o IconButton
+                                                className="lixeira-button"
                                                 sx={{
                                                     mr: 1,
                                                     mb: 2,
                                                     textAlign: 'center',
                                                     color: '#FF99AC'
                                                 }}
+                                                onClick={() => handleRemoveEvento(evento.rowId)}
                                             >
                                                 <DeleteTwoToneIcon />
                                             </IconButton>
@@ -1761,7 +1800,8 @@ export default function UserPage() {
                                         </Grid>
                                     </Grid>
                                 </ListItem>
-                            ))}
+                            ))
+                            }
                         </List>
                     </Scrollbar>
 
