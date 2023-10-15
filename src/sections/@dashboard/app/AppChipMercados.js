@@ -879,8 +879,7 @@ export default function UserPage() {
                 prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
             );
         } else if (mesmoIdEventoExistente) {
-            handleOpenAlert("Você não pode escolher dois eventos de categorias diferentes na mesma aposta.")
-
+            handleOpenAlert("Não foi possível adicionar, já existe escolha neste evento.")
         } else {
             setEventosClicados((prevEventos) => [
                 ...prevEventos,
@@ -1656,9 +1655,9 @@ export default function UserPage() {
 
                             <Typography variant="body2" sx={{ color: '#B6F4E2' }}>
                                 {totalSelecoes > 1
-                                    ? `${totalSelecoes} seleções (Múltipla)`
+                                    ? `Múltipla: ${totalSelecoes} seleções`
                                     : totalSelecoes === 1
-                                        ? '1 seleção (Simples)'
+                                        ? 'Simples: 1 seleção'
                                         : ''}
                             </Typography>
                         </Grid>
