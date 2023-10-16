@@ -7,8 +7,6 @@ import { fToNow } from '../../../utils/formatTime';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 
-// ----------------------------------------------------------------------
-
 AppNewsUpdate.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,
@@ -21,7 +19,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
       <CardHeader title={title} subheader={subheader} />
 
       <Scrollbar>
-        <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
+        <Stack spacing={3} sx={{ p: 2, pr: 0 }}>
           {list.map((news) => (
             <NewsItem key={news.id} news={news} />
           ))}
@@ -32,7 +30,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
 
       <Box sx={{ p: 2, textAlign: 'right' }}>
         <Button size="small" color="inherit" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}>
-          View all
+          Todas
         </Button>
       </Box>
     </Card>

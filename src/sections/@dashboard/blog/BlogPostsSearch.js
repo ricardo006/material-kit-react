@@ -27,7 +27,7 @@ export default function BlogPostsSearch({ posts }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Search post..."
+          placeholder="Buscar apostas..."
           InputProps={{
             ...params.InputProps,
             startAdornment: (

@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import background from '../illustrations/Banner Betspace.png'; // Importe a imagem
 
 const POST_TITLES = [
   'Whiteboard Templates By Industry Leaders',
@@ -27,9 +28,9 @@ const POST_TITLES = [
   'How to Animate a SVG with border-image',
 ];
 
-const posts = [...Array(23)].map((_, index) => ({
+const posts = [...Array(10)].map((_, index) => ({
   id: faker.datatype.uuid(),
-  cover: `/assets/images/covers/cover_${index + 1}.jpg`,
+  cover: `url(${background})`,
   title: POST_TITLES[index + 1],
   createdAt: faker.date.past(),
   view: faker.datatype.number(),

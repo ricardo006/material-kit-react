@@ -999,15 +999,38 @@ export default function UserPage() {
         }
     };
 
-    const handleRemoveEvento = (rowId) => {
+    const handleRemoveEvento = (rowId, evento) => {
+        const eventoExistente = eventosClicados.find(
+            (event) => event.rowId === rowId && event.evento === evento
+        );
+
+        if (eventoExistente) {
+            setEventosClicados((prevEventos) =>
+                prevEventos.filter(
+                    (event) => !(event.rowId === rowId && event.evento === evento)
+                )
+            );
+
+            setClicadas((prevClicadas) =>
+                prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
+            );
+        }
+
         // Use a função filter para criar um novo array sem o evento correspondente ao rowId
         const novoEventosClicados = eventosClicados.filter((evento) => evento.rowId !== rowId);
 
         // Atualize o estado com o novo array de eventos
         setEventosClicados(novoEventosClicados);
+
+        // Remova o item do array clicadas
+        setClicadas((prevClicadas) =>
+            prevClicadas.filter((id) => id !== `${rowId}-${evento}`)
+        );
     };
 
-    console.log(eventosClicados)
+
+    console.log(clicadas);
+
 
 
     return (
@@ -1755,7 +1778,7 @@ export default function UserPage() {
                                                     textAlign: 'center',
                                                     color: '#FF99AC'
                                                 }}
-                                                onClick={() => handleRemoveEvento(evento.rowId)}
+                                                onClick={() => handleRemoveEvento(evento.rowId, evento.evento)}
                                             >
                                                 <DeleteTwoToneIcon />
                                             </IconButton>

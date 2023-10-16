@@ -15,6 +15,7 @@ import AoVivoPage from './pages/AoVivoPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import FutebolPage from './pages/FutebolPage';
 import CaixaPage from './pages/CaixaPage';
+import ApostasPage from './pages/ApostasPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -29,7 +30,7 @@ export default function Router() {
         { path: 'proximosjogos', element: <ProximosJogosPage /> },
         { path: 'aovivo', element: <AoVivoPage /> },
         { path: 'relatorios', element: <RelatoriosPage /> },
-        { path: 'apostas', element: <BlogPage /> },
+        { path: 'apostas', element: <ApostasPage /> },
         { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'futebol', element: <FutebolPage /> },

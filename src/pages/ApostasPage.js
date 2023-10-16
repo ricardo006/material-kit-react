@@ -20,13 +20,13 @@ export default function ApostasPage() {
         <title> Betspace | Apostas </title>
       </Helmet>
 
-      <Container>
+      <Container maxWidth="xl">
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Jogos
+            Apostas realizadas
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            Listagem de Apostas
+            Nova Aposta
           </Button>
         </Stack>
 
