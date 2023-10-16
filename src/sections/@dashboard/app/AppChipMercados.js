@@ -1028,11 +1028,6 @@ export default function UserPage() {
         );
     };
 
-
-    console.log(clicadas);
-
-
-
     return (
         <>
             <Container maxWidth="xl">
