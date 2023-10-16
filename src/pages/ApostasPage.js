@@ -14,7 +14,6 @@ import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashb
 // mock
 import POSTS from '../_mock/blog';
 
-
 const SORT_OPTIONS = [
   { value: 'latest', label: 'Latest' },
   { value: 'popular', label: 'Popular' },
@@ -61,7 +60,7 @@ const styles = {
     height: '100%',
   },
   card: {
-    boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.2)', // Adicione elevação
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', // Adicione elevação
     p: 2
   },
 };
@@ -80,7 +79,7 @@ export default function ApostasPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3} sx={{ m: 2 }}>
           <Typography variant="h4" gutterBottom>
             Apostas realizadas
           </Typography>
@@ -89,23 +88,25 @@ export default function ApostasPage() {
           </Button>
         </Stack>
 
-        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between" sx={{ m: 2 }}>
           <BlogPostsSearch posts={POSTS} />
           <BlogPostsSort options={SORT_OPTIONS} />
         </Stack>
 
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ width: '100%', mt: 2 }}>
+          <Box sx={{ backgroundColor: '#023047', color: '#fff', m: 2, borderRadius: 1 }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Em aberto" {...a11yProps(0)} />
               <Tab label="Finalizadas" {...a11yProps(1)} />
               <Tab label="Ganha" {...a11yProps(2)} />
             </Tabs>
           </Box>
+
           <CustomTabPanel value={value} index={0}>
             <Card
               sx={{
                 ...styles.card,
+                mt: 2,
                 height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
               }}
             >
@@ -125,6 +126,56 @@ export default function ApostasPage() {
                   </Typography>
                   <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
                     Data da aposta:  15/10/2023
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-end', md: 'flex-start' } }}>
+                  <Typography variant="subtitle2" sx={{ mt: 2 }}>
+                    Odd: 21.00
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    Valor: R$10,00
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 2 }}>
+                    Retornos:  R$210,00
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Tooltip title="Visualizar">
+                    <Button
+                      variant="contained"
+                      sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: 50, boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }} // Largura total em dispositivos menores e bordas arredondadas
+                    >
+                      Visualizar
+                    </Button>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            </Card>
+            <Card
+              sx={{
+                ...styles.card,
+                mt: 2,
+                height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
+              }}
+            >
+              <Grid container alignItems="center" height="100%"> {/* Defina a altura do Grid como 100% */}
+                <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Avatar sx={styles.avatar} src={imgBet}>
+                    <ImageIcon />
+                  </Avatar>
+                </Grid>
+
+                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Typography variant="h6" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                    Ricardo Oliveira
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                    Múltipla: 5 seleções
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                    Data:  15/10/2023
                   </Typography>
                 </Grid>
 
