@@ -994,7 +994,7 @@ export default function UserPage() {
             setSelectedChips([idChip]);
             setActiveMarket(market.toString());
 
-            const newLabel = `${selectedCountryId.country_name} - Campeonato Brasileiro Série A (${market})`;
+            const newLabel = `Brasil - Campeonato Brasileiro Série A (${market})`;
             setConcatenatedText(newLabel);
         }
     };
@@ -1032,8 +1032,8 @@ export default function UserPage() {
         <>
             <Container maxWidth="xl">
                 <CustomAlert open={alertOpen} message={alertMessage} onClose={handleCloseAlert} />
-                <Card>
-                    <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 3, mt: 2, fontSixe: 12 }}>Filtros</Typography>
+                <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 } }}>
+                    <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 3, mt: 2, fontSixe: 12, color: '#33FFC2' }}>Filtros</Typography>
                     <CardHeader
                         action={
                             <Tabs value={selectedTab} onChange={handleTabChange}
@@ -1056,14 +1056,14 @@ export default function UserPage() {
                                         </Box>
                                     }
                                 />
-                                <Tab
+                                {/* <Tab
                                     icon={
                                         <Box display="flex" alignItems="center">
                                             <AutoAwesomeMotionTwoToneIcon />
                                             &nbsp; Minhas Apostas
                                         </Box>
                                     }
-                                />
+                                /> */}
                             </Tabs>
                         }
                     />
@@ -1083,7 +1083,7 @@ export default function UserPage() {
                                                     <Chip
                                                         avatar={<Avatar alt="Countries" src={country.country_logo} />}
                                                         key={country.country_id}
-                                                        label={country.country_name}
+                                                        label={country.country_name == null ? '' : country.country_name}
                                                         sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
                                                         onClick={() => selectCountry(country.country_id)}
                                                     />

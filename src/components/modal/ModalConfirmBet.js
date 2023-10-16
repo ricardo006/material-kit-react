@@ -45,6 +45,7 @@ function ModalConfirmBet({ data, isOpen, onClose }) {
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
                     Aposta realizada com sucesso!
                 </DialogTitle>
+
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}

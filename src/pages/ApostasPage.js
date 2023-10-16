@@ -1,11 +1,12 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
 // @mui
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { Button, Tooltip, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import { Button, Tooltip, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import imgBet from '../illustrations/cover_1.jpg'
 
 // components
@@ -55,18 +56,36 @@ function a11yProps(index) {
 
 const styles = {
   avatar: {
-    borderRadius: 2, // Adicione bordas ao Avatar
+    borderRadius: 1, // Adicione bordas ao Avatar
     width: '100%',
     height: '100%',
   },
   card: {
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', // Adicione elevação
-    p: 2
+    p: 2,
+    backgroundColor: '#062345',
+    // m: 2
+  },
+  cardContent: {
+    height: (expanded) => (expanded ? 'auto' : '0'), // Define a altura do CardContent
+    overflow: 'hidden',
+    transition: 'height .3s ease-in',
+  },
+  accordionDetails: {
+    maxHeight: (expanded) => (expanded ? '100%' : '0'), // Define a altura máxima
+    overflow: 'hidden',
+    transition: 'max-height 0.3s ease-in-out',
+    display: (expanded) => (expanded ? 'block' : 'none'),
   },
 };
 
 export default function ApostasPage() {
   const [value, setValue] = React.useState(0);
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -94,7 +113,7 @@ export default function ApostasPage() {
         </Stack>
 
         <Box sx={{ width: '100%', mt: 2 }}>
-          <Box sx={{ backgroundColor: '#023047', color: '#fff', m: 2, borderRadius: 1 }}>
+          <Box sx={{ backgroundColor: '#062345', color: '#fff', m: 2, borderRadius: 1 }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Em aberto" {...a11yProps(0)} />
               <Tab label="Finalizadas" {...a11yProps(1)} />
@@ -110,7 +129,8 @@ export default function ApostasPage() {
                 height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
               }}
             >
-              <Grid container alignItems="center" height="100%"> {/* Defina a altura do Grid como 100% */}
+
+              <Grid container alignItems="center" height="100%" >
                 <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Avatar sx={styles.avatar} src={imgBet}>
                     <ImageIcon />
@@ -145,14 +165,32 @@ export default function ApostasPage() {
                   <Tooltip title="Visualizar">
                     <Button
                       variant="contained"
-                      sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: 50, boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }} // Largura total em dispositivos menores e bordas arredondadas
+                      sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: '50px', boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
+                      onClick={toggleExpand} // Adicione o evento onClick aqui
                     >
                       Visualizar
                     </Button>
                   </Tooltip>
                 </Grid>
               </Grid>
+
+              <Accordion expanded={expanded} sx={{ display: expanded ? 'block' : 'none', borderRadius: 1 }}>
+                <AccordionSummary />
+                <AccordionDetails >
+                  <Typography variant="subtitle2" sx={{ mt: 2 }}>
+                    Odd: 21.00
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    Valor: R$10,00
+                  </Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 2 }}>
+                    Retornos: R$210,00
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+
             </Card>
+
             <Card
               sx={{
                 ...styles.card,

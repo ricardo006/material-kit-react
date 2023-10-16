@@ -10,9 +10,7 @@
     }
   },
   "include": [
-    "src/**/*",
-    "public/**/*", // Adicione diretórios adicionais aqui
-    "../../public/assets/images/"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"

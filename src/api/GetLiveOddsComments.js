@@ -42,7 +42,7 @@ function GetLiveOddsComments() {
             });
     }, []);
 
-    console.log(data.live_odds);
+    console.log(data);
 
     return data;
 }
