@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
+
 // @mui
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { Button, Tooltip, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import { Chip, Button, Tooltip, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import imgBet from '../illustrations/cover_1.jpg'
+import Scrollbar from '../components/scrollbar';
 
 // components
 import Iconify from '../components/iconify';
@@ -58,7 +60,7 @@ const styles = {
   avatar: {
     borderRadius: 1, // Adicione bordas ao Avatar
     width: '100%',
-    height: '100%',
+    height: '80%',
   },
   card: {
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', // Adicione elevação
@@ -77,12 +79,15 @@ const styles = {
     transition: 'max-height 0.3s ease-in-out',
     display: (expanded) => (expanded ? 'block' : 'none'),
   },
+  gradientChip: {
+    backgoundImage: 'linear-gradient(to right, #ff9900, #ff66cc)'
+  }
 };
 
 export default function ApostasPage() {
   const [value, setValue] = React.useState(0);
   const [expanded, setExpanded] = useState(false);
-
+  const elementos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
@@ -129,7 +134,6 @@ export default function ApostasPage() {
                 height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
               }}
             >
-
               <Grid container alignItems="center" height="100%" >
                 <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Avatar sx={styles.avatar} src={imgBet}>
@@ -174,21 +178,49 @@ export default function ApostasPage() {
                 </Grid>
               </Grid>
 
-              <Accordion expanded={expanded} sx={{ display: expanded ? 'block' : 'none', borderRadius: 1 }}>
-                <AccordionSummary />
-                <AccordionDetails >
-                  <Typography variant="subtitle2" sx={{ mt: 2 }}>
-                    Odd: 21.00
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Valor: R$10,00
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ mb: 2 }}>
-                    Retornos: R$210,00
-                  </Typography>
+              <Accordion expanded={expanded} sx={{ display: expanded ? 'block' : 'none', borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
+                <AccordionDetails>
+                  {elementos !== 0 &&
+                    <Grid container spacing={2}>
+                      <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
+                        Eventos selecionados:
+                      </Typography>
+                      <Scrollbar>
+                        <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2 }}>
+                          {elementos ? (
+                            elementos.slice(0, 10).map((country, index) => (
+                              <List key={index} sx={{ alignItems: 'center' }}>
+                                <ListItem
+                                  sx={{
+                                    height: 150,
+                                    width: 250,
+                                    borderRadius: 3,
+                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                                    m: 1,
+                                    p: 2
+                                  }}
+                                >
+                                  <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
+                                    <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 600, backgroundColor: '#001D3D', color: '#33ffc2' }} />
+                                    <Chip label="2º tempo / 10 min" sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
+
+                                    <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
+                                      <Chip label="Vencedor Final: Vasco" sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
+                                      <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: '#33ffc2', color: '#001D3D', fontWeight: 600 }} />
+                                    </div>
+                                  </Grid>
+                                </ListItem>
+                              </List>
+                            ))
+                          ) : (
+                            <p>Carregando dados...</p>
+                          )}
+                        </Stack>
+                      </Scrollbar>
+                    </Grid>
+                  }
                 </AccordionDetails>
               </Accordion>
-
             </Card>
 
             <Card
