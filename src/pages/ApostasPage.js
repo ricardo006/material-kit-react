@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
 
 // @mui
 import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { Chip, Button, Tooltip, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowDropUpTwoToneIcon from '@mui/icons-material/ArrowDropUpTwoTone';
+import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
 import imgBet from '../illustrations/cover_1.jpg'
 import Scrollbar from '../components/scrollbar';
 
@@ -60,7 +59,7 @@ const styles = {
   avatar: {
     borderRadius: 1, // Adicione bordas ao Avatar
     width: '100%',
-    height: '80%',
+    height: '70%',
   },
   card: {
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', // Adicione elevação
@@ -86,9 +85,9 @@ const styles = {
 
 export default function ApostasPage() {
   const [value, setValue] = React.useState(0);
-  const [expanded, setExpanded] = useState([]);
+  const [expanded, setExpanded] = useState({ 0: true });
   const elementos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const elementosCard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const elemCard = [1, 2, 3, 4, 5];
 
   const handleAccordionChange = (index) => {
     setExpanded((prevExpanded) => ({
@@ -96,6 +95,11 @@ export default function ApostasPage() {
       [index]: !prevExpanded[index],
     }));
   };
+
+  useEffect(() => {
+    // Lógica para lidar com a mudança no estado expanded
+    console.log('Expanded mudou:', expanded);
+  }, [expanded]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -132,7 +136,7 @@ export default function ApostasPage() {
           </Box>
 
           <CustomTabPanel value={value} index={0}>
-            {elementosCard.slice(0, 10).map((index) => (
+            {elemCard.slice(0, 5).map((index) => (
               <Card
                 sx={{
                   ...styles.card,
@@ -148,7 +152,7 @@ export default function ApostasPage() {
                   </Grid>
 
                   <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                    <Typography variant="h6" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                    <Typography variant="body2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
                       Ricardo Oliveira
                     </Typography>
                     <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
@@ -172,22 +176,23 @@ export default function ApostasPage() {
                   </Grid>
 
                   <Grid item xs={12} md={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Tooltip title="Visualizar">
+                    <Tooltip sx={{ background: '#001D3D' }} title={expanded[index] ? 'Fechar' : 'Visualizar'}>
                       <Button
                         variant="contained"
-                        sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: '50px', boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
-                        onClick={handleAccordionChange(index)}
+                        sx={{ width: { xs: '100%', md: '80%' }, mt: 2, float: 'right', boxShadow: 'rgba(0, 0, 0, 0.15) 1.05px 1.05px 2px', backgroundColor: '#33ffc2', color: '#001D3D' }}
+                        onClick={() => handleAccordionChange(index)}
                         key={index} // Adicione o evento onClick aqui
                       >
-                        Visualizar
+                        {expanded[index] ? <ArrowDropUpTwoToneIcon /> : <ArrowDropDownTwoToneIcon />}
+                        {expanded[index] ? ' Fechar' : ' Visualizar'}
                       </Button>
                     </Tooltip>
                   </Grid>
                 </Grid>
 
-                <Accordion expanded={expanded[index]} sx={{ display: expanded ? 'block' : 'none', borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
+                <Accordion expanded={expanded[index]} sx={{ display: expanded[index] ? 'block' : 'none', border: 0, borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
                   <AccordionDetails>
-                    {elementosCard !== 0 &&
+                    {elementos !== 0 &&
                       <Grid container spacing={2}>
                         <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
                           Eventos selecionados:
@@ -204,7 +209,7 @@ export default function ApostasPage() {
                                       width: 280,
                                       borderRadius: 3,
                                       boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
-                                      background: 'radial-gradient(at 12% 88%, transparent 74.21%, #ef476f 26.79%)',
+                                      background: 'radial-gradient(at 14% 86%, transparent 74.21%, #ef476f 26.79%)',
                                       m: 1,
                                       p: 2
                                     }}
@@ -235,14 +240,14 @@ export default function ApostasPage() {
           </CustomTabPanel>
 
           <CustomTabPanel value={value} index={1}>
-            Item Two
+            Apostas Finalizadas
           </CustomTabPanel>
 
           <CustomTabPanel value={value} index={2}>
-            Item Three
+            Apostas Ganhas
           </CustomTabPanel>
         </Box>
-      </Container>
+      </Container >
     </>
   );
 }
