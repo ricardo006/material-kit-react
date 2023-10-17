@@ -49,9 +49,12 @@ function RegisterForm() {
     const handleEmailChange = (event) => {
         const newEmail = event.target.value;
         setEmail(newEmail);
-        // Valide o formato do e-mail
         setIsEmailValid(isEmailValid(newEmail));
     };
+
+    const handleSenhaChange = (event) => {
+        console.log(event)
+    }
 
     const handleCadastroClick = () => {
         // Implemente a lógica de cadastro aqui
@@ -79,6 +82,15 @@ function RegisterForm() {
             />
 
             <TextField
+                name="senha"
+                label="Senha"
+                value={email}
+                onChange={handleSenhaChange}
+                error={!isEmailValid} // Aplicar estilo de erro se o e-mail não for válido
+                helperText={!isEmailValid ? 'E-mail inválido' : ''}
+            />
+
+            <TextField
                 name="cpf"
                 label="CPF"
                 value={cpf}
@@ -99,7 +111,7 @@ function RegisterForm() {
                 onChange={handleCEPChange}
             />
 
-            <FormControl sx={{ minWidth: 120 }}>
+            {/* <FormControl sx={{ minWidth: 120 }}>
                 <InputLabel>Nacionalidade</InputLabel>
                 <Select
                     value={age}
@@ -110,7 +122,7 @@ function RegisterForm() {
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
-            </FormControl>
+            </FormControl> */}
 
             <Button sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }} fullWidth size="large" type="submit" variant="contained" color="primary" onClick={handleCadastroClick}>
                 Cadastrar

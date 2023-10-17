@@ -12,7 +12,6 @@ import {
     AppChipMercados
 } from '../sections/@dashboard/app';
 
-
 export default function FutebolPage() {
     const theme = useTheme();
 

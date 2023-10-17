@@ -127,8 +127,8 @@ export default function ApostasPage() {
         </Stack>
 
         <Box sx={{ width: '100%', mt: 2 }}>
-          <Box sx={{ backgroundColor: '#062345', color: '#fff', mr: 4, pt: 2, height: '100%', borderRadius: 2 }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ ml: 2, mr: 2, p: 0, height: 50, backgroundColor: '#023047', borderRadius: 2 }}>
+          <Box sx={{ backgroundColor: '#062345', color: '#023047', pt: 2, height: '100%', borderRadius: 2 }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ ml: 2, mr: 2, p: 0, height: 50, backgroundColor: '#062345', borderRadius: 2 }}>
               <Tab sx={{ mb: 6, mt: 0 }} label="Em aberto" {...a11yProps(0)} />
               <Tab sx={{ mb: 6, mt: 0 }} label="Finalizadas" {...a11yProps(1)} />
               <Tab sx={{ mb: 6, mt: 0 }} label="Ganha" {...a11yProps(2)} />
@@ -141,6 +141,7 @@ export default function ApostasPage() {
                     ...styles.card,
                     mt: 2,
                     height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
+                    border: 0
                   }}
                 >
                   <Grid container alignItems="center" height="100%" >
@@ -208,11 +209,12 @@ export default function ApostasPage() {
                   <Accordion expanded={expanded[index]} sx={{ display: expanded[index] ? 'block' : 'none', border: 0, borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
                     <AccordionDetails>
                       {elementos !== 0 &&
-                        <Grid container spacing={2}>
+                        <Grid spacing={2}>
                           <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
                             Eventos selecionados:
                           </Typography>
                           <Scrollbar>
+
                             <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2 }}>
                               {elementos ? (
                                 elementos.slice(0, 10).map((country, index) => (
@@ -246,6 +248,7 @@ export default function ApostasPage() {
                               )}
                             </Stack>
                           </Scrollbar>
+
                         </Grid>
                       }
                     </AccordionDetails>
