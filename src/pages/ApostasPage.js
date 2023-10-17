@@ -86,10 +86,15 @@ const styles = {
 
 export default function ApostasPage() {
   const [value, setValue] = React.useState(0);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState([]);
   const elementos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const toggleExpand = () => {
-    setExpanded(!expanded);
+  const elementosCard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const handleAccordionChange = (index) => {
+    setExpanded((prevExpanded) => ({
+      ...prevExpanded,
+      [index]: !prevExpanded[index],
+    }));
   };
 
   const handleChange = (event, newValue) => {
@@ -127,152 +132,106 @@ export default function ApostasPage() {
           </Box>
 
           <CustomTabPanel value={value} index={0}>
-            <Card
-              sx={{
-                ...styles.card,
-                mt: 2,
-                height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
-              }}
-            >
-              <Grid container alignItems="center" height="100%" >
-                <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Avatar sx={styles.avatar} src={imgBet}>
-                    <ImageIcon />
-                  </Avatar>
+            {elementosCard.slice(0, 10).map((index) => (
+              <Card
+                sx={{
+                  ...styles.card,
+                  mt: 2,
+                  height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
+                }}
+              >
+                <Grid container alignItems="center" height="100%" >
+                  <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar sx={styles.avatar} src={imgBet}>
+                      <ImageIcon />
+                    </Avatar>
+                  </Grid>
+
+                  <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <Typography variant="h6" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                      Ricardo Oliveira
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                      Múltipla: 5 seleções
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
+                      Data da aposta:  15/10/2023
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-end', md: 'flex-start' } }}>
+                    <Typography variant="subtitle2" sx={{ mt: 2 }}>
+                      Odd: 21.00
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      Valor: R$10,00
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ mb: 2 }}>
+                      Retornos:  R$210,00
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xs={12} md={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Tooltip title="Visualizar">
+                      <Button
+                        variant="contained"
+                        sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: '50px', boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
+                        onClick={handleAccordionChange(index)}
+                        key={index} // Adicione o evento onClick aqui
+                      >
+                        Visualizar
+                      </Button>
+                    </Tooltip>
+                  </Grid>
                 </Grid>
 
-                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Typography variant="h6" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Ricardo Oliveira
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Múltipla: 5 seleções
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Data da aposta:  15/10/2023
-                  </Typography>
-                </Grid>
+                <Accordion expanded={expanded[index]} sx={{ display: expanded ? 'block' : 'none', borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
+                  <AccordionDetails>
+                    {elementosCard !== 0 &&
+                      <Grid container spacing={2}>
+                        <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
+                          Eventos selecionados:
+                        </Typography>
+                        <Scrollbar>
+                          <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2 }}>
+                            {elementos ? (
+                              elementos.slice(0, 10).map((country, index) => (
+                                <List key={index} sx={{ alignItems: 'center' }}>
+                                  <ListItem
+                                    sx={{
+                                      border: 0,
+                                      height: 150,
+                                      width: 280,
+                                      borderRadius: 3,
+                                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
+                                      background: 'radial-gradient(at 12% 88%, transparent 74.21%, #ef476f 26.79%)',
+                                      m: 1,
+                                      p: 2
+                                    }}
+                                  >
+                                    <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
+                                      <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 700, backgroundColor: '#183D66', color: '#fff' }} />
+                                      <Chip label="2º tempo / 10 min" sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
 
-                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-end', md: 'flex-start' } }}>
-                  <Typography variant="subtitle2" sx={{ mt: 2 }}>
-                    Odd: 21.00
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Valor: R$10,00
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ mb: 2 }}>
-                    Retornos:  R$210,00
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12} md={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Tooltip title="Visualizar">
-                    <Button
-                      variant="contained"
-                      sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: '50px', boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }}
-                      onClick={toggleExpand} // Adicione o evento onClick aqui
-                    >
-                      Visualizar
-                    </Button>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-
-              <Accordion expanded={expanded} sx={{ display: expanded ? 'block' : 'none', borderRadius: 2, backgroundColor: '#062345', p: 0 }}>
-                <AccordionDetails>
-                  {elementos !== 0 &&
-                    <Grid container spacing={2}>
-                      <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
-                        Eventos selecionados:
-                      </Typography>
-                      <Scrollbar>
-                        <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2 }}>
-                          {elementos ? (
-                            elementos.slice(0, 10).map((country, index) => (
-                              <List key={index} sx={{ alignItems: 'center' }}>
-                                <ListItem
-                                  sx={{
-                                    height: 150,
-                                    width: 250,
-                                    borderRadius: 3,
-                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                                    m: 1,
-                                    p: 2
-                                  }}
-                                >
-                                  <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
-                                    <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 600, backgroundColor: '#001D3D', color: '#33ffc2' }} />
-                                    <Chip label="2º tempo / 10 min" sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
-
-                                    <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
-                                      <Chip label="Vencedor Final: Vasco" sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
-                                      <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: '#33ffc2', color: '#001D3D', fontWeight: 600 }} />
-                                    </div>
-                                  </Grid>
-                                </ListItem>
-                              </List>
-                            ))
-                          ) : (
-                            <p>Carregando dados...</p>
-                          )}
-                        </Stack>
-                      </Scrollbar>
-                    </Grid>
-                  }
-                </AccordionDetails>
-              </Accordion>
-            </Card>
-
-            <Card
-              sx={{
-                ...styles.card,
-                mt: 2,
-                height: { xs: '20%', md: 'auto' }, // Defina a altura para 40% em dispositivos móveis
-              }}
-            >
-              <Grid container alignItems="center" height="100%"> {/* Defina a altura do Grid como 100% */}
-                <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Avatar sx={styles.avatar} src={imgBet}>
-                    <ImageIcon />
-                  </Avatar>
-                </Grid>
-
-                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                  <Typography variant="h6" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Ricardo Oliveira
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Múltipla: 5 seleções
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                    Data:  15/10/2023
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-end', md: 'flex-start' } }}>
-                  <Typography variant="subtitle2" sx={{ mt: 2 }}>
-                    Odd: 21.00
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Valor: R$10,00
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ mb: 2 }}>
-                    Retornos:  R$210,00
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12} md={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Tooltip title="Visualizar">
-                    <Button
-                      variant="contained"
-                      sx={{ width: { xs: '100%', md: 'auto' }, borderRadius: 50, boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' }} // Largura total em dispositivos menores e bordas arredondadas
-                    >
-                      Visualizar
-                    </Button>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-            </Card>
+                                      <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
+                                        <Chip label="Vencedor Final: Vasco" sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
+                                        <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: '#183D66', color: '#fff', fontWeight: 600 }} />
+                                      </div>
+                                    </Grid>
+                                  </ListItem>
+                                </List>
+                              ))
+                            ) : (
+                              <p>Carregando dados...</p>
+                            )}
+                          </Stack>
+                        </Scrollbar>
+                      </Grid>
+                    }
+                  </AccordionDetails>
+                </Accordion>
+              </Card>
+            ))}
           </CustomTabPanel>
 
           <CustomTabPanel value={value} index={1}>
