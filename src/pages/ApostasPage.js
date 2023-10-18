@@ -22,6 +22,139 @@ const SORT_OPTIONS = [
   { value: 'oldest', label: 'Oldest' },
 ];
 
+const apostasMultiplas = [
+  {
+    apostador: "Apostador 1",
+    selecoes: [
+      { nome: "Brasil 2x1 Argentina", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Dupla Chance' },
+      { nome: "França 3x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "15/10/2023",
+    valorAposta: 10.0, // Valor em reais
+    retorno: 210.0, // Valor em reais
+    placar: "4x2",
+    status: "Perdida"
+  },
+  {
+    apostador: "Apostador 2",
+    selecoes: [
+      { nome: "Portugal 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Inglaterra 1x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Bélgica 3x1 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "16/10/2023",
+    valorAposta: 15.0, // Valor em reais
+    retorno: 320.0, // Valor em reais
+    placar: "2x0",
+    status: "Perdida"
+  },
+  {
+    apostador: "Apostador 3",
+    selecoes: [
+      { nome: "Uruguai 0x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Inglaterra 2x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "França 2x2 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "17/10/2023",
+    valorAposta: 20.0, // Valor em reais
+    retorno: 400.0, // Valor em reais
+    placar: "3x1",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 4",
+    selecoes: [
+      { nome: "Espanha 2x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Itália 1x1 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Suécia 3x2 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "18/10/2023",
+    valorAposta: 25.0, // Valor em reais
+    retorno: 550.0, // Valor em reais
+    placar: "4x3",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 5",
+    selecoes: [
+      { nome: "Argentina 3x2 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Croácia 1x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "França 4x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "19/10/2023",
+    valorAposta: 12.0, // Valor em reais
+    retorno: 260.0, // Valor em reais
+    placar: "3x1",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 6",
+    selecoes: [
+      { nome: "Brasil 2x0 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Alemanha 2x1 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Suécia 2x2 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "20/10/2023",
+    valorAposta: 18.0, // Valor em reais
+    retorno: 380.0, // Valor em reais
+    placar: "3x3",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 7",
+    selecoes: [
+      { nome: "Argentina 4x2 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Inglaterra 1x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Holanda 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "21/10/2023",
+    valorAposta: 22.0, // Valor em reais
+    retorno: 460.0, // Valor em reais
+    placar: "3x2",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 8",
+    selecoes: [
+      { nome: "Brasil 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' },
+      { nome: "Espanha 2x0 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final' },
+      { nome: "Itália 1x1 França", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "22/10/2023",
+    valorAposta: 30.0, // Valor em reais
+    retorno: 640.0, // Valor em reais
+    placar: "4x0",
+    status: "Perdida"
+  },
+  {
+    apostador: "Apostador 9",
+    selecoes: [
+      { nome: "Argentina 2x1 Alemanha", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' },
+      { nome: "França 3x0 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' },
+      { nome: "Holanda 1x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "23/10/2023",
+    valorAposta: 28.0, // Valor em reais
+    retorno: 590.0, // Valor em reais
+    placar: "2x0",
+    status: "Ganha"
+  },
+  {
+    apostador: "Apostador 10",
+    selecoes: [
+      { nome: "Brasil 2x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' },
+      { nome: "Espanha 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' },
+      { nome: "Bélgica 3x0 Portugal", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final' }
+    ],
+    dataAposta: "24/10/2023",
+    valorAposta: 35.0, // Valor em reais
+    retorno: 730.0, // Valor em reais
+    placar: "3x1",
+    status: "Ganha"
+  }
+];
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -62,7 +195,7 @@ const styles = {
     height: '70%',
   },
   card: {
-    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;', // Adicione elevação
+    boxShadow: 'rgba(0, 0, 0, 0.20) 0px 3px 4px;', // Adicione elevação
     p: 2,
     backgroundColor: '#062345',
     // m: 2
@@ -221,23 +354,37 @@ export default function ApostasPage() {
                                   <List key={index} sx={{ alignItems: 'center' }}>
                                     <ListItem
                                       sx={{
-                                        border: 0,
                                         height: 150,
                                         width: 280,
-                                        borderRadius: 3,
-                                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',
-                                        background: 'radial-gradient(at 14% 86%, transparent 74.21%, #ef476f 26.79%)',
+                                        borderRadius: 2,
+                                        boxShadow: 'rgba(0, 1, 2, 0.24) 0px 5px 9px;',
+                                        background: 'radial-gradient(at -306.9% 185%, transparent 69.22%, #EF476B 113.79%)',
+                                        // background: 'radial- gradient(at - 306.9 % 185 %, transparent 69.22 %, #33ffc2 113.79 %)',
+                                        // background: 'radial- gradient(at - 306.9 % 185 %, transparent 69.22 %, #65c9f7 113.79 %)',
+                                        border: '.2px solid #ef476f',
+                                        // border: '.2px solid #33ffc2',
+                                        // border: '.2px solid #65c9f7',
                                         m: 1,
                                         p: 2
                                       }}
                                     >
-                                      <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
-                                        <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 700, backgroundColor: '#183D66', color: '#fff' }} />
+                                      {/* <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
+                                        <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 700, backgroundColor: 'rgb(100 125 153 / 50 %)', color: '#fff' }} />
                                         <Chip label="10' min | 2º tempo" sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
 
                                         <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
                                           <Chip label="Vencedor Final: Vasco" sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
-                                          <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: '#183D66', color: '#fff', fontWeight: 600 }} />
+                                          <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: 'rgb(100 125 153 / 50 %)', color: '#fff', fontWeight: 600 }} />
+                                        </div>
+                                      </Grid> */}
+
+                                      <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
+                                        <Chip label="Vasco 2x1 Fluminense" sx={{ mt: 1, fontWeight: 700, backgroundColor: 'rgb(100 125 153 / 50 %)' }} />
+                                        <Chip label="10' min | 2º tempo" sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
+
+                                        <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
+                                          <Chip label="Vencedor Final: Vasco" sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
+                                          <Chip label="2.10" sx={{ mt: 1, width: '100%', backgroundColor: 'rgb(100 125 153 / 50 %)', color: '#fff', fontWeight: 600 }} />
                                         </div>
                                       </Grid>
                                     </ListItem>
