@@ -42,10 +42,6 @@ function RegisterForm() {
         setCep(formattedCEP);
     };
 
-    const handleAgeChange = (event) => {
-        setAge(event.target.value);
-    };
-
     const handleEmailChange = (event) => {
         const newEmail = event.target.value;
         setEmail(newEmail);
@@ -110,19 +106,6 @@ function RegisterForm() {
                 value={cep}
                 onChange={handleCEPChange}
             />
-
-            {/* <FormControl sx={{ minWidth: 120 }}>
-                <InputLabel>Nacionalidade</InputLabel>
-                <Select
-                    value={age}
-                    onChange={handleAgeChange}
-                >
-                    <MenuItem value="">None</MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl> */}
 
             <Button sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }} fullWidth size="large" type="submit" variant="contained" color="primary" onClick={handleCadastroClick}>
                 Cadastrar

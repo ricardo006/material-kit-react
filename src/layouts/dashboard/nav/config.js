@@ -1,5 +1,5 @@
 // component
-import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone'; 
+import SportsSoccerTwoToneIcon from '@mui/icons-material/SportsSoccerTwoTone';
 import PeopleAltTwoToneIcon from '@mui/icons-material/PeopleAltTwoTone';
 import PersonPinTwoToneIcon from '@mui/icons-material/PersonPinTwoTone';
 import InsightsTwoToneIcon from '@mui/icons-material/InsightsTwoTone';
@@ -16,12 +16,17 @@ const navConfig = [
   {
     title: 'Dashboard',
     path: '/dashboard/app',
-    icon: <DashboardTwoToneIcon/>,
+    icon: <DashboardTwoToneIcon />,
   },
   {
     title: 'Futebol',
     path: '/dashboard/futebol',
     icon: <SportsSoccerTwoToneIcon />,
+  },
+  {
+    title: 'Apostas',
+    path: '/dashboard/apostas',
+    icon: <AutoAwesomeMotionTwoToneIcon />,
   },
   {
     title: 'Usuários',
@@ -31,22 +36,17 @@ const navConfig = [
   {
     title: 'Cambistas',
     path: 'cambistas',
-    icon: <PersonPinTwoToneIcon/>,
+    icon: <PersonPinTwoToneIcon />,
   },
   {
     title: 'Relatórios',
     path: '/dashboard/relatorios',
-    icon: <InsightsTwoToneIcon/>,
-  },
-  {
-    title: 'Apostas',
-    path: '/dashboard/apostas',
-    icon: <AutoAwesomeMotionTwoToneIcon/>,
+    icon: <InsightsTwoToneIcon />,
   },
   {
     title: 'Caixa',
     path: '/dashboard/caixa',
-    icon: <MonetizationOnTwoToneIcon/>,
+    icon: <MonetizationOnTwoToneIcon />,
   },
   {
     title: 'login',
@@ -55,6 +55,11 @@ const navConfig = [
   },
   {
     title: 'Not found',
+    path: '/404',
+    icon: icon('ic_disabled'),
+  },
+  {
+    title: 'Configurações',
     path: '/404',
     icon: icon('ic_disabled'),
   },
