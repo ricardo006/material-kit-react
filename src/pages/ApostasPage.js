@@ -316,7 +316,7 @@ export default function ApostasPage() {
                         {aposta.apostador}
                       </Typography>
                       <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                        Múltipla: 5 seleções
+                        {aposta.selecoes.length > 1 ? `"Múltipla:" ${aposta.selecoes.length} "seleções"` : `"Simples:" ${aposta.selecoes.length} "seleções"`}
                       </Typography>
                       <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
                         Data da aposta: {aposta.dataAposta}
@@ -325,7 +325,7 @@ export default function ApostasPage() {
 
                     <Grid item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-end', md: 'flex-start' } }}>
                       <Typography variant="subtitle2" sx={{ mt: 2 }}>
-                        Odd: 21.00
+                        Odd: {aposta.oddsTotais}
                       </Typography>
                       <Typography variant="subtitle2">
                         Valor: R${aposta.valorAposta}
@@ -385,7 +385,7 @@ export default function ApostasPage() {
                                       <Chip label={selecao.tempo} sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
                                       <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
                                         <Chip label={`Vencedor Final: ${selecao.vencedor}`} sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
-                                        <Chip label={selecao.odds} sx={{ mt: 1, width: '100%', backgroundColor: 'rgb(100 125 153 / 50%)', color: '#fff', fontWeight: 600 }} />
+                                        <Chip label={selecao.odd} sx={{ mt: 1, width: '100%', backgroundColor: 'rgb(100 125 153 / 50%)', color: '#fff', fontWeight: 600 }} />
                                       </div>
                                     </Grid>
                                   </ListItem>

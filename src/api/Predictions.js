@@ -17,16 +17,7 @@ function Predictions() {
                     const newData = response.data;
 
                     setData((prevData) => {
-                        const newDataArray = [...prevData];
-
-                        newData.forEach((newItem) => {
-                            const existingItemIndex = newDataArray.findIndex((item) => item.match_id === newItem.match_id);
-                            if (existingItemIndex !== -1) {
-                                newDataArray[existingItemIndex] = newItem;
-                            } else {
-                                newDataArray.push(newItem);
-                            }
-                        });
+                        const newDataArray = [...prevData, ...newData]; // Adicione os novos dados ao estado anterior
                         return newDataArray;
                     });
                 } else {
@@ -40,10 +31,7 @@ function Predictions() {
         fetchData();
     }, [apiUrl]);
 
-    // Filtrar os dados em que match_status não seja "finished"
-    const filteredData = data.filter((item) => item.match_status !== 'Finished');
-
-    return filteredData;
+    return data;
 }
 
 export default Predictions;

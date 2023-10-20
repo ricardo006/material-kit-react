@@ -4,6 +4,7 @@ import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import PropTypes from 'prop-types';
 import { Grid, Card, Avatar, Chip, Stack, Box, CardContent, Typography, List, ListItem, Container } from '@mui/material';
 import Predictions from '../../../api/Predictions';
+import GetLiveOddsComments from '../../../api/GetLiveOddsComments';
 
 ProximosJogosList.propTypes = {
   products: PropTypes.array.isRequired,
@@ -12,9 +13,12 @@ ProximosJogosList.propTypes = {
 export default function ProximosJogosList({ products, ...other }) {
   const data = Predictions();
 
+  // const dataNew = GetLiveOddsComments();
+  // console.log(dataNew);
+
   const getLastComment = (item) => {
     const liveCommentsArray = item.live_comments || [];
-    console.log(item)
+    console.log(item);
     if (liveCommentsArray.length > 0) {
       return liveCommentsArray[liveCommentsArray.length - 1].text;
     }
@@ -22,7 +26,7 @@ export default function ProximosJogosList({ products, ...other }) {
   };
 
   const handleCardClick = (item) => {
-    alert(item )
+    alert(item)
   };
 
   return (
