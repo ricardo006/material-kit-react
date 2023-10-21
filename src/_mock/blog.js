@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import background from '../illustrations/Banner Betspace.png'; // Importe a imagem
+import background from '../illustrations/banner_new.png'; // Importe a imagem
 
 const POST_TITLES = [
   'Whiteboard Templates By Industry Leaders',

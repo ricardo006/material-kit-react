@@ -8,7 +8,7 @@ import { Grid, Container, Stack, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
 // sections
 import {
-    AppStadings,
+    BannersEvents,
     AppChipMercados
 } from '../sections/@dashboard/app';
 
@@ -22,11 +22,11 @@ export default function FutebolPage() {
             </Helmet>
 
             <Container maxWidth="xl">
-                {/* <Grid container spacing={3}>
+                <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12}>
-                        <AppStadings />
+                        <BannersEvents />
                     </Grid>
-                </Grid> */}
+                </Grid>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12}>

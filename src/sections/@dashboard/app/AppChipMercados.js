@@ -1692,7 +1692,6 @@ export default function UserPage() {
                         },
                     }}
                 >
-
                     <Grid container sx={{ backgroundColor: '#023047', p: 3, mb: 2, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
                         <Grid item xs={8}>
                             <Typography

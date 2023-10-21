@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
-
 // @mui
 import ImageIcon from '@mui/icons-material/Image';
 import { Chip, Button, Tooltip, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Grid, Container, Stack, Typography, Box, Tab, Tabs, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
@@ -9,7 +8,6 @@ import ArrowDropUpTwoToneIcon from '@mui/icons-material/ArrowDropUpTwoTone';
 import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
 import imgBet from '../illustrations/cover_1.jpg'
 import Scrollbar from '../components/scrollbar';
-
 // components
 import Iconify from '../components/iconify';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../sections/@dashboard/blog';
@@ -33,11 +31,11 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Perdida",
     selecoes: [
-      { id: 1, nome: "Brasil 2x1 Argentina", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Dupla Chance', odd: 12 },
-      { id: 2, nome: "França 3x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 4, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 5, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
+      { id: 1, nome: "Brasil 2x1 Argentina", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Dupla Chance', selecaoEscolhida: 'Brasil', odd: 1.54 },
+      { id: 2, nome: "França 3x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 1.93 },
+      { id: 3, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 1.42 },
+      { id: 4, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 10.00 },
+      { id: 5, nome: "Espanha 1x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 1.40 },
     ],
   },
   {
@@ -50,9 +48,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Perdida",
     selecoes: [
-      { id: 1, nome: "Portugal 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Inglaterra 1x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Bélgica 3x1 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Portugal 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Inglaterra 1x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Bélgica 3x1 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
   },
   {
@@ -65,9 +63,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Uruguai 0x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Inglaterra 2x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "França 2x2 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Uruguai 0x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Inglaterra 2x0 Alemanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "França 2x2 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
   },
   {
@@ -80,9 +78,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Espanha 2x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Itália 1x1 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Suécia 3x2 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Espanha 2x0 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Itália 1x1 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Suécia 3x2 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
   },
   {
@@ -95,9 +93,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Argentina 3x2 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Croácia 1x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "França 4x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Argentina 3x2 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Croácia 1x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "França 4x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
 
   },
@@ -111,9 +109,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Brasil 2x0 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Alemanha 2x1 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Suécia 2x2 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Brasil 2x0 Itália", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Alemanha 2x1 Espanha", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Suécia 2x2 Holanda", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
 
   },
@@ -127,9 +125,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Argentina 4x2 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Inglaterra 1x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Holanda 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Argentina 4x2 França", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Inglaterra 1x0 Bélgica", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Holanda 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
 
   },
@@ -143,9 +141,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Perdida",
     selecoes: [
-      { id: 1, nome: "Brasil 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Espanha 2x0 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Itália 1x1 França", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Brasil 3x1 Portugal", tempo: "90' min | Tempo Extra", status: 'Perdida', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Espanha 2x0 Croácia", tempo: "90' min | Tempo Extra", status: 'Ganhando', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Itália 1x1 França", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
 
   },
@@ -159,9 +157,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Argentina 2x1 Alemanha", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "França 3x0 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Holanda 1x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Argentina 2x1 Alemanha", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "França 3x0 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Holanda 1x1 Croácia", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
   },
   {
@@ -174,9 +172,9 @@ const apostasMultiplas = [
     oddsTotais: 20,
     status: "Ganha",
     selecoes: [
-      { id: 1, nome: "Brasil 2x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 },
-      { id: 2, nome: "Espanha 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 },
-      { id: 3, nome: "Bélgica 3x0 Portugal", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', odd: 12 }
+      { id: 1, nome: "Brasil 2x1 Inglaterra", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 2, nome: "Espanha 2x2 Itália", tempo: "90' min | Tempo Extra", status: 'Perdida', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 },
+      { id: 3, nome: "Bélgica 3x0 Portugal", tempo: "90' min | Tempo Extra", status: 'Em andamento', mercado: 'Vencedor Final', selecaoEscolhida: 'Brasil', odd: 12 }
     ],
   }
 ];
@@ -236,9 +234,6 @@ const styles = {
     overflow: 'hidden',
     transition: 'max-height 0.3s ease-in-out',
     display: (expanded) => (expanded ? 'block' : 'none'),
-  },
-  gradientChip: {
-    backgoundImage: 'linear-gradient(to right, #ff9900, #ff66cc)'
   }
 };
 
@@ -287,7 +282,9 @@ export default function ApostasPage() {
 
         <Box sx={{ width: '100%', mt: 2 }}>
           <Box sx={{ backgroundColor: '#062345', color: '#023047', pt: 2, height: '100%', borderRadius: 2 }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ ml: 2, mr: 2, p: 0, height: 50, backgroundColor: '#062345', borderRadius: 2 }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+              sx={{ ml: 2, mr: 2, p: 0, height: 50, backgroundColor: '#062345', borderRadius: 2 }}
+            >
               <Tab sx={{ mb: 6, mt: 0 }} label="Em aberto" {...a11yProps(0)} />
               <Tab sx={{ mb: 6, mt: 0 }} label="Finalizadas" {...a11yProps(1)} />
               <Tab sx={{ mb: 6, mt: 0 }} label="Ganha" {...a11yProps(2)} />
@@ -316,7 +313,7 @@ export default function ApostasPage() {
                         {aposta.apostador}
                       </Typography>
                       <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
-                        {aposta.selecoes.length > 1 ? `"Múltipla:" ${aposta.selecoes.length} "seleções"` : `"Simples:" ${aposta.selecoes.length} "seleções"`}
+                        {aposta.selecoes.length > 1 ? `Múltipla: ${aposta.selecoes.length} seleções` : `Simples: ${aposta.selecoes.length} seleções`}
                       </Typography>
                       <Typography variant="subtitle2" sx={{ marginLeft: { xs: 2, md: 2 } }}>
                         Data da aposta: {aposta.dataAposta}
@@ -362,7 +359,7 @@ export default function ApostasPage() {
                       {aposta.selecoes && aposta.selecoes.length > 0 && (
                         <Grid spacing={2}>
                           <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
-                            Eventos selecionados:
+                            Evento(s) selecionado(s):
                           </Typography>
                           <Scrollbar>
                             <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2 }}>
@@ -373,24 +370,29 @@ export default function ApostasPage() {
                                       height: 150,
                                       width: 280,
                                       borderRadius: 2,
-                                      boxShadow: 'rgba(0, 1, 2, 0.24) 0px 5px 9px',
-                                      background: 'radial-gradient(at -306.9% 185%, transparent 69.22%, #33ffc2 113.79%)',
-                                      border: '.2px solid #33ffc2',
                                       m: 1,
-                                      p: 2
+                                      p: 2,
+                                      boxShadow: 'rgba(0, 1, 2, 0.24) 0px 5px 9px',
+                                      background: selecao.status === 'Ganhando'
+                                        ? 'radial-gradient(at -306.9% 185%, transparent 69.22%, #28ada8 113.79%)'
+                                        : selecao.status === 'Em andamento'
+                                          ? 'radial-gradient(at -306.9% 185%, transparent 69.22%, #0077b6 113.79%)'
+                                          : selecao.status === 'Perdida'
+                                            ? 'radial-gradient(at -306.9% 185%, transparent 69.22%, #ef233c 113.79%)' : '',
                                     }}
                                   >
                                     <Grid style={{ p: 0, display: 'flex', flexDirection: 'column', textAlign: 'left', width: '100%' }}>
                                       <Chip label={selecao.nome} sx={{ mt: 1, fontWeight: 700, backgroundColor: 'rgb(100 125 153 / 50%)' }} />
                                       <Chip label={selecao.tempo} sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
                                       <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
-                                        <Chip label={`Vencedor Final: ${selecao.vencedor}`} sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
+                                        <Chip label={`${selecao.mercado}: ${selecao.selecaoEscolhida}`} sx={{ mt: 1, backgroundColor: 'transparent', fontWeight: 600 }} />
                                         <Chip label={selecao.odd} sx={{ mt: 1, width: '100%', backgroundColor: 'rgb(100 125 153 / 50%)', color: '#fff', fontWeight: 600 }} />
                                       </div>
                                     </Grid>
                                   </ListItem>
                                 </List>
                               ))}
+
                             </Stack>
                           </Scrollbar>
                         </Grid>
