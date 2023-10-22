@@ -11,6 +11,9 @@ import PublicIcon from '@mui/icons-material/Public';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import FilterAltTwoToneIcon from '@mui/icons-material/FilterAltTwoTone';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterListTwoToneIcon from '@mui/icons-material/FilterListTwoTone';
+import PublicTwoToneIcon from '@mui/icons-material/PublicTwoTone';
+import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 
 import {
     Accordion,
@@ -1038,109 +1041,198 @@ export default function UserPage() {
         );
     };
 
+    const handleClickRow = (id) => {
+        alert(id)
+    }
+
     return (
         <>
             <Container maxWidth="xl">
                 <CustomAlert open={alertOpen} message={alertMessage} onClose={handleCloseAlert} />
 
                 <Grid container>
-                    <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', boxShadow: '0px 1px 12px 0px rgba(0, 0, 0, 0.15)', borderRadius: 3 }}>
-                        <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 }, ml: 2, mr: 2 }}>
-                            <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 }, ml: 2, mr: 2 }}>
-                                <Accordion expanded={accordionExpanded}>
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center', // Alinha verticalmente
+                            textAlign: 'left',
+                            pr: 2,
+                            ml: 1,
+                            mt: 2,
+                            fontSize: 12,
+                            color: '#33FFC2'
+                        }}
+                    >
+                        <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                        Próximos jogos
+                    </Typography>
+                    <Grid item xs={12} md={12} sx={{ mt: 4, mb: 4, backgroundColor: '#001D3D', borderRadius: 3, border: 0 }}>
+                        <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 }, mr: 2 }}>
+                            <Card sx={{ backgroundColor: '#023047', boxShadow: 'none', marginTop: { xs: 2, md: 2 }, ml: 2, mr: 2 }}>
+                                <Accordion expanded={accordionExpanded} sx={{ backgroundColor: '#023047' }}>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon onClick={handleAccordionExpand} />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
                                     >
-                                        <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 1, mt: 2, fontSize: 12, color: '#33FFC2' }}>Filtros</Typography>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center', // Alinha verticalmente
+                                                textAlign: 'left',
+                                                pr: 2,
+                                                ml: 1,
+                                                color: '#33FFC2'
+                                            }}
+                                        >
+                                            <FilterListTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                            Filtros
+                                        </Typography>
                                     </AccordionSummary>
+
                                     <AccordionDetails>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} md={12}>
                                             <Button
                                                 variant="contained"
-                                                startIcon={<FilterAltTwoToneIcon />}
+                                                startIcon={<PublicTwoToneIcon />}
                                                 onClick={() => handleTabChange(0)}
-                                                sx={{ textAlign: 'left', ml: 1, mt: 2 }}
+                                                sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none' }}
                                             >
                                                 Países
                                             </Button>
                                             <Button
                                                 variant="contained"
-                                                startIcon={<FilterAltTwoToneIcon />}
+                                                startIcon={<SportsSoccerTwoToneIcon />}
                                                 onClick={() => handleTabChange(1)}
-                                                sx={{ textAlign: 'left', ml: 2, mt: 2 }}
+                                                sx={{ textAlign: 'left', ml: 2, mt: 2, boxShadow: 'none' }}
                                             >
                                                 Ligas
                                             </Button>
+
+                                            <Grid item xs={6} md={12} >
+                                                <Typography
+                                                    variant="body2"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center', // Alinha verticalmente
+                                                        textAlign: 'left',
+                                                        pr: 2,
+                                                        ml: 1,
+                                                        mt: 2,
+                                                        fontSize: 12,
+                                                        color: '#33FFC2'
+                                                    }}
+                                                >
+                                                    <AccessTimeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                                    Próximas horas
+                                                </Typography>
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<AccessTimeTwoToneIcon />}
+                                                    onClick={() => handleTabChange(1)}
+                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
+                                                >
+                                                    3 horas
+                                                </Button>
+
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<AccessTimeTwoToneIcon />}
+                                                    onClick={() => handleTabChange(1)}
+                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
+                                                >
+                                                    12 horas
+                                                </Button>
+
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<AccessTimeTwoToneIcon />}
+                                                    onClick={() => handleTabChange(1)}
+                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
+                                                >
+                                                    24 horas
+                                                </Button>
+                                            </Grid>
                                         </Grid>
                                     </AccordionDetails>
+                                    <CardContent sx={{ display: accordionExpanded ? 'block' : 'none' }}>
+                                        {selectedTab === 0 &&
+                                            <Grid container spacing={3} >
+                                                <Grid item xs={12} md={12}>
+                                                    <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                                        Selecione os países ({countriesData ? countriesData.length : 0})
+                                                    </Typography>
+
+                                                    <Scrollbar>
+                                                        <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                                            {countriesData ? (
+                                                                countriesData.map((country) => (
+                                                                    <Chip
+                                                                        avatar={<Avatar alt="Countries" src={country.country_logo} />}
+                                                                        key={country.country_id}
+                                                                        label={country.country_name == null ? '' : country.country_name}
+                                                                        sx={{
+                                                                            cursor: 'pointer',
+                                                                            fontWeight: 'bold',
+                                                                            backgroundColor: '#001D3D ',
+                                                                            color: '#B6F4E2'
+                                                                        }}
+                                                                        onClick={() => selectCountry(country.country_id)}
+                                                                    />
+                                                                ))
+                                                            ) : (
+                                                                <p>Carregando dados...</p>
+                                                            )}
+                                                        </Stack>
+                                                    </Scrollbar>
+                                                </Grid>
+                                            </Grid>
+                                        }
+
+                                        {selectedTab === 1 &&
+                                            <Grid spacing={3} sx={{ mt: 2 }}>
+                                                <Grid item xs={12} md={12}>
+                                                    <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                                        Selecione as ligas ({competitionsData.length})
+                                                    </Typography>
+                                                    <Competitions
+                                                        countryId={selectedCountryId}
+                                                        onDataUpdateCompetitions={onDataUpdateCompetitions}
+                                                    />
+                                                    <Scrollbar>
+                                                        <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                                            {competitionsData !== null ? (
+                                                                competitionsData.map((league) => (
+                                                                    <Chip
+                                                                        avatar={
+                                                                            league.country_logo
+                                                                                ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
+                                                                                : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
+                                                                        }
+                                                                        key={league.league_id}
+                                                                        label={league.league_name}
+                                                                        sx={{
+                                                                            cursor: 'pointer',
+                                                                            fontWeight: 'bold',
+                                                                            backgroundColor: '#001D3D ',
+                                                                            color: '#B6F4E2'
+                                                                        }}
+                                                                    />
+                                                                ))
+                                                            ) : (
+                                                                <p>Carregando dados...</p>
+                                                            )}
+                                                        </Stack>
+                                                    </Scrollbar>
+                                                </Grid>
+                                            </Grid>}
+                                        {selectedTab === 2 && <Typography>Minhas Apostas</Typography>}
+                                    </CardContent>
                                 </Accordion>
-
-                                <CardContent sx={{ display: accordionExpanded ? 'block' : 'none' }}>
-                                    {selectedTab === 0 &&
-                                        <Grid container spacing={3} >
-                                            <Grid item xs={12} md={12}>
-                                                <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                                    Selecione os países ({countriesData ? countriesData.length : 0})
-                                                </Typography>
-
-                                                <Scrollbar>
-                                                    <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                                        {countriesData ? (
-                                                            countriesData.map((country) => (
-                                                                <Chip
-                                                                    avatar={<Avatar alt="Countries" src={country.country_logo} />}
-                                                                    key={country.country_id}
-                                                                    label={country.country_name == null ? '' : country.country_name}
-                                                                    sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                                                    onClick={() => selectCountry(country.country_id)}
-                                                                />
-                                                            ))
-                                                        ) : (
-                                                            <p>Carregando dados...</p>
-                                                        )}
-                                                    </Stack>
-                                                </Scrollbar>
-                                            </Grid>
-                                        </Grid>
-                                    }
-
-                                    {selectedTab === 1 &&
-                                        <Grid spacing={3} sx={{ mt: 2 }}>
-                                            <Grid item xs={12} md={12}>
-                                                <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                                    Selecione as ligas ({competitionsData.length})
-                                                </Typography>
-                                                <Competitions
-                                                    countryId={selectedCountryId}
-                                                    onDataUpdateCompetitions={onDataUpdateCompetitions}
-                                                />
-                                                <Scrollbar>
-                                                    <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                                        {competitionsData !== null ? (
-                                                            competitionsData.map((league) => (
-                                                                <Chip
-                                                                    avatar={
-                                                                        league.country_logo
-                                                                            ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
-                                                                            : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
-                                                                    }
-                                                                    key={league.league_id}
-                                                                    label={league.league_name}
-                                                                    sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                                                />
-                                                            ))
-                                                        ) : (
-                                                            <p>Carregando dados...</p>
-                                                        )}
-                                                    </Stack>
-                                                </Scrollbar>
-                                            </Grid>
-                                        </Grid>}
-                                    {selectedTab === 2 && <Typography>Minhas Apostas</Typography>}
-                                </CardContent>
                             </Card>
+
                             <Scrollbar>
                                 <Scrollbar>
                                     <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
@@ -1166,7 +1258,8 @@ export default function UserPage() {
                                     </Stack>
                                 </Scrollbar>
 
-                                <TableContainer sx={{ minWidth: 900, p: 0 }}>
+                                <TableContainer sx={{ minWidth: 900 }}>
+
                                     <Table sx={{ borderCollapse: 'collapse' }}>
                                         <TableRow style={{ height: 53 }}>
                                             <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
@@ -1184,7 +1277,7 @@ export default function UserPage() {
                                                     const iconType = iconTypes[id - 1];
 
                                                     return (
-                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0 }}>
+                                                        <TableRow hover onClick={() => handleClickRow(id)} key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0, cursor: 'pointer' }}>
                                                             <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
                                                                 {iconType === 'star' ? (
                                                                     <StarOutlineTwoToneIcon

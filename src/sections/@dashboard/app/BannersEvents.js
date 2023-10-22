@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
 
 import {
     Typography,
@@ -181,8 +182,21 @@ export default function BannersEvents() {
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={12}>
                         <Grid spacing={2}>
-                            <Typography variant="subtitle2" sx={{ mt: 2, textAlign: 'left' }}>
-                                Principais Eventos
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center', // Alinha verticalmente
+                                    textAlign: 'left',
+                                    pr: 2,
+                                    ml: 1,
+                                    mt: 2,
+                                    fontSize: 12,
+                                    color: '#33FFC2'
+                                }}
+                            >
+                                <EmojiEventsTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                Destaques
                             </Typography>
                             <Scrollbar>
                                 <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
