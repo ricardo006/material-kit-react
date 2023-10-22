@@ -806,7 +806,6 @@ export default function UserPage() {
         setAccordionExpanded(!accordionExpanded);
     };
 
-    // alert mensagem de erro 
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
@@ -828,8 +827,8 @@ export default function UserPage() {
     };
 
     // Função para alternar entre as guias
-    const handleTabChange = (event) => {
-        setSelectedTab(event);
+    const handleTabChange = (index) => {
+        setSelectedTab(index);
     };
 
     const handleClickOpenModal = () => {
@@ -1047,336 +1046,207 @@ export default function UserPage() {
                 <Grid container>
                     <Grid item xs={12} md={12} sx={{ mt: 4, backgroundColor: '#023047', boxShadow: '0px 1px 12px 0px rgba(0, 0, 0, 0.15)', borderRadius: 3 }}>
                         <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 }, ml: 2, mr: 2 }}>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon onClick={handleAccordionExpand} />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                >
-                                    <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 1, mt: 2, fontSize: 12, color: '#33FFC2' }}>Filtros</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Grid item xs={12}>
-                                        <Button
-                                            variant="contained"
-                                            startIcon={<FilterAltTwoToneIcon />}
-                                            onClick={() => handleTabChange(0)}
-                                            sx={{ textAlign: 'left', ml: 1, mt: 2 }}
-                                        >
-                                            Países
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            startIcon={<FilterAltTwoToneIcon />}
-                                            onClick={() => handleTabChange(1)}
-                                            sx={{ textAlign: 'left', ml: 2, mt: 2 }}
-                                        >
-                                            Ligas
-                                        </Button>
-                                    </Grid>
-                                </AccordionDetails>
-                            </Accordion>
-
-                            <CardContent>
-                                {selectedTab === 0 &&
-                                    <Grid container spacing={3} >
-                                        <Grid item xs={12} md={12}>
-                                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                                Selecione o(s) país(es) ({countriesData ? countriesData.length : 0})
-                                            </Typography>
-
-                                            <Scrollbar>
-                                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                                    {countriesData ? (
-                                                        countriesData.map((country) => (
-                                                            <Chip
-                                                                avatar={<Avatar alt="Countries" src={country.country_logo} />}
-                                                                key={country.country_id}
-                                                                label={country.country_name == null ? '' : country.country_name}
-                                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                                                onClick={() => selectCountry(country.country_id)}
-                                                            />
-                                                        ))
-                                                    ) : (
-                                                        <p>Carregando dados...</p>
-                                                    )}
-                                                </Stack>
-                                            </Scrollbar>
+                            <Card sx={{ backgroundColor: '#001D3D', marginTop: { xs: 2, md: 2 }, ml: 2, mr: 2 }}>
+                                <Accordion expanded={accordionExpanded}>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon onClick={handleAccordionExpand} />}
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        <Typography variant="h6" sx={{ textAlign: 'left', pr: 2, ml: 1, mt: 2, fontSize: 12, color: '#33FFC2' }}>Filtros</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Grid item xs={12}>
+                                            <Button
+                                                variant="contained"
+                                                startIcon={<FilterAltTwoToneIcon />}
+                                                onClick={() => handleTabChange(0)}
+                                                sx={{ textAlign: 'left', ml: 1, mt: 2 }}
+                                            >
+                                                Países
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                startIcon={<FilterAltTwoToneIcon />}
+                                                onClick={() => handleTabChange(1)}
+                                                sx={{ textAlign: 'left', ml: 2, mt: 2 }}
+                                            >
+                                                Ligas
+                                            </Button>
                                         </Grid>
-                                    </Grid>
-                                }
+                                    </AccordionDetails>
+                                </Accordion>
 
-                                {selectedTab === 1 &&
-                                    <Grid spacing={3} sx={{ mt: 2 }}>
-                                        <Grid item xs={12} md={12}>
-                                            <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
-                                                Selecione a(s) liga(s) ({competitionsData.length})
-                                            </Typography>
-                                            <Competitions
-                                                countryId={selectedCountryId}
-                                                onDataUpdateCompetitions={onDataUpdateCompetitions}
-                                            />
-                                            <Scrollbar>
-                                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
-                                                    {competitionsData !== null ? (
-                                                        competitionsData.map((league) => (
-                                                            <Chip
-                                                                avatar={
-                                                                    league.country_logo
-                                                                        ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
-                                                                        : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
-                                                                }
-                                                                key={league.league_id}
-                                                                label={league.league_name}
-                                                                sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
-                                                            />
-                                                        ))
-                                                    ) : (
-                                                        <p>Carregando dados...</p>
-                                                    )}
-                                                </Stack>
-                                            </Scrollbar>
+                                <CardContent sx={{ display: accordionExpanded ? 'block' : 'none' }}>
+                                    {selectedTab === 0 &&
+                                        <Grid container spacing={3} >
+                                            <Grid item xs={12} md={12}>
+                                                <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                                    Selecione os países ({countriesData ? countriesData.length : 0})
+                                                </Typography>
+
+                                                <Scrollbar>
+                                                    <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                                        {countriesData ? (
+                                                            countriesData.map((country) => (
+                                                                <Chip
+                                                                    avatar={<Avatar alt="Countries" src={country.country_logo} />}
+                                                                    key={country.country_id}
+                                                                    label={country.country_name == null ? '' : country.country_name}
+                                                                    sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
+                                                                    onClick={() => selectCountry(country.country_id)}
+                                                                />
+                                                            ))
+                                                        ) : (
+                                                            <p>Carregando dados...</p>
+                                                        )}
+                                                    </Stack>
+                                                </Scrollbar>
+                                            </Grid>
                                         </Grid>
-                                    </Grid>}
-                                {selectedTab === 2 && <Typography>Minhas Apostas</Typography>}
-                            </CardContent>
-                        </Card>
-                        <Scrollbar>
+                                    }
+
+                                    {selectedTab === 1 &&
+                                        <Grid spacing={3} sx={{ mt: 2 }}>
+                                            <Grid item xs={12} md={12}>
+                                                <Typography variant="body2" sx={{ textAlign: 'left', color: '#33FFC2', fontWeight: 600 }}>
+                                                    Selecione as ligas ({competitionsData.length})
+                                                </Typography>
+                                                <Competitions
+                                                    countryId={selectedCountryId}
+                                                    onDataUpdateCompetitions={onDataUpdateCompetitions}
+                                                />
+                                                <Scrollbar>
+                                                    <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                                        {competitionsData !== null ? (
+                                                            competitionsData.map((league) => (
+                                                                <Chip
+                                                                    avatar={
+                                                                        league.country_logo
+                                                                            ? <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues" src={league.country_logo} />
+                                                                            : <Avatar sx={{ color: '#B6F4E2' }} alt="Leagues">{league.league_name[0]}</Avatar>
+                                                                    }
+                                                                    key={league.league_id}
+                                                                    label={league.league_name}
+                                                                    sx={{ cursor: 'pointer', fontWeight: 'bold', backgroundColor: '#023047', color: '#B6F4E2' }}
+                                                                />
+                                                            ))
+                                                        ) : (
+                                                            <p>Carregando dados...</p>
+                                                        )}
+                                                    </Stack>
+                                                </Scrollbar>
+                                            </Grid>
+                                        </Grid>}
+                                    {selectedTab === 2 && <Typography>Minhas Apostas</Typography>}
+                                </CardContent>
+                            </Card>
                             <Scrollbar>
-                                <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
-                                    {marketsData.map((market) => (
-                                        <Chip
-                                            key={market.id}
-                                            label={market.label}
-                                            color={market.color}
-                                            variant={selectedChips.includes(market.id) ? 'outlined' : 'filled'}
-                                            sx={{
-                                                cursor: 'pointer',
-                                                fontWeight: 'bold',
-                                                backgroundColor: selectedChips.includes(market.id) ? '#023047' : '#023047',
-                                                color: selectedChips.includes(market.id) ? '#33FFC2' : '#B6F4E2',
-                                                '&:hover': {
-                                                    backgroundColor: '#023047',
-                                                    color: '#B6F4E2',
-                                                },
-                                            }}
-                                            onClick={() => handleMarketClick(market.label, market.id)}
-                                        />
-                                    ))}
-                                </Stack>
-                            </Scrollbar>
+                                <Scrollbar>
+                                    <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2, p: 2 }}>
+                                        {marketsData.map((market) => (
+                                            <Chip
+                                                key={market.id}
+                                                label={market.label}
+                                                color={market.color}
+                                                variant={selectedChips.includes(market.id) ? 'outlined' : 'filled'}
+                                                sx={{
+                                                    cursor: 'pointer',
+                                                    fontWeight: 'bold',
+                                                    backgroundColor: selectedChips.includes(market.id) ? '#023047' : '#023047',
+                                                    color: selectedChips.includes(market.id) ? '#33FFC2' : '#B6F4E2',
+                                                    '&:hover': {
+                                                        backgroundColor: '#023047',
+                                                        color: '#B6F4E2',
+                                                    },
+                                                }}
+                                                onClick={() => handleMarketClick(market.label, market.id)}
+                                            />
+                                        ))}
+                                    </Stack>
+                                </Scrollbar>
 
-                            <TableContainer sx={{ minWidth: 900, p: 0 }}>
-                                <Table sx={{ borderCollapse: 'collapse' }}>
-                                    <TableRow style={{ height: 53 }}>
-                                        <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
-                                            <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
-                                        </TableCell>
-                                    </TableRow>
+                                <TableContainer sx={{ minWidth: 900, p: 0 }}>
+                                    <Table sx={{ borderCollapse: 'collapse' }}>
+                                        <TableRow style={{ height: 53 }}>
+                                            <TableCell colSpan={12} sx={{ backgroundColor: '#023047', color: '#33FFC2', fontWeight: 'bold' }}>
+                                                <Typography variant="subtitle">{concatenatedText || 'Campeonato'}</Typography>
+                                            </TableCell>
+                                        </TableRow>
 
-                                    <TableBody sx={{ border: 0 }}>
-                                        {activeMarket !== null ? (
-                                            rows.map((row, index) => {
-                                                const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora, odd1x, odd12, odd2x }
-                                                    = row;
-                                                const id = index + 1;
-                                                const selectedUser = selected.indexOf(id) !== -1;
-                                                const iconType = iconTypes[id - 1];
+                                        <TableBody sx={{ border: 0 }}>
+                                            {activeMarket !== null ? (
+                                                rows.map((row, index) => {
+                                                    const { tempoJogo, timeCasa, timeFora, placarCasa, placarFora, oddCasa, oddEmpate, oddFora, odd1x, odd12, odd2x }
+                                                        = row;
+                                                    const id = index + 1;
+                                                    const selectedUser = selected.indexOf(id) !== -1;
+                                                    const iconType = iconTypes[id - 1];
 
-                                                return (
-                                                    <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0 }}>
-                                                        <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
-                                                            {iconType === 'star' ? (
-                                                                <StarOutlineTwoToneIcon
-                                                                    checked={selectedUser}
-                                                                    onClick={(event) => handleClick(event, id)}
-                                                                />
-                                                            ) : (
-                                                                <GradeTwoToneIcon
-                                                                    sx={{ color: '#33FFC2' }}
-                                                                    checked={selectedUser}
-                                                                    onClick={(event) => handleClick(event, id)}
-                                                                />
-                                                            )}
-                                                        </TableCell>
+                                                    return (
+                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0 }}>
+                                                            <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
+                                                                {iconType === 'star' ? (
+                                                                    <StarOutlineTwoToneIcon
+                                                                        checked={selectedUser}
+                                                                        onClick={(event) => handleClick(event, id)}
+                                                                    />
+                                                                ) : (
+                                                                    <GradeTwoToneIcon
+                                                                        sx={{ color: '#33FFC2' }}
+                                                                        checked={selectedUser}
+                                                                        onClick={(event) => handleClick(event, id)}
+                                                                    />
+                                                                )}
+                                                            </TableCell>
 
-                                                        <TableCell
-                                                            component="th"
-                                                            scope="row"
-                                                            padding="none"
-                                                            sx={{
-                                                                width: { xs: '60px', md: '100px' },
-                                                                textAlign: 'center',
-                                                            }}
-                                                        >
-                                                            <Chip
-                                                                label={`${tempoJogo} '`}
-                                                                icon={<AlarmOutlinedIcon />}
-                                                                onClick={handleClick}
-                                                                sx={{ backgroundColor: '#183D66', color: '#33FFC2', fontWeight: 600 }}
-                                                            />
-                                                        </TableCell>
-
-                                                        <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
-                                                            <Typography variant="subtitle2" noWrap>
-                                                                {timeCasa}
-                                                            </Typography>
-                                                            <Typography variant="subtitle2" noWrap>
-                                                                {timeFora}
-                                                            </Typography>
-                                                        </TableCell>
-
-                                                        <TableCell
-                                                            align="left"
-                                                            sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
-                                                        >
-                                                            <Typography
-                                                                variant="body2"
-                                                                noWrap
-                                                                sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
+                                                            <TableCell
+                                                                component="th"
+                                                                scope="row"
+                                                                padding="none"
+                                                                sx={{
+                                                                    width: { xs: '60px', md: '100px' },
+                                                                    textAlign: 'center',
+                                                                }}
                                                             >
-                                                                {placarCasa}
-                                                            </Typography>
-                                                            <Typography
-                                                                variant="body2"
-                                                                noWrap
-                                                                sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
+                                                                <Chip
+                                                                    label={`${tempoJogo} '`}
+                                                                    icon={<AlarmOutlinedIcon />}
+                                                                    onClick={handleClick}
+                                                                    sx={{ backgroundColor: '#183D66', color: '#33FFC2', fontWeight: 600 }}
+                                                                />
+                                                            </TableCell>
+
+                                                            <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
+                                                                <Typography variant="subtitle2" noWrap>
+                                                                    {timeCasa}
+                                                                </Typography>
+                                                                <Typography variant="subtitle2" noWrap>
+                                                                    {timeFora}
+                                                                </Typography>
+                                                            </TableCell>
+
+                                                            <TableCell
+                                                                align="left"
+                                                                sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
                                                             >
-                                                                {placarFora}
-                                                            </Typography>
-                                                        </TableCell>
-
-                                                        {activeMarket.toString() === 'Principais mercados' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 1 ?
-                                                            <>
-                                                                <TableCell
-                                                                    sx={{
-                                                                        textAlign: 'center',
-                                                                        cursor: 'pointer',
-                                                                        backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
-                                                                        color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                        width: { xs: 40, md: 200 },
-                                                                    }}
-                                                                    onClick={() =>
-                                                                        handleClickEvent(
-                                                                            id,
-                                                                            'Casa',
-                                                                            timeCasa,
-                                                                            timeFora,
-                                                                            oddCasa,
-                                                                            oddEmpate,
-                                                                            oddFora
-                                                                        )
-                                                                    }
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    noWrap
+                                                                    sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
                                                                 >
-                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                        <Grid item>{timeCasa}</Grid>
-                                                                        <Grid item>
-                                                                            <Chip
-                                                                                sx={{
-                                                                                    display: 'flex',
-                                                                                    justifyContent: 'space-between',
-                                                                                    alignItems: 'center',
-                                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa'}`)
-                                                                                        ? '#33FFC2'
-                                                                                        : '#023047',
-                                                                                    color: clicadas.includes(`${id}-${'Casa'}`)
-                                                                                        ? '#023047'
-                                                                                        : '#33FFC2',
-                                                                                    fontWeight: 'bold',
-                                                                                }}
-                                                                                label={`${fDecimal(oddCasa)}`}
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </TableCell>
-
-                                                                <TableCell
-                                                                    sx={{
-                                                                        textAlign: 'center',
-                                                                        cursor: 'pointer',
-                                                                        backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
-                                                                        color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                        width: { xs: 40, md: 200 },
-                                                                    }}
-                                                                    onClick={() =>
-                                                                        handleClickEvent(
-                                                                            id,
-                                                                            'Empate',
-                                                                            timeCasa,
-                                                                            timeFora,
-                                                                            oddCasa,
-                                                                            oddEmpate,
-                                                                            oddFora
-                                                                        )
-                                                                    }
+                                                                    {placarCasa}
+                                                                </Typography>
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    noWrap
+                                                                    sx={{ color: '#33FFC2', fontSize: 16, fontWeight: 'bold' }}
                                                                 >
-                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                        <Grid item>
-                                                                            <Typography variant="body2">Empate</Typography>
-                                                                        </Grid>
-                                                                        <Grid item>
-                                                                            <Chip
-                                                                                sx={{
-                                                                                    display: 'flex',
-                                                                                    justifyContent: 'space-between',
-                                                                                    alignItems: 'center',
-                                                                                    backgroundColor: clicadas.includes(`${id}-${'Empate'}`)
-                                                                                        ? '#33FFC2'
-                                                                                        : '#023047',
-                                                                                    color: clicadas.includes(`${id}-${'Empate'}`)
-                                                                                        ? '#023047'
-                                                                                        : '#33FFC2',
-                                                                                    fontWeight: 'bold',
-                                                                                }}
-                                                                                label={`${fDecimal(oddEmpate)}`}
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </TableCell>
+                                                                    {placarFora}
+                                                                </Typography>
+                                                            </TableCell>
 
-                                                                <TableCell
-                                                                    sx={{
-                                                                        textAlign: 'center',
-                                                                        cursor: 'pointer',
-                                                                        backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
-                                                                        color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
-                                                                        width: { xs: 40, md: 200 },
-                                                                    }}
-                                                                    onClick={() =>
-                                                                        handleClickEvent(
-                                                                            id,
-                                                                            'Fora',
-                                                                            timeCasa,
-                                                                            timeFora,
-                                                                            oddCasa,
-                                                                            oddEmpate,
-                                                                            oddFora
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                        <Grid item>{timeFora}</Grid>
-                                                                        <Grid item>
-                                                                            <Chip
-                                                                                sx={{
-                                                                                    display: 'flex',
-                                                                                    justifyContent: 'space-between',
-                                                                                    alignItems: 'center',
-                                                                                    backgroundColor: clicadas.includes(`${id}-${'Fora'}`)
-                                                                                        ? '#33FFC2'
-                                                                                        : '#023047',
-                                                                                    color: clicadas.includes(`${id}-${'Fora'}`)
-                                                                                        ? '#023047'
-                                                                                        : '#33FFC2',
-                                                                                    fontWeight: 'bold',
-                                                                                }}
-                                                                                label={`${fDecimal(oddFora)}`}
-                                                                            />
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </TableCell>
-                                                            </>
-                                                            : activeMarket.toString() === 'Resultado Final' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 2 ?
+                                                            {activeMarket.toString() === 'Principais mercados' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 1 ?
                                                                 <>
                                                                     <TableCell
                                                                         sx={{
@@ -1506,48 +1376,45 @@ export default function UserPage() {
                                                                         </Grid>
                                                                     </TableCell>
                                                                 </>
-                                                                : activeMarket.toString() === 'Dupla Chance' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 3 ?
+                                                                : activeMarket.toString() === 'Resultado Final' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 2 ?
                                                                     <>
                                                                         <TableCell
                                                                             sx={{
                                                                                 textAlign: 'center',
                                                                                 cursor: 'pointer',
-                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#023047' : 'transparent',
-                                                                                color: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Casa'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                                 width: { xs: 40, md: 200 },
                                                                             }}
                                                                             onClick={() =>
                                                                                 handleClickEvent(
                                                                                     id,
-                                                                                    'Casa ou Empate',
+                                                                                    'Casa',
                                                                                     timeCasa,
                                                                                     timeFora,
                                                                                     oddCasa,
                                                                                     oddEmpate,
-                                                                                    oddFora,
-                                                                                    odd1x,
-                                                                                    odd12,
-                                                                                    odd2x
+                                                                                    oddFora
                                                                                 )
                                                                             }
                                                                         >
                                                                             <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                                <Grid item>{`${timeCasa} ou Empate`}</Grid>
+                                                                                <Grid item>{timeCasa}</Grid>
                                                                                 <Grid item>
                                                                                     <Chip
                                                                                         sx={{
                                                                                             display: 'flex',
                                                                                             justifyContent: 'space-between',
                                                                                             alignItems: 'center',
-                                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa'}`)
                                                                                                 ? '#33FFC2'
                                                                                                 : '#023047',
-                                                                                            color: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                            color: clicadas.includes(`${id}-${'Casa'}`)
                                                                                                 ? '#023047'
                                                                                                 : '#33FFC2',
                                                                                             fontWeight: 'bold',
                                                                                         }}
-                                                                                        label={`${fDecimal(odd1x)}`}
+                                                                                        label={`${fDecimal(oddCasa)}`}
                                                                                     />
                                                                                 </Grid>
                                                                             </Grid>
@@ -1557,29 +1424,25 @@ export default function UserPage() {
                                                                             sx={{
                                                                                 textAlign: 'center',
                                                                                 cursor: 'pointer',
-                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#023047' : 'transparent',
-                                                                                color: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Empate'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Empate'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                                 width: { xs: 40, md: 200 },
                                                                             }}
                                                                             onClick={() =>
                                                                                 handleClickEvent(
                                                                                     id,
-                                                                                    'Casa ou Fora',
+                                                                                    'Empate',
                                                                                     timeCasa,
                                                                                     timeFora,
                                                                                     oddCasa,
                                                                                     oddEmpate,
-                                                                                    oddFora,
-                                                                                    odd1x,
-                                                                                    odd12,
-                                                                                    odd2x
+                                                                                    oddFora
                                                                                 )
                                                                             }
                                                                         >
                                                                             <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
                                                                                 <Grid item>
-                                                                                    <Grid item>{`${timeCasa} ou ${timeFora}`}</Grid>
-
+                                                                                    <Typography variant="body2">Empate</Typography>
                                                                                 </Grid>
                                                                                 <Grid item>
                                                                                     <Chip
@@ -1587,15 +1450,15 @@ export default function UserPage() {
                                                                                             display: 'flex',
                                                                                             justifyContent: 'space-between',
                                                                                             alignItems: 'center',
-                                                                                            backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Empate'}`)
                                                                                                 ? '#33FFC2'
                                                                                                 : '#023047',
-                                                                                            color: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                            color: clicadas.includes(`${id}-${'Empate'}`)
                                                                                                 ? '#023047'
                                                                                                 : '#33FFC2',
                                                                                             fontWeight: 'bold',
                                                                                         }}
-                                                                                        label={`${fDecimal(odd12)}`}
+                                                                                        label={`${fDecimal(oddEmpate)}`}
                                                                                     />
                                                                                 </Grid>
                                                                             </Grid>
@@ -1605,80 +1468,208 @@ export default function UserPage() {
                                                                             sx={{
                                                                                 textAlign: 'center',
                                                                                 cursor: 'pointer',
-                                                                                backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#023047' : 'transparent',
-                                                                                color: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                backgroundColor: clicadas.includes(`${id}-${'Fora'}`) ? '#023047' : 'transparent',
+                                                                                color: clicadas.includes(`${id}-${'Fora'}`) ? '#B6F4E2' : '#6FA9EB',
                                                                                 width: { xs: 40, md: 200 },
                                                                             }}
                                                                             onClick={() =>
                                                                                 handleClickEvent(
                                                                                     id,
-                                                                                    'Fora ou Empate',
+                                                                                    'Fora',
                                                                                     timeCasa,
                                                                                     timeFora,
                                                                                     oddCasa,
                                                                                     oddEmpate,
-                                                                                    oddFora,
-                                                                                    odd1x,
-                                                                                    odd12,
-                                                                                    odd2x
+                                                                                    oddFora
                                                                                 )
                                                                             }
                                                                         >
                                                                             <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
-                                                                                <Grid item>{`${timeFora} ou Empate`}</Grid>
+                                                                                <Grid item>{timeFora}</Grid>
                                                                                 <Grid item>
                                                                                     <Chip
                                                                                         sx={{
                                                                                             display: 'flex',
                                                                                             justifyContent: 'space-between',
                                                                                             alignItems: 'center',
-                                                                                            backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                            backgroundColor: clicadas.includes(`${id}-${'Fora'}`)
                                                                                                 ? '#33FFC2'
                                                                                                 : '#023047',
-                                                                                            color: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                            color: clicadas.includes(`${id}-${'Fora'}`)
                                                                                                 ? '#023047'
                                                                                                 : '#33FFC2',
                                                                                             fontWeight: 'bold',
                                                                                         }}
-                                                                                        label={`${fDecimal(odd2x)}`}
+                                                                                        label={`${fDecimal(oddFora)}`}
                                                                                     />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </TableCell>
                                                                     </>
-                                                                    : ''
-                                                        }
+                                                                    : activeMarket.toString() === 'Dupla Chance' && Array.isArray(selectedChips) && selectedChips.length === 1 && selectedChips[0] === 3 ?
+                                                                        <>
+                                                                            <TableCell
+                                                                                sx={{
+                                                                                    textAlign: 'center',
+                                                                                    cursor: 'pointer',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#023047' : 'transparent',
+                                                                                    color: clicadas.includes(`${id}-${'Casa ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                    width: { xs: 40, md: 200 },
+                                                                                }}
+                                                                                onClick={() =>
+                                                                                    handleClickEvent(
+                                                                                        id,
+                                                                                        'Casa ou Empate',
+                                                                                        timeCasa,
+                                                                                        timeFora,
+                                                                                        oddCasa,
+                                                                                        oddEmpate,
+                                                                                        oddFora,
+                                                                                        odd1x,
+                                                                                        odd12,
+                                                                                        odd2x
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                    <Grid item>{`${timeCasa} ou Empate`}</Grid>
+                                                                                    <Grid item>
+                                                                                        <Chip
+                                                                                            sx={{
+                                                                                                display: 'flex',
+                                                                                                justifyContent: 'space-between',
+                                                                                                alignItems: 'center',
+                                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                                    ? '#33FFC2'
+                                                                                                    : '#023047',
+                                                                                                color: clicadas.includes(`${id}-${'Casa ou Empate'}`)
+                                                                                                    ? '#023047'
+                                                                                                    : '#33FFC2',
+                                                                                                fontWeight: 'bold',
+                                                                                            }}
+                                                                                            label={`${fDecimal(odd1x)}`}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </TableCell>
 
-                                                        <TableCell align="center" >
-                                                            {selectedChips}
-                                                            <p>{`market: ${activeMarket}`}</p>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                );
-                                            })
-                                        ) : (
-                                            <TableRow style={{ height: 53 }}>
-                                                <TableCell colSpan={12}>
-                                                    <Typography variant="subtitle1">
-                                                        Nenhuma opção disponível
-                                                    </Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                        )}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        </Scrollbar>
+                                                                            <TableCell
+                                                                                sx={{
+                                                                                    textAlign: 'center',
+                                                                                    cursor: 'pointer',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#023047' : 'transparent',
+                                                                                    color: clicadas.includes(`${id}-${'Casa ou Fora'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                    width: { xs: 40, md: 200 },
+                                                                                }}
+                                                                                onClick={() =>
+                                                                                    handleClickEvent(
+                                                                                        id,
+                                                                                        'Casa ou Fora',
+                                                                                        timeCasa,
+                                                                                        timeFora,
+                                                                                        oddCasa,
+                                                                                        oddEmpate,
+                                                                                        oddFora,
+                                                                                        odd1x,
+                                                                                        odd12,
+                                                                                        odd2x
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                    <Grid item>
+                                                                                        <Grid item>{`${timeCasa} ou ${timeFora}`}</Grid>
 
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25]}
-                            component="div"
-                            count={rows.length}
-                            rowsPerPage={5}
-                            page={0}
-                        // onPageChange={handleChangePage}
-                        // onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
+                                                                                    </Grid>
+                                                                                    <Grid item>
+                                                                                        <Chip
+                                                                                            sx={{
+                                                                                                display: 'flex',
+                                                                                                justifyContent: 'space-between',
+                                                                                                alignItems: 'center',
+                                                                                                backgroundColor: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                                    ? '#33FFC2'
+                                                                                                    : '#023047',
+                                                                                                color: clicadas.includes(`${id}-${'Casa ou Fora'}`)
+                                                                                                    ? '#023047'
+                                                                                                    : '#33FFC2',
+                                                                                                fontWeight: 'bold',
+                                                                                            }}
+                                                                                            label={`${fDecimal(odd12)}`}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </TableCell>
+
+                                                                            <TableCell
+                                                                                sx={{
+                                                                                    textAlign: 'center',
+                                                                                    cursor: 'pointer',
+                                                                                    backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#023047' : 'transparent',
+                                                                                    color: clicadas.includes(`${id}-${'Fora ou Empate'}`) ? '#B6F4E2' : '#6FA9EB',
+                                                                                    width: { xs: 40, md: 200 },
+                                                                                }}
+                                                                                onClick={() =>
+                                                                                    handleClickEvent(
+                                                                                        id,
+                                                                                        'Fora ou Empate',
+                                                                                        timeCasa,
+                                                                                        timeFora,
+                                                                                        oddCasa,
+                                                                                        oddEmpate,
+                                                                                        oddFora,
+                                                                                        odd1x,
+                                                                                        odd12,
+                                                                                        odd2x
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <Grid container justifyContent="space-between" alignItems="center" sx={{ borderRadius: 10 }}>
+                                                                                    <Grid item>{`${timeFora} ou Empate`}</Grid>
+                                                                                    <Grid item>
+                                                                                        <Chip
+                                                                                            sx={{
+                                                                                                display: 'flex',
+                                                                                                justifyContent: 'space-between',
+                                                                                                alignItems: 'center',
+                                                                                                backgroundColor: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                                    ? '#33FFC2'
+                                                                                                    : '#023047',
+                                                                                                color: clicadas.includes(`${id}-${'Fora ou Empate'}`)
+                                                                                                    ? '#023047'
+                                                                                                    : '#33FFC2',
+                                                                                                fontWeight: 'bold',
+                                                                                            }}
+                                                                                            label={`${fDecimal(odd2x)}`}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </TableCell>
+                                                                        </>
+                                                                        : ''
+                                                            }
+
+                                                            <TableCell align="center" >
+                                                                {selectedChips}
+                                                                <p>{`market: ${activeMarket}`}</p>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    );
+                                                })
+                                            ) : (
+                                                <TableRow style={{ height: 53 }}>
+                                                    <TableCell colSpan={12}>
+                                                        <Typography variant="subtitle1">
+                                                            Nenhuma opção disponível
+                                                        </Typography>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Scrollbar>
+                        </Card>
                     </Grid>
                 </Grid>
 
