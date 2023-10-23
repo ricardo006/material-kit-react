@@ -16,6 +16,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import FutebolPage from './pages/FutebolPage';
 import CaixaPage from './pages/CaixaPage';
 import ApostasPage from './pages/ApostasPage';
+import MatchPage from './pages/MatchPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -34,7 +35,10 @@ export default function Router() {
         { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'futebol', element: <FutebolPage /> },
-
+        {
+          path: 'match',
+          element: <MatchPage />
+        },
       ],
     },
     {
@@ -45,6 +49,7 @@ export default function Router() {
       path: 'register',
       element: <RegisterPage />,
     },
+
     {
       element: <SimpleLayout />,
       children: [

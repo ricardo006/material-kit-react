@@ -10,3 +10,4 @@ export { default as AppConversionRates } from './AppConversionRates';
 export { default as AppChipMercados } from './AppChipMercados';
 export { default as AppStadings } from './AppStadings';
 export { default as BannersEvents } from './BannersEvents';
+export { default as MatchEvents } from './MatchEvents';

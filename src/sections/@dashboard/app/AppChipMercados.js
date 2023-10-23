@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import GradeTwoToneIcon from '@mui/icons-material/GradeTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
@@ -781,6 +782,8 @@ const rows = [
 
 export default function UserPage() {
     const theme = useTheme();
+    const navigate = useNavigate();
+
     const [selected, setSelected] = useState([]);
     const [activeMarket, setActiveMarket] = useState(null);
     const [concatenatedText, setConcatenatedText] = useState('');
@@ -1042,7 +1045,7 @@ export default function UserPage() {
     };
 
     const handleClickRow = (id) => {
-        alert(id)
+        navigate('/dashboard/match', { replace: true });
     }
 
     return (
@@ -1064,7 +1067,7 @@ export default function UserPage() {
                             color: '#33FFC2'
                         }}
                     >
-                        <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                        <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2' }} />
                         Próximos jogos
                     </Typography>
                     <Grid item xs={12} md={12} sx={{ mt: 4, mb: 4, backgroundColor: '#001D3D', borderRadius: 3, border: 0 }}>
