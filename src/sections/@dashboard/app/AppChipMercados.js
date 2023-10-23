@@ -1064,7 +1064,8 @@ export default function UserPage() {
                             ml: 1,
                             mt: 2,
                             fontSize: 12,
-                            color: '#33FFC2'
+                            fontWeight: 700,
+                            color: '#B1D2F7'
                         }}
                     >
                         <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />

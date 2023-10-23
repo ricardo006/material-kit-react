@@ -192,7 +192,8 @@ export default function BannersEvents() {
                                     ml: 1,
                                     mt: 2,
                                     fontSize: 12,
-                                    color: '#33FFC2'
+                                    fontWeight: 700,
+                                    color: '#B1D2F7'
                                 }}
                             >
                                 <EmojiEventsTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
