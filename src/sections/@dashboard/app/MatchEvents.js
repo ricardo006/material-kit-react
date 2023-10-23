@@ -3,10 +3,12 @@ import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
 import ImageIcon from '@mui/icons-material/Image';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
 
 import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
+    Button,
     AccordionDetails,
     AccordionSummary,
     Accordion,
@@ -65,11 +67,33 @@ function TabPanel(props) {
 }
 
 export default function MatchEvents() {
-    const theme = useTheme();
-
     const styles = {
+        buttonmarkets: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            backgroundColor: '#001D3D',
+            width: '100%',
+            color: '#33FFC2',
+            border: 0,
+            boxShadow: 0,
+            fontSize: 14,
+            '&:hover': {
+                boxShadow: 0,
+                backgroundColor: '#1d3557',
+                color: '#33FFC2',
+            },
+        },
+        value: {
+            marginLeft: 'auto',
+            fontWeight: 700,
+        },
+        teamName: {
+            marginRight: 'auto',
+            textTransform: 'capitalize',
+            color: '#B9DAFF'
+        },
         cardMedia: {
-            height: '60%', // Defina a altura desejada aqui (60%)
+            height: '60%',
         },
         paper: {
             backgroundImage: `url(${imgBet})`,
@@ -111,88 +135,253 @@ export default function MatchEvents() {
             color: '#B6D6FC',
             fontWeight: 600,
             fontSize: 24
-        }
+        },
     }
 
     return (
         <>
             <Container maxWidth="xl">
-                <Card>
-                    <Grid container spacing={2}>
-                        <Paper sx={styles.paper}>
-                            <Grid xs={6} md={1} >
-                                <Typography>'</Typography>
+                <Grid container spacing={2}>
+                    <Grid xs={12} md={8} spacing={2}>
+                        <Card>
+                            <Grid container spacing={2}>
+                                <Paper sx={styles.paper}>
+                                    <Grid xs={6} md={1} >
+                                        <Typography>'</Typography>
+                                    </Grid>
+                                    <Grid xs={6} md={5} sx={styles.textContainerCasa}>
+                                        <Typography variant="h6">Fluminense</Typography>
+                                    </Grid>
+                                    <Grid xs={6} md={5} sx={styles.textContainerFora}>
+                                        <Typography variant="h6">Vasco</Typography>
+                                    </Grid>
+                                    <Grid xs={6} md={1} >
+                                        <Typography>'</Typography>
+                                    </Grid>
+                                </Paper>
                             </Grid>
-                            <Grid xs={6} md={5} sx={styles.textContainerCasa}>
-                                <Typography variant="h6">Fluminense</Typography>
-                            </Grid>
-                            <Grid xs={6} md={5} sx={styles.textContainerFora}>
-                                <Typography variant="h6">Vasco</Typography>
-                            </Grid>
-                            <Grid xs={6} md={1} >
-                                <Typography>'</Typography>
 
-                            </Grid>
-                        </Paper>
+                            <CardContent>
+                                <Box sx={{ display: 'flex', flexDirection: 'row', mb: 4 }}>
+                                    <Typography component="div" variant="h5"
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center', // Alinha verticalmente
+                                            textAlign: 'left',
+                                            fontSize: 12,
+                                        }}>
+                                        <AutoAwesomeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                        Principais Mercados
+                                    </Typography>
+                                </Box>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel1a-content"
+                                                id="panel1a-header"
+                                            >
+                                                <Typography>Vencedor Final</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fluminense</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Empate</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Vasco</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>2.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12} >
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel2a-content"
+                                                id="panel2a-header"
+                                            >
+                                                <Typography>Resultado ao Intervalo</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fluminense</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Empate</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Vasco</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>2.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel3a-content"
+                                                id="panel3a-header"
+                                            >
+                                                <Typography>Mais/Menos Gols</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 0.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 0.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel3a-content"
+                                                id="panel3a-header"
+                                            >
+                                                <Typography>Dupla Chance</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fluminense ou Empate</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
 
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fluminense ou Vasco</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Vasco ou Empate</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </Card>
                     </Grid>
+                    <Grid xs={12} md={4} spacing={2}>
+                        <Card sx={{ ml: 1, mt: 2 }}>
+                            <Grid sx={12} container spacing={2}>
+                                <Paper sx={{ p: 2, mt: 2, mb: 2, backgroundColor: '#001D3D', borderRadius: 2, width: '100%', verticalAlign: 'middle', height: 120 }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', }}>
+                                        <Typography component="div" variant="h6"
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center', // Alinha verticalmente
+                                                textAlign: 'left',
+                                                fontSize: 12,
+                                                mt: 2,
+                                                ml: 2,
+                                            }}>
+                                            <AutoAwesomeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                            Minhas Apostas
+                                        </Typography>
+                                    </Box>
 
-                    <CardContent>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', mb: 4 }}>
-                            <Typography component="div" variant="h5">
-                                Principais Mercados
-                            </Typography>
-                        </Box>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={12}>
-                                <Accordion sx={{ backgroundColor: '#183D66' }}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography>Accordion 1</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', }}>
+                                        <Typography component="div" variant="h6"
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center', // Alinha verticalmente
+                                                textAlign: 'left',
+                                                fontSize: 12,
+                                                mt: 2,
+                                                ml: 2,
+                                            }}>
+                                            <AutoAwesomeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                            Minhas Apostas
                                         </Typography>
-                                    </AccordionDetails>
-                                </Accordion>
+                                    </Box>
+                                </Paper>
                             </Grid>
-                            <Grid item xs={12} md={12} >
-                                <Accordion sx={{ backgroundColor: '#183D66' }}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel2a-content"
-                                        id="panel2a-header"
-                                    >
-                                        <Typography>Accordion 2</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                        </Typography>
-                                    </AccordionDetails>
-                                </Accordion>
-                            </Grid>
-                            <Grid item xs={12} md={12}>
-                                <Accordion sx={{ backgroundColor: '#183D66' }}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel3a-content"
-                                        id="panel3a-header"
-                                    >
-                                        <Typography>Disabled Accordion</Typography>
-                                    </AccordionSummary>
-                                </Accordion>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </Card>
-            </Container>
+                        </Card>
+                    </Grid>
+                </Grid >
+            </Container >
         </>
     );
 }

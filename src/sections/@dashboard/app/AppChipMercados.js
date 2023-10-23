@@ -1067,7 +1067,7 @@ export default function UserPage() {
                             color: '#33FFC2'
                         }}
                     >
-                        <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2' }} />
+                        <SportsSoccerTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
                         Próximos jogos
                     </Typography>
                     <Grid item xs={12} md={12} sx={{ mt: 4, mb: 4, backgroundColor: '#001D3D', borderRadius: 3, border: 0 }}>
@@ -1280,7 +1280,7 @@ export default function UserPage() {
                                                     const iconType = iconTypes[id - 1];
 
                                                     return (
-                                                        <TableRow hover onClick={() => handleClickRow(id)} key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0, cursor: 'pointer' }}>
+                                                        <TableRow hover key={id} tabIndex={-1} role="checkbox" sx={{ backgroundColor: '#001D3D', m: 0, cursor: 'pointer' }}>
                                                             <TableCell padding="checkbox" sx={{ textAlign: 'center', cursor: 'pointer', color: iconType !== 'star' ? '#33FFC2' : '#6FA9EB', backgroundColor: iconType !== 'star' ? '#001D3D' : '#001D3D' }}>
                                                                 {iconType === 'star' ? (
                                                                     <StarOutlineTwoToneIcon
@@ -1296,7 +1296,7 @@ export default function UserPage() {
                                                                 )}
                                                             </TableCell>
 
-                                                            <TableCell
+                                                            <TableCell onClick={() => handleClickRow(id)}
                                                                 component="th"
                                                                 scope="row"
                                                                 padding="none"
@@ -1313,7 +1313,9 @@ export default function UserPage() {
                                                                 />
                                                             </TableCell>
 
-                                                            <TableCell align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
+                                                            <TableCell onClick={() => handleClickRow(id)}
+
+                                                                align="left" sx={{ width: { xs: 200, md: 400 }, fontWeight: 'bold' }}>
                                                                 <Typography variant="subtitle2" noWrap>
                                                                     {timeCasa}
                                                                 </Typography>
@@ -1322,7 +1324,7 @@ export default function UserPage() {
                                                                 </Typography>
                                                             </TableCell>
 
-                                                            <TableCell
+                                                            <TableCell onClick={() => handleClickRow(id)}
                                                                 align="left"
                                                                 sx={{ backgroundColor: '#001D3D', textAlign: 'center', p: 2, minWidth: 70 }}
                                                             >
