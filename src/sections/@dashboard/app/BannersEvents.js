@@ -191,7 +191,6 @@ export default function BannersEvents() {
                                     pr: 2,
                                     ml: 1,
                                     mt: 2,
-                                    fontSize: 12,
                                     fontWeight: 700,
                                     color: '#B1D2F7'
                                 }}

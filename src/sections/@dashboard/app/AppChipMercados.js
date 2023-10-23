@@ -1058,12 +1058,11 @@ export default function UserPage() {
                         variant="body2"
                         sx={{
                             display: 'flex',
-                            alignItems: 'center', // Alinha verticalmente
+                            alignItems: 'center',
                             textAlign: 'left',
                             pr: 2,
                             ml: 1,
                             mt: 2,
-                            fontSize: 12,
                             fontWeight: 700,
                             color: '#B1D2F7'
                         }}
@@ -1114,8 +1113,9 @@ export default function UserPage() {
                                             >
                                                 Ligas
                                             </Button>
-
-                                            <Grid item xs={6} md={12} >
+                                        </Grid>
+                                        <Grid container xs={12} md={12}>
+                                            <Grid item xs={12} md={12} >
                                                 <Typography
                                                     variant="body2"
                                                     sx={{
@@ -1159,7 +1159,27 @@ export default function UserPage() {
                                                     24 horas
                                                 </Button>
                                             </Grid>
+                                            <Grid item xs={12} md={12} >
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<AccessTimeTwoToneIcon />}
+                                                    onClick={() => handleTabChange(1)}
+                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 160 }}
+                                                >
+                                                    Horário de início
+                                                </Button>
+
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<AccessTimeTwoToneIcon />}
+                                                    onClick={() => handleTabChange(1)}
+                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 130, width: 160 }}
+                                                >
+                                                    Por competição
+                                                </Button>
+                                            </Grid>
                                         </Grid>
+
                                     </AccordionDetails>
                                     <CardContent sx={{ display: accordionExpanded ? 'block' : 'none' }}>
                                         {selectedTab === 0 &&

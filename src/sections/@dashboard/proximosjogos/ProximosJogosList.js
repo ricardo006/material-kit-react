@@ -41,7 +41,7 @@ export default function ProximosJogosList({ products, ...other }) {
             borderRadius: 10,
             cursor: 'pointer',
           }}
-          onClick={() => handleCardClick(item.match_id)} // Adiciona o evento onClick
+          onClick={() => handleCardClick(item.match_id)}
         >
           <Grid item xs={12} sm={12} md={12} key={item.match_id} style={{ margin: '10px', padding: '10px', backgroundColor: '#183D66', borderRadius: 10 }} >
             <CardContent>

@@ -163,12 +163,11 @@ export default function MatchEvents() {
 
                             <CardContent>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', mb: 4 }}>
-                                    <Typography component="div" variant="h5"
+                                    <Typography component="div" variant="h6"
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center', // Alinha verticalmente
                                             textAlign: 'left',
-                                            fontSize: 12,
                                         }}>
                                         <AutoAwesomeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
                                         Principais Mercados
