@@ -70,8 +70,8 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          {/* <LanguagePopover /> */}
           <Searchbar />
+          <LanguagePopover />
           <NotificationsPopover />
           <AccountPopover />
         </Stack>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
 
 import {
@@ -17,7 +17,7 @@ import {
 
 import Scrollbar from '../../../components/scrollbar';
 import bgEvents from '../../../illustrations/bgEvent4.jpg';
-import { fDecimal, fCurrency } from '../../../utils/formatNumber';
+import { fDecimal } from '../../../utils/formatNumber';
 
 const events = [
     {

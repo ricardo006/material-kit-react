@@ -1,20 +1,10 @@
 import * as React from 'react';
-import FaceIcon from '@mui/icons-material/Face';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
-import PropTypes from 'prop-types';
-import { Grid, Card, Avatar, Chip, Stack, Box, CardContent, Typography, List, ListItem, Container } from '@mui/material';
+import { Grid, Card, Avatar, Chip, Box, CardContent, Typography, Container } from '@mui/material';
 import Predictions from '../../../api/Predictions';
-import GetLiveOddsComments from '../../../api/GetLiveOddsComments';
 
-ProximosJogosList.propTypes = {
-  products: PropTypes.array.isRequired,
-};
-
-export default function ProximosJogosList({ products, ...other }) {
+export default function ProximosJogosList() {
   const data = Predictions();
-
-  // const dataNew = GetLiveOddsComments();
-  // console.log(dataNew);
 
   const getLastComment = (item) => {
     const liveCommentsArray = item.live_comments || [];

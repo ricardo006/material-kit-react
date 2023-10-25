@@ -1,70 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-import ImageIcon from '@mui/icons-material/Image';
-import IconButton from '@mui/material/IconButton';
+import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
 
-import { useTheme } from '@mui/material/styles';
 import {
-    Avatar,
     Button,
     AccordionDetails,
     AccordionSummary,
     Accordion,
     Typography,
     Card,
-    CardMedia,
     CardContent,
     Container,
     Grid,
     Box,
-    Tabs,
-    Tab,
-    Chip,
     Paper,
-    List,
-    ListItem,
-    Stack,
-
 } from '@mui/material';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import imgBet from '../../../illustrations/banner_match.jpg';
-import Scrollbar from '../../../components/scrollbar';
-import bgEvents from '../../../illustrations/bgEvent4.jpg';
-
-const marketsData = [
-    { id: 1, label: 'Principais mercados', color: 'primary' },
-    { id: 2, label: 'Resultado Final', color: 'primary' },
-    { id: 3, label: 'Dupla Chance', color: 'primary' },
-    { id: 4, label: 'Total de Gols mais/menos', color: 'primary' },
-    { id: 5, label: 'Próximo Gol', color: 'primary' },
-    { id: 6, label: 'Empate Anula', color: 'primary' },
-    { id: 7, label: 'Totais de gols mais/menos 1º tempo', color: 'primary' },
-    { id: 8, label: 'Escanteios Mais/Menos', color: 'primary' },
-];
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
 
 export default function MatchEvents() {
     const styles = {

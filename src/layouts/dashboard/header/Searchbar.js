@@ -7,8 +7,6 @@ import { bgBlur } from '../../../utils/cssStyles';
 // component
 import Iconify from '../../../components/iconify';
 
-// ----------------------------------------------------------------------
-
 const HEADER_MOBILE = 64;
 const HEADER_DESKTOP = 92;
 

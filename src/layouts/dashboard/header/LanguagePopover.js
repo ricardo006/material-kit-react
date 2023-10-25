@@ -1,9 +1,8 @@
 import { useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
-
-// ----------------------------------------------------------------------
+import { Box, Typography, MenuItem, Stack, Button, Popover } from '@mui/material';
+import CardGiftcardTwoToneIcon from '@mui/icons-material/CardGiftcardTwoTone';
 
 const LANGS = [
   {
@@ -23,8 +22,6 @@ const LANGS = [
   },
 ];
 
-// ----------------------------------------------------------------------
-
 export default function LanguagePopover() {
   const [open, setOpen] = useState(null);
 
@@ -38,19 +35,30 @@ export default function LanguagePopover() {
 
   return (
     <>
-      <IconButton
+      <Button
         onClick={handleOpen}
         sx={{
           padding: 0,
-          width: 44,
-          height: 44,
+          width: 140,
+          height: 40,
+          boxShadow: 0,
+          backgroundColor: '#41ead4',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          flexDirection: 'row',
           ...(open && {
             bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
           }),
         }}
+        variant="contained"
+        endIcon={<CardGiftcardTwoToneIcon sx={{ width: 24, height: 24 }} />}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
-      </IconButton>
+        <Typography variant="body2" sx={{ fontSize: 12, ml: 2, alignSelf: 'center', fontWeight: 800, }}>
+          Promoções
+        </Typography>
+      </Button>
+
 
       <Popover
         open={Boolean(open)}

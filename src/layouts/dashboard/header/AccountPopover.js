@@ -7,7 +7,7 @@ import account from '../../../_mock/account';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Dashboard',
     icon: 'eva:home-fill',
   },
   {
@@ -43,9 +43,9 @@ export default function AccountPopover() {
               content: "''",
               width: '100%',
               height: '100%',
-              borderRadius: '10%',
+              borderRadius: '40%',
               position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
+              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.2),
             },
           }),
         }}
