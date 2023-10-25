@@ -15,6 +15,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListTwoToneIcon from '@mui/icons-material/FilterListTwoTone';
 import PublicTwoToneIcon from '@mui/icons-material/PublicTwoTone';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
+import EventAvailableTwoToneIcon from '@mui/icons-material/EventAvailableTwoTone';
+import AlbumTwoToneIcon from '@mui/icons-material/AlbumTwoTone';
 
 import {
     Accordion,
@@ -1048,9 +1050,11 @@ export default function UserPage() {
         navigate('/dashboard/match', { replace: true });
     }
 
+
     return (
         <>
             <Container maxWidth="xl">
+
                 <CustomAlert open={alertOpen} message={alertMessage} onClose={handleCloseAlert} />
 
                 <Grid container>
@@ -1114,13 +1118,13 @@ export default function UserPage() {
                                                 Ligas
                                             </Button>
                                         </Grid>
-                                        <Grid container xs={12} md={12}>
-                                            <Grid item xs={12} md={12} >
+                                        <Grid container xs={12} sm={12} md={12}>
+                                            <Grid item xs={12} sm={12} md={12}>
                                                 <Typography
                                                     variant="body2"
                                                     sx={{
                                                         display: 'flex',
-                                                        alignItems: 'center', // Alinha verticalmente
+                                                        alignItems: 'center',
                                                         textAlign: 'left',
                                                         pr: 2,
                                                         ml: 1,
@@ -1132,55 +1136,145 @@ export default function UserPage() {
                                                     <AccessTimeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
                                                     Próximas horas
                                                 </Typography>
-                                                <Button
-                                                    variant="contained"
-                                                    startIcon={<AccessTimeTwoToneIcon />}
-                                                    onClick={() => handleTabChange(1)}
-                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
-                                                >
-                                                    3 horas
-                                                </Button>
-
-                                                <Button
-                                                    variant="contained"
-                                                    startIcon={<AccessTimeTwoToneIcon />}
-                                                    onClick={() => handleTabChange(1)}
-                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
-                                                >
-                                                    12 horas
-                                                </Button>
-
-                                                <Button
-                                                    variant="contained"
-                                                    startIcon={<AccessTimeTwoToneIcon />}
-                                                    onClick={() => handleTabChange(1)}
-                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 140 }}
-                                                >
-                                                    24 horas
-                                                </Button>
                                             </Grid>
-                                            <Grid item xs={12} md={12} >
-                                                <Button
-                                                    variant="contained"
-                                                    startIcon={<AccessTimeTwoToneIcon />}
-                                                    onClick={() => handleTabChange(1)}
-                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: 160 }}
-                                                >
-                                                    Horário de início
-                                                </Button>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={6} sm={4} md={3}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 100, width: '100%' }}
+                                                    >
+                                                        3 horas
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item xs={6} sm={4} md={3}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 100, width: '100%' }}
+                                                    >
+                                                        6 horas
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item xs={6} sm={4} md={3}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: '100%' }}
+                                                    >
+                                                        12 horas
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item xs={6} sm={4} md={3}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 120, width: '100%' }}
+                                                    >
+                                                        24 horas
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item xs={6} sm={4} md={4}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{
+                                                            textAlign: 'left',
+                                                            ml: 1,
+                                                            mt: 2,
+                                                            fontSize: { xs: '12px' },
+                                                            boxShadow: 'none',
+                                                            minWidth: 120,
+                                                            width: '100%'
+                                                        }}
+                                                    >
+                                                        Horário de início
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item xs={6} sm={4} md={4}>
+                                                    <Button
+                                                        variant="contained"
+                                                        startIcon={<AccessTimeTwoToneIcon />}
+                                                        onClick={() => handleTabChange(1)}
+                                                        sx={{
+                                                            textAlign: 'left',
+                                                            mt: 2,
+                                                            ml: { xs: 1, sm: 0, md: 2 },
+                                                            mr: { xs: 1, sm: 0, md: 2 },
+                                                            boxShadow: 'none',
+                                                            fontSize: 12,
+                                                            minWidth: 130,
+                                                            width: '100%',
+                                                        }}
+                                                    >
+                                                        Por competição
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
 
-                                                <Button
-                                                    variant="contained"
-                                                    startIcon={<AccessTimeTwoToneIcon />}
-                                                    onClick={() => handleTabChange(1)}
-                                                    sx={{ textAlign: 'left', ml: 1, mt: 2, boxShadow: 'none', fontSize: 12, minWidth: 130, width: 160 }}
-                                                >
-                                                    Por competição
-                                                </Button>
+                                            <Grid container spacing={2} sx={{ mr: 2 }}>
+                                                <Grid item xs={12} sm={12} md={12}>
+                                                    <Typography
+                                                        variant="body2"
+                                                        sx={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            textAlign: 'left',
+                                                            pr: 2,
+                                                            ml: 1,
+                                                            mt: 2,
+                                                            fontSize: 12,
+                                                            color: '#33FFC2'
+                                                        }}
+                                                    >
+                                                        <EventAvailableTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
+                                                        Por intervalo de datas
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={6} md={6}>
+                                                    <TextField
+                                                        id="startDate"
+                                                        label="De"
+                                                        type="date"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        fullWidth
+                                                        sx={{
+                                                            margin: 2,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                        }}
+                                                    />
+                                                </Grid>
+
+                                                <Grid item xs={12} sm={6} md={6}>
+                                                    <TextField
+                                                        id="endDate"
+                                                        label="Até"
+                                                        type="date"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        fullWidth
+                                                        sx={{
+                                                            margin: 2,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                        }}
+                                                    />
+                                                </Grid>
                                             </Grid>
                                         </Grid>
-
                                     </AccordionDetails>
+
                                     <CardContent sx={{ display: accordionExpanded ? 'block' : 'none' }}>
                                         {selectedTab === 0 &&
                                             <Grid container spacing={3} >

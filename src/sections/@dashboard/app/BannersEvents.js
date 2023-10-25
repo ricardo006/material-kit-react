@@ -17,6 +17,7 @@ import {
 
 import Scrollbar from '../../../components/scrollbar';
 import bgEvents from '../../../illustrations/bgEvent4.jpg';
+import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 
 const marketsData = [
     { id: 1, label: 'Principais mercados', color: 'primary' },
@@ -219,9 +220,9 @@ export default function BannersEvents() {
                                                     <Chip label={`${event.timeCasa} x ${event.timeFora}`} sx={{ mt: .4, fontWeight: 700, backgroundColor: 'transparent' }} />
                                                     <Chip label={`${event.data} | ${event.horario}`} sx={{ mt: 1, marginRight: 2, width: '100%', backgroundColor: 'transparent' }} />
                                                     <div style={{ display: 'flex', alignItems: 'center', pb: 1 }}>
-                                                        <Chip spacing={2} label={`${event.oddCasa}`} sx={styles.chip} />
-                                                        <Chip spacing={2} label={`${event.oddEmpate}`} sx={styles.chip} />
-                                                        <Chip spacing={2} label={`${event.oddFora}`} sx={styles.chip} />
+                                                        <Chip spacing={2} label={`${fDecimal(event.oddCasa)}`} sx={styles.chip} />
+                                                        <Chip spacing={2} label={`${fDecimal(event.oddEmpate)}`} sx={styles.chip} />
+                                                        <Chip spacing={2} label={`${fDecimal(event.oddFora)}`} sx={styles.chip} />
                                                     </div>
                                                 </Grid>
                                             </ListItem>

@@ -7,8 +7,6 @@ import { Box, Link } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import img from "./BetSpace.png";
 
-// ----------------------------------------------------------------------
-
 const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const theme = useTheme();
 

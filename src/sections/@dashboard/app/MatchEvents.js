@@ -350,7 +350,7 @@ export default function MatchEvents() {
                                         <Typography component="div" variant="h6"
                                             sx={{
                                                 display: 'flex',
-                                                alignItems: 'center', // Alinha verticalmente
+                                                alignItems: 'center',
                                                 textAlign: 'left',
                                                 fontSize: 12,
                                                 mt: 2,
@@ -365,7 +365,7 @@ export default function MatchEvents() {
                                         <Typography component="div" variant="h6"
                                             sx={{
                                                 display: 'flex',
-                                                alignItems: 'center', // Alinha verticalmente
+                                                alignItems: 'center',
                                                 textAlign: 'left',
                                                 fontSize: 12,
                                                 mt: 2,
@@ -379,8 +379,8 @@ export default function MatchEvents() {
                             </Grid>
                         </Card>
                     </Grid>
-                </Grid >
-            </Container >
+                </Grid>
+            </Container>
         </>
     );
 }

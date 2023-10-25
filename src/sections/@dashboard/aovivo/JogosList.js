@@ -16,7 +16,7 @@ export default function JogosList({ products, ...other }) {
     return 'Nenhum comentário disponível';
   };
 
-  
+
   const handleCardClick = (matchId) => {
     alert(matchId)
     setSelectedMatchId(matchId);
@@ -34,7 +34,7 @@ export default function JogosList({ products, ...other }) {
             borderRadius: 10,
             cursor: 'pointer',
           }}
-          onClick={() => handleCardClick(item.match_id)} // Adiciona o evento onClick
+          onClick={() => handleCardClick(item.match_id)}
         >
           <Grid key={item.match_id} style={{ margin: '10px', padding: '10px', backgroundColor: '#183D66', borderRadius: 10 }} item xs={12} sm={12} md={12}>
             <CardContent >

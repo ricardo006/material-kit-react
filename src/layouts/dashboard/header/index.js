@@ -44,15 +44,7 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
-  const navigate = useNavigate();
 
-  const handleClickProxJogos = () => {
-    navigate('proximosjogos', { replace: true });
-  };
-
-  const handleClickAoVivo = () => {
-    navigate('aovivo', { replace: true })
-  }
 
   return (
     <StyledRoot>
@@ -67,14 +59,6 @@ export default function Header({ onOpenNav }) {
         >
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
-
-        <Button variant="outlined" startIcon={<AccessTimeOutlinedIcon />} sx={{ m: 2 }} onClick={handleClickProxJogos}>
-          Próximos Jogos
-        </Button>
-
-        <Button variant="outlined" startIcon={<AlbumOutlinedIcon />} onClick={handleClickAoVivo}>
-          Ao Vivo
-        </Button>
 
         <Box sx={{ flexGrow: 1 }} />
 
