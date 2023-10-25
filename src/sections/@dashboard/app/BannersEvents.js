@@ -19,17 +19,6 @@ import Scrollbar from '../../../components/scrollbar';
 import bgEvents from '../../../illustrations/bgEvent4.jpg';
 import { fDecimal, fCurrency } from '../../../utils/formatNumber';
 
-const marketsData = [
-    { id: 1, label: 'Principais mercados', color: 'primary' },
-    { id: 2, label: 'Resultado Final', color: 'primary' },
-    { id: 3, label: 'Dupla Chance', color: 'primary' },
-    { id: 4, label: 'Total de Gols mais/menos', color: 'primary' },
-    { id: 5, label: 'Próximo Gol', color: 'primary' },
-    { id: 6, label: 'Empate Anula', color: 'primary' },
-    { id: 7, label: 'Totais de gols mais/menos 1º tempo', color: 'primary' },
-    { id: 8, label: 'Escanteios Mais/Menos', color: 'primary' },
-];
-
 const events = [
     {
         id: 1,

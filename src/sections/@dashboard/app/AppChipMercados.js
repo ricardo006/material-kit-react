@@ -16,7 +16,6 @@ import FilterListTwoToneIcon from '@mui/icons-material/FilterListTwoTone';
 import PublicTwoToneIcon from '@mui/icons-material/PublicTwoTone';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 import EventAvailableTwoToneIcon from '@mui/icons-material/EventAvailableTwoTone';
-import AlbumTwoToneIcon from '@mui/icons-material/AlbumTwoTone';
 
 import {
     Accordion,
@@ -1050,11 +1049,9 @@ export default function UserPage() {
         navigate('/dashboard/match', { replace: true });
     }
 
-
     return (
         <>
             <Container maxWidth="xl">
-
                 <CustomAlert open={alertOpen} message={alertMessage} onClose={handleCloseAlert} />
 
                 <Grid container>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-
+import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
+import AlbumTwoToneIcon from '@mui/icons-material/AlbumTwoTone';
 import {
+    Button,
     Typography,
     Container,
     Grid,
@@ -64,60 +66,41 @@ export default function SoccerOptions() {
         navigate('aovivo', { replace: true })
     }
 
-    const styles = {
-        chip: {
-            marginTop: 2,
-            marginRight: 1,
-            width: '100%',
-            backgroundColor: 'rgb(100 125 153 / 50%)',
-            color: '#fff',
-            border: 0,
-            fontWeight: 600,
-            fontSize: 12,
-            cursor: 'pointer',
-        },
-    };
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     return (
         <>
             <Container maxWidth="xl">
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={12}>
                         <Grid spacing={2}>
-                            <Typography
-                                variant="body2"
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center', // Alinha verticalmente
-                                    textAlign: 'left',
-                                    pr: 2,
-                                    ml: 1,
-                                    mt: 2,
-                                    fontWeight: 700,
-                                    color: '#B1D2F7'
-                                }}
-                            >
-                                <EmojiEventsTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
-                                Destaques
-                            </Typography>
-
-                            <Grid container spacing={2} sx={{ mr: 2 }}>
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Button variant="outlined" startIcon={<AccessTimeTwoToneIcon />} sx={{ m: 2 }} onClick={handleClickProxJogos}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6} md={6}>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<AccessTimeTwoToneIcon />}
+                                        sx={{
+                                            width: { xs: 'calc(50% - 8px)', sm: 'calc(50% - 8px)' },
+                                            mb: 2,
+                                        }}
+                                        onClick={handleClickProxJogos}
+                                    >
                                         Próximos Jogos
                                     </Button>
-                                </Grid>
-
-                                <Grid item xs={12} sm={12} md={12}>
-                                    <Button variant="outlined" startIcon={<AlbumTwoToneIcon />} onClick={handleClickAoVivo}>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<AlbumTwoToneIcon />}
+                                        sx={{
+                                            width: { xs: 'calc(50% - 8px)', sm: 'calc(50% - 8px)' },
+                                            mb: 2,
+                                            ml: { xs: 2, sm: 2, md: 2 },
+                                        }}
+                                        onClick={handleClickAoVivo}
+                                    >
                                         Ao Vivo
                                     </Button>
                                 </Grid>
                             </Grid>
+
+
                         </Grid>
                     </Grid>
                 </Grid>

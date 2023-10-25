@@ -29,7 +29,7 @@ export default function Input(theme) {
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          backgroundColor: 'transparent', // Define o fundo como transparente
+          backgroundColor: 'transparent',
           '&:hover': {
             backgroundColor: alpha(theme.palette.grey[500], 0.16),
           },
@@ -40,7 +40,7 @@ export default function Input(theme) {
             backgroundColor: theme.palette.action.disabledBackground,
           },
           '& input:-webkit-autofill': {
-            backgroundColor: '#cbf3f0', // Fundo transparente quando preenchido automaticamente
+            backgroundColor: '#cbf3f0',
           },
         },
         underline: {
