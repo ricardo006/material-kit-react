@@ -1,9 +1,11 @@
 import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
+import ExpandTwoToneIcon from '@mui/icons-material/ExpandTwoTone';
 
 import {
     Button,
+    IconButton,
     AccordionDetails,
     AccordionSummary,
     Accordion,
@@ -113,18 +115,31 @@ export default function MatchEvents() {
                             </Grid>
 
                             <CardContent>
-                                <Box sx={{ display: 'flex', flexDirection: 'row', mb: 4 }}>
-                                    <Typography component="div" variant="h6"
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center', // Alinha verticalmente
-                                            textAlign: 'left',
-                                        }}>
-                                        <AutoAwesomeTwoToneIcon sx={{ color: '#33FFC2', mr: 2 }} />
-                                        Principais Mercados
-                                    </Typography>
-                                </Box>
+
+
                                 <Grid container spacing={3}>
+                                    <Grid item xs={8} md={8} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                        <Typography component="div" variant="h6" sx={{ ml: 1 }}>
+                                            <IconButton
+                                                size="medium"
+                                                sx={{ mr: 1 }}
+                                            >
+                                                <AutoAwesomeTwoToneIcon sx={{ color: '#33ffc2' }} />
+                                            </IconButton>
+                                            Principais Mercados
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={4} md={4} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        <Grid sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Typography component="div" variant="body2" sx={{ mr: 1, fontWeight: 600 }}>
+                                                Expandir mercados
+                                            </Typography>
+                                            <IconButton sx={{ backgroundColor: '#062345', borderRadius: 1, color: '#33ffc2' }}>
+                                                <ExpandTwoToneIcon />
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+
                                     <Grid item xs={12} md={12}>
                                         <Accordion sx={{ backgroundColor: '#062345' }}>
                                             <AccordionSummary
@@ -285,6 +300,161 @@ export default function MatchEvents() {
                                                         </Button>
                                                     </Grid>
 
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel3a-content"
+                                                id="panel3a-header"
+                                            >
+                                                <Typography>Ambas equipes marcam</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Sim</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Não</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>2.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel3a-content"
+                                                id="panel3a-header"
+                                            >
+                                                <Typography>Total de gols Mais/Menos 1º tempo</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 0.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 0.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Mais 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Menos 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                    <Grid item xs={12} md={12}>
+                                        <Accordion sx={{ backgroundColor: '#062345' }}>
+                                            <AccordionSummary
+                                                expandIcon={<ExpandMoreIcon />}
+                                                aria-controls="panel3a-content"
+                                                id="panel3a-header"
+                                            >
+                                                <Typography>Resultado Final / Total de gols</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Casa & Mais 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fora & Menos 1.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Casa & Mais 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fora & Menos 2.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Casa & Mais 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fora & Menos 3.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Casa & Mais 4.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.28</Typography>
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Button variant="contained" color="primary" sx={styles.buttonmarkets}>
+                                                            <Typography variant="body2" sx={styles.teamName}>Fora & Menos 4.5</Typography>
+                                                            <Typography variant="body2" sx={styles.value}>1.80</Typography>
+                                                        </Button>
+                                                    </Grid>
                                                 </Grid>
                                             </AccordionDetails>
                                         </Accordion>
