@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AutoAwesomeTwoToneIcon from '@mui/icons-material/AutoAwesomeTwoTone';
 import ExpandTwoToneIcon from '@mui/icons-material/ExpandTwoTone';
+import InsertDriveFileTwoToneIcon from '@mui/icons-material/InsertDriveFileTwoTone';
+import FlagTwoToneIcon from '@mui/icons-material/FlagTwoTone';
 
 import {
     Button,
+    Stack,
+    Chip,
+    Badge,
     IconButton,
     AccordionDetails,
     AccordionSummary,
@@ -18,8 +23,22 @@ import {
     Paper,
 } from '@mui/material';
 import imgBet from '../../../illustrations/banner_match.jpg';
+import Scrollbar from '../../../components/scrollbar';
+
+const marketsData = [
+    { id: 1, label: 'Principais mercados', color: 'primary' },
+    { id: 2, label: 'Resultado Final', color: 'primary' },
+    { id: 3, label: 'Dupla Chance', color: 'primary' },
+    { id: 4, label: 'Total de Gols mais/menos', color: 'primary' },
+    { id: 5, label: 'Próximo Gol', color: 'primary' },
+    { id: 6, label: 'Empate Anula', color: 'primary' },
+    { id: 7, label: 'Totais de gols mais/menos 1º tempo', color: 'primary' },
+    { id: 8, label: 'Escanteios Mais/Menos', color: 'primary' },
+];
 
 export default function MatchEvents() {
+    const [selectedItem, setSelectedItem] = useState(null);
+
     const styles = {
         buttonmarkets: {
             display: 'flex',
@@ -89,29 +108,83 @@ export default function MatchEvents() {
             fontWeight: 600,
             fontSize: 24
         },
+        textContainerCasaCards: {
+            position: 'absolute',
+            width: '100%',
+            top: '70%',
+            right: '50%',
+            textAlign: 'center',
+            // background: 'rgba(0, 29, 61, 0.5)',
+            padding: '16px',
+            marginRight: .2,
+            color: '#B6D6FC',
+            fontWeight: 600,
+            fontSize: 24
+        },
+        textContainerForaCards: {
+            position: 'absolute',
+            width: '100%',
+            top: '70%',
+            left: '50%',
+            textAlign: 'center',
+            // background: 'rgba(0, 29, 61, 0.5)',
+            padding: '16px',
+            marginLeft: .2,
+            color: '#B6D6FC',
+            fontWeight: 600,
+            fontSize: 24
+        },
     }
 
     return (
         <>
             <Container maxWidth="xl">
                 <Grid container spacing={2}>
-                    <Grid xs={12} md={8} spacing={2}>
+                    <Grid item xs={12} md={8} spacing={2}>
                         <Card>
                             <Grid container spacing={2}>
                                 <Paper sx={styles.paper}>
-                                    <Grid xs={6} md={1} >
+                                    <Grid item xs={6} md={1}>
                                         <Typography>'</Typography>
                                     </Grid>
-                                    <Grid xs={6} md={5} sx={styles.textContainerCasa}>
+                                    <Grid item xs={6} md={5} sx={styles.textContainerCasa}>
                                         <Typography variant="h6">Fluminense</Typography>
                                     </Grid>
-                                    <Grid xs={6} md={5} sx={styles.textContainerFora}>
+                                    <Grid item xs={6} md={5} sx={styles.textContainerFora}>
                                         <Typography variant="h6">Vasco</Typography>
                                     </Grid>
-                                    <Grid xs={6} md={1} >
+                                    <Grid item xs={6} md={1}>
                                         <Typography>'</Typography>
                                     </Grid>
                                 </Paper>
+
+                                <Grid container sx={{ mb: 2, backgroundColor: '#0b132b' }}>
+                                    <Grid item xs={12} md={5} lg={6} sx={{ height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Badge color="error" sx={{ color: '#ff1743' }}>
+                                            <InsertDriveFileTwoToneIcon />
+                                        </Badge>
+                                        <Typography variant="body2" align="right" sx={{ color: '#B6D6FC', ml: 1, fontWeight: 600 }}>
+                                            1 - 0
+                                        </Typography>
+                                        <Badge color="warning" sx={{ ml: 1, color: '#ffb703' }}>
+                                            <InsertDriveFileTwoToneIcon />
+                                        </Badge>
+                                        <Typography variant="body2" align="right" sx={{ color: '#B6D6FC', ml: 1, fontWeight: 600 }}>
+                                            5 - 3
+                                        </Typography>
+                                        <Badge color="info" sx={{ ml: 1, color: '#4361ee' }}>
+                                            <FlagTwoToneIcon />
+                                        </Badge>
+                                        <Typography variant="body2" align="right" sx={{ color: '#B6D6FC', ml: 1, fontWeight: 600 }}>
+                                            10 - 8
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item xs={12} md={5} lg={6} sx={{ xs: { mb: 3 }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Typography variant="body2">Cartão amarelo para Fluminense</Typography>
+                                    </Grid>
+                                </Grid>
+
                             </Grid>
 
                             <CardContent>
@@ -119,7 +192,7 @@ export default function MatchEvents() {
 
                                 <Grid container spacing={3}>
                                     <Grid item xs={8} md={8} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-                                        <Typography component="div" variant="h6" sx={{ ml: 1 }}>
+                                        <Typography component="div" variant="h6" sx={{ ml: 1, mt: 1 }}>
                                             <IconButton
                                                 size="medium"
                                                 sx={{ mr: 1 }}
@@ -129,15 +202,39 @@ export default function MatchEvents() {
                                             Principais Mercados
                                         </Typography>
                                     </Grid>
+
                                     <Grid item xs={4} md={4} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                         <Grid sx={{ display: 'flex', alignItems: 'center' }}>
-                                            <Typography component="div" variant="body2" sx={{ mr: 1, fontWeight: 600 }}>
-                                                Expandir mercados
-                                            </Typography>
                                             <IconButton sx={{ backgroundColor: '#062345', borderRadius: 1, color: '#33ffc2' }}>
                                                 <ExpandTwoToneIcon />
                                             </IconButton>
                                         </Grid>
+                                    </Grid>
+
+                                    <Grid item xs={12} md={12}>
+                                        <Scrollbar>
+                                            <Stack direction="row" spacing={1} sx={{ mt: 2, mb: 2 }}>
+                                                {marketsData.map((data) => (
+                                                    <Chip
+                                                        key={data.id}
+                                                        label={data.label}
+                                                        sx={{
+                                                            borderRadius: 1,
+                                                            height: 40,
+                                                            cursor: 'pointer',
+                                                            fontWeight: 'bold',
+                                                            backgroundColor: selectedItem === data.id ? '#33ffc2' : '#062345',
+                                                            color: selectedItem === data.id ? '#062345' : '#33ffc2',
+                                                            '&:hover': {
+                                                                color: selectedItem === data.id ? '#062345' : '#33ffc2',
+                                                                backgroundColor: selectedItem === data.id ? '#33ffc2' : '#062345',
+                                                            }
+                                                        }}
+                                                        onClick={() => setSelectedItem(data.id)}
+                                                    />
+                                                ))}
+                                            </Stack>
+                                        </Scrollbar>
                                     </Grid>
 
                                     <Grid item xs={12} md={12}>
@@ -501,7 +598,7 @@ export default function MatchEvents() {
                         </Card>
                     </Grid>
                 </Grid>
-            </Container>
+            </Container >
         </>
     );
 }
