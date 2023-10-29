@@ -84,7 +84,7 @@ export default function MatchEvents() {
             padding: '16px',
             borderTopRightRadius: 30,
             borderBottomRightRadius: 30,
-            borderTopLeftRadius: 30,
+            borderTopLeftRadius: 0,
             marginRight: .2,
             borderRight: '4px solid #33FFC2',
             color: '#B6D6FC',
@@ -101,7 +101,7 @@ export default function MatchEvents() {
             padding: '16px',
             borderTopLeftRadius: 30,
             borderBottomLeftRadius: 30,
-            borderTopRightRadius: 30,
+            borderTopRightRadius: 0,
             marginLeft: .2,
             borderLeft: '4px solid #33FFC2',
             color: '#B6D6FC',
@@ -142,20 +142,16 @@ export default function MatchEvents() {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8} spacing={2}>
                         <Card>
-                            <Grid container spacing={2}>
+                            <Grid spacing={2}>
                                 <Paper sx={styles.paper}>
-                                    <Grid item xs={6} md={1}>
-                                        <Typography>'</Typography>
-                                    </Grid>
-                                    <Grid item xs={6} md={5} sx={styles.textContainerCasa}>
+
+                                    <Grid item xs={6} md={6} sx={styles.textContainerCasa}>
                                         <Typography variant="h6">Fluminense</Typography>
                                     </Grid>
-                                    <Grid item xs={6} md={5} sx={styles.textContainerFora}>
+                                    <Grid item xs={6} md={6} sx={styles.textContainerFora}>
                                         <Typography variant="h6">Vasco</Typography>
                                     </Grid>
-                                    <Grid item xs={6} md={1}>
-                                        <Typography>'</Typography>
-                                    </Grid>
+
                                 </Paper>
 
                                 <Grid container sx={{ mb: 2, backgroundColor: '#0b132b' }}>
@@ -181,7 +177,9 @@ export default function MatchEvents() {
                                     </Grid>
 
                                     <Grid item xs={12} md={5} lg={6} sx={{ xs: { mb: 3 }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Typography variant="body2">Cartão amarelo para Fluminense</Typography>
+                                        <Typography variant="body2" sx={{ color: '#B6D6FC', ml: 1, fontWeight: 600 }}>
+                                            Cartão amarelo para Fluminense
+                                        </Typography>
                                     </Grid>
                                 </Grid>
 
