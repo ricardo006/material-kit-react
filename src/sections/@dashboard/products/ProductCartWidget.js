@@ -27,8 +27,6 @@ const StyledRoot = styled('div')(({ theme }) => ({
   '&:hover': { opacity: 0.72 },
 }));
 
-// ----------------------------------------------------------------------
-
 export default function CartWidget() {
   return (
     <StyledRoot>
