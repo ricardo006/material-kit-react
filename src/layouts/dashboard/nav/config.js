@@ -39,6 +39,11 @@ const navConfig = [
     icon: <PersonPinTwoToneIcon />,
   },
   {
+    title: 'Clientes',
+    path: 'clientes',
+    icon: <PersonPinTwoToneIcon />,
+  },
+  {
     title: 'Relatórios',
     path: '/dashboard/relatorios',
     icon: <InsightsTwoToneIcon />,
