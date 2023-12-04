@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Stack, TextField, Button } from '@mui/material';
-import axios from 'axios';
 
 // Função para aplicar a máscara de CPF
 function formatCPF(value) {
@@ -30,6 +29,15 @@ function RegisterForm() {
     const [password, setPassword] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
+    const [fotoFile, setFotoFile] = useState(null);
+
+    const handleFotoChange = (event) => {
+        const selectedFile = event.target.files[0];
+
+        if (selectedFile) {
+            setFotoFile(selectedFile);
+        }
+    };
 
     const handleNomeChange = (event) => {
         setNome(event.target.value);
@@ -76,33 +84,32 @@ function RegisterForm() {
 
     const handleCadastroClick = async () => {
         try {
-            const requestData = {
-                id_tipo_usuario: '1',
-                nome_usuario: nomeUsuario,
-                nome_completo: nome,
-                link_indicacao: 'link/url',
-                email,
-                password,
-                cpf,
-                rg: 'rg',
-                nacionalidade: 'brasileiro',
-                cep: 'cep',
-                saldo: '500',
-                foto: 'c:/Users/ryck2/OneDrive/Imagens/landscape.jpg',
-            };
+            const formData = new FormData();
 
-            const requestBody = JSON.stringify(requestData);
+            formData.append('id_tipo_usuario', '1');
+            formData.append('nome_usuario', nomeUsuario);
+            formData.append('nome_completo', nome);
+            formData.append('link_indicacao', 'link/url');
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('cpf', cpf);
+            formData.append('rg', rg);
+            formData.append('nacionalidade', 'brasileiro');
+            formData.append('cep', cep);
+            formData.append('saldo', '500');
+            formData.append('foto', fotoFile);
 
-            console.log('Dados enviados para a API:', requestBody);
+            // Append the file path or a custom identifier
+            formData.append('caminho_foto', fotoFile.name); // Use the file name or customize as needed
+
+            console.log('Dados enviados para a API:', formData);
 
             const response = await fetch('http://localhost:8000/api/v1/user/create-YXBpLmJldHNwYWNl', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: requestBody,
+                body: formData,
             });
+
+            console.log(response);
 
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.statusText}`);
@@ -141,6 +148,11 @@ function RegisterForm() {
             <TextField name="cpf" label="CPF" value={cpf} onChange={handleCPFChange} />
             <TextField name="rg" label="RG" value={rg} onChange={handleRGChange} />
             <TextField name="cep" label="CEP" value={cep} onChange={handleCEPChange} />
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleFotoChange}
+            />
             <Button
                 sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }}
                 fullWidth
