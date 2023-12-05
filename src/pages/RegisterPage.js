@@ -98,9 +98,12 @@ export default function RegisterPage() {
                             </Button>
                         </Stack>
 
+                        <Typography variant="body2" sx={{ marginTop: 2, textAlign: 'center' }}>
+                            Já tenho uma conta {''}
+                        </Typography>
                         <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE' }}>
-                            Você não tem uma conta? {''}
-                            <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={() => alert('teste cadastro')}>Cadastre-se</Link>
+                            <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={() => alert('teste cadastro')}>
+                                <Typography sx={{ textAlign: 'center', fontWeight: 600 }}>Cadastre-se</Typography></Link>
                         </Typography>
                     </StyledContent>
                 </StyledSection>
