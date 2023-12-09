@@ -11,6 +11,30 @@ import Iconify from '../../../components/iconify';
 export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordHelperText, setPasswordHelperText] = useState('');
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    // Verifica se o campo está preenchido e remove o HelperText se estiver preenchido
+    if (name === 'email') {
+      setEmailError(value.trim() === '');
+    } else if (name === 'password') {
+      setPasswordError(value.trim() === '' || passwordError); // Mantém o erro anterior se ainda existir
+      setPasswordHelperText(''); // Limpa o HelperText ao alterar o valor do campo de senha
+    }
+  };
+
+  const handlePasswordBlur = (event) => {
+    const { value } = event.target;
+
+    // Verifica se a senha está correta (por exemplo, se atende a critérios específicos)
+    if (value.trim() !== 'senha_correta') {
+      setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,6 +45,8 @@ export default function LoginForm() {
 
     // Verifica se os campos estão vazios
     if (!email && !password) {
+      setEmailError(true);
+      setPasswordError(true);
       toast.error('Preencha o email e a senha.', {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -28,6 +54,8 @@ export default function LoginForm() {
     }
 
     if (!email) {
+      setEmailError(true);
+      setPasswordError(false);
       toast.error('Preencha o campo de email.', {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -35,9 +63,18 @@ export default function LoginForm() {
     }
 
     if (!password) {
+      setEmailError(false);
+      setPasswordError(true);
       toast.error('Preencha o campo de senha.', {
         position: toast.POSITION.TOP_CENTER,
       });
+      return;
+    }
+
+    // Verifica se a senha está correta antes de fazer o login
+    if (password.trim() !== 'senha_correta') {
+      setPasswordError(true);
+      setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
       return;
     }
 
@@ -53,6 +90,8 @@ export default function LoginForm() {
         toast.error(response.data.message || 'Erro no login. Verifique suas credenciais.', {
           position: toast.POSITION.TOP_CENTER,
         });
+        setPasswordError(true); // Define erro no campo de senha
+        setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
       } else {
         // Se o login for bem-sucedido, exibe notificação de sucesso e navega para a página de dashboard
         toast.success('Login realizado com sucesso!', { position: toast.POSITION.TOP_CENTER });
@@ -72,12 +111,19 @@ export default function LoginForm() {
     <>
       <form onSubmit={handleSubmit}>
         <Stack spacing={3}>
-          <TextField name="email" label="Email address" sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }} />
+          <TextField
+            name="email"
+            label="Email"
+            sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
+            error={emailError}
+            helperText={emailError ? 'O Email é obrigatório!' : ''}
+            onChange={handleInputChange}
+          />
 
           <TextField
             sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
             name="password"
-            label="Password"
+            label="Senha"
             type={showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
@@ -88,6 +134,10 @@ export default function LoginForm() {
                 </InputAdornment>
               ),
             }}
+            error={passwordError}
+            helperText={passwordHelperText}
+            onBlur={handlePasswordBlur} // Adiciona o evento onBlur para verificar a senha ao sair do campo
+            onChange={handleInputChange}
           />
         </Stack>
 
