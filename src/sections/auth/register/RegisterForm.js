@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Stack, TextField, Button } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +17,8 @@ function formatCEP(value) {
 }
 
 function RegisterForm() {
+    const navigate = useNavigate();
+
     const [cpf, setCpf] = useState('');
     const [nome, setNome] = useState('');
     const [nomeUsuario, setNomeUsuario] = useState('');
@@ -240,15 +243,59 @@ function RegisterForm() {
 
             console.log(response);
 
-            if (!response.ok) {
+            const responseData = await response.json();
+
+            if (responseData.error && responseData.erros) {
+                // Verifica se 'cpf' está presente e não é undefined
+                if (responseData.erros.cpf && responseData.erros.cpf.length > 0) {
+                    // Exibe a mensagem específica para CPF
+                    toast.error(responseData.erros.cpf[0], {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
+                } else {
+                    // Itera pelos erros e exibe cada mensagem
+                    Object.keys(responseData.erros).forEach((campo) => {
+                        const mensagensErro = responseData.erros[campo];
+                        mensagensErro.forEach((mensagem) => {
+                            toast.error(mensagem, {
+                                position: toast.POSITION.TOP_CENTER,
+                            });
+                        });
+                    });
+                }
+            } else if (!responseData.error && responseData.message === "Usuário cadastrado com sucesso, estamos te redirecionando...") {
+                // Se a resposta indicar sucesso, limpa os campos, exibe a mensagem e redireciona após 10 segundos
+                toast.success(responseData.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+
+                // Limpa os campos do formulário
+                setNome('');
+                setNomeUsuario('');
+                setEmail('');
+                setPassword('');
+                setCpf('');
+                setRg('');
+                setCep('');
+                setFotoFile(null);
+
+                // Demora 10 segundos antes de redirecionar
+                setTimeout(() => {
+                    // Adicione a lógica de redirecionamento para o dashboard usando navigate
+                    navigate('/dashboard', { replace: true });
+                }, 10000);
+            } else if (response.statusText !== 'OK') {
+                // Se não houver erros na resposta, mas o status não for OK, trata como erro genérico
                 throw new Error(`Erro na requisição: ${response.statusText}`);
             }
 
-            const responseData = await response.json();
-
             console.log('Resposta da API:', responseData);
+
         } catch (error) {
             console.error('Erro:', error.message);
+            toast.error(`Erro: ${error.message}`, {
+                position: toast.POSITION.TOP_CENTER,
+            });
         }
     };
 
