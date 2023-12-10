@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Stack, TextField, Button } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Scrollbar from '../../../components/scrollbar';
 
 // Função para aplicar a máscara de CPF
 function formatCPF(value) {
@@ -15,6 +18,18 @@ function formatCEP(value) {
     const numericValue = value.replace(/\D/g, '');
     return numericValue.replace(/(\d{5})(\d{3})/, '$1-$2');
 }
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 
 function RegisterForm() {
     const navigate = useNavigate();
@@ -29,6 +44,7 @@ function RegisterForm() {
     const [isEmailValid, setIsEmailValid] = useState(true);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
     const [fotoFile, setFotoFile] = useState(null);
+    const [fotoFileName, setFotoFileName] = useState('');
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -43,10 +59,14 @@ function RegisterForm() {
     const [passwordHelperText, setPasswordHelperText] = useState('');
 
     const handleFotoChange = (event) => {
-        const selectedFile = event.target.files[0];
+        const file = event.target.files[0];
 
-        if (selectedFile) {
-            setFotoFile(selectedFile);
+        if (file) {
+            setFotoFile(file);
+            const shortenedFileName = file.name.length > 10
+                ? `${file.name.substring(0, 10)}...`
+                : file.name;
+            setFotoFileName(shortenedFileName);
         }
     };
 
@@ -61,7 +81,16 @@ function RegisterForm() {
     };
 
     const handleCPFChange = (event) => {
-        const formattedCPF = formatCPF(event.target.value);
+        // Obtém apenas os números da entrada do usuário
+        const numbersOnly = event.target.value.replace(/\D/g, '');
+
+        // Limita o comprimento para 11 caracteres
+        const limitedCPF = numbersOnly.slice(0, 11);
+
+        // Formata o CPF (se desejar)
+        const formattedCPF = formatCPF(limitedCPF);
+
+        // Atualiza o estado do CPF
         setCpf(formattedCPF);
     };
 
@@ -263,7 +292,7 @@ function RegisterForm() {
                         });
                     });
                 }
-            } else if (!responseData.error && responseData.message === "Usuário cadastrado com sucesso, estamos te redirecionando...") {
+            } else if (!responseData.error && responseData.message === "Usuário cadastrado com sucesso!") {
                 // Se a resposta indicar sucesso, limpa os campos, exibe a mensagem e redireciona após 10 segundos
                 toast.success(responseData.message, {
                     position: toast.POSITION.TOP_CENTER,
@@ -281,7 +310,6 @@ function RegisterForm() {
 
                 // Demora 10 segundos antes de redirecionar
                 setTimeout(() => {
-                    // Adicione a lógica de redirecionamento para o dashboard usando navigate
                     navigate('/dashboard', { replace: true });
                 }, 10000);
             } else if (response.statusText !== 'OK') {
@@ -302,7 +330,7 @@ function RegisterForm() {
     return (
         <>
             <form onSubmit={handleCadastroClick}>
-                <Stack spacing={2}>
+                <Stack spacing={1}>
                     <TextField
                         name="nome_completo"
                         label="Nome Completo"
@@ -333,7 +361,7 @@ function RegisterForm() {
                         type="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        onBlur={handlePasswordBlur} // Adiciona o evento onBlur
+                        onBlur={handlePasswordBlur}
                         error={formSubmitted && (!isPasswordValid || !!passwordError)}
                         helperText={(formSubmitted && !isPasswordValid) ? 'Senha inválida (mínimo 8 caracteres)' : passwordError || ' '}
                     />
@@ -361,13 +389,17 @@ function RegisterForm() {
                         error={cepError}
                         helperText={cepError}
                     />
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFotoChange}
-                    />
+                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+                        {fotoFileName ? `Foto: ${fotoFileName}` : 'Selecione foto de Perfil'}
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFotoChange}
+                            style={{ display: 'none' }}
+                        />
+                    </Button>
                     <Button
-                        sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }}
+                        sx={{ backgroundColor: '#33FFC2', mt: 5, boxShadow: 0, color: '#001D3D' }}
                         fullWidth
                         size="large"
                         type="submit"

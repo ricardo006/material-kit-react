@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
@@ -8,9 +9,9 @@ import useResponsive from '../hooks/useResponsive';
 import Iconify from '../components/iconify';
 // sections
 import { RegisterForm } from '../sections/auth/register';
-import background from '../illustrations/banner_login_betspace.png'; // Importe a imagem
+import background from '../illustrations/banner_login_betspace.png';
 
-// ----------------------------------------------------------------------
+
 const StyledRoot = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
         display: 'flex',
@@ -43,6 +44,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function RegisterPage() {
     const mdUp = useResponsive('up', 'md');
+    const navigate = useNavigate();
 
     return (
         <>
@@ -72,7 +74,7 @@ export default function RegisterPage() {
 
                 <StyledSection>
                     <StyledContent>
-                        <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+                        <Typography sx={{ mb: 2, textAlign: 'center', color: '#C6FFEE' }} variant="h5" gutterBottom>
                             Cadastre-se
                         </Typography>
 
@@ -103,13 +105,13 @@ export default function RegisterPage() {
                         </Typography>
 
                         <Typography variant="body2" sx={{ mb: 5, mt: 2, color: '#C6FFEE' }}>
-                            <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={() => alert('teste cadastro')}>
+                            <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={() => navigate('/login', { replace: true })}>
                                 <Typography sx={{ textAlign: 'center', fontWeight: 600, fontSize: 14 }}>Fazer Login</Typography>
                             </Link>
                         </Typography>
                     </StyledContent>
                 </StyledSection>
-            </StyledRoot>
+            </StyledRoot >
         </>
     );
 }
