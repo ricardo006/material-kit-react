@@ -136,7 +136,7 @@ export default function LoginForm() {
             }}
             error={passwordError}
             helperText={passwordHelperText}
-            onBlur={handlePasswordBlur} // Adiciona o evento onBlur para verificar a senha ao sair do campo
+            onBlur={handlePasswordBlur}
             onChange={handleInputChange}
           />
         </Stack>
