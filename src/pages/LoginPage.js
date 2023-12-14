@@ -106,8 +106,11 @@ export default function LoginPage() {
               </Button>
             </Stack>
 
-            <Typography variant="body2" sx={{ mb: 5, mt: 5, color: '#C6FFEE'}}>
+            <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'center' }}>
               Você não tem uma conta? {''}
+            </Typography>
+
+            <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'center' }}>
               <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClickRegister}>
                 Cadastre-se
               </Link>
