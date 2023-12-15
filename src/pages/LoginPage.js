@@ -71,7 +71,7 @@ export default function LoginPage() {
         )}
         <StyledSection>
           <StyledContent>
-            <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+            <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#33FFC2' }} variant="h4" gutterBottom>
               Login
             </Typography>
 

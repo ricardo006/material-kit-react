@@ -57,14 +57,18 @@ export default function ForgotPasswordPage() {
     const mdUp = useResponsive('up', 'md');
     const navigate = useNavigate();
 
-    const handleClickRegister = () => {
+    const handleClickLogin = () => {
         navigate('/login', { replace: true });
+    };
+
+    const handleClickRegister = () => {
+        navigate('/register', { replace: true });
     };
 
     return (
         <>
             <Helmet>
-                <title>Esqueci minha senha | Betspace</title>
+                <title>Recuperar Senha | Betspace</title>
             </Helmet>
 
             <StyledRoot>
@@ -76,11 +80,11 @@ export default function ForgotPasswordPage() {
 
                 <StyledSection>
                     <StyledContent>
-                        <StyledBackLink variant="body2" onClick={handleClickRegister}>
+                        <StyledBackLink variant="body2" onClick={handleClickLogin}>
                             <ArrowBackTwoToneIcon /> Ir para Login
                         </StyledBackLink>
 
-                        <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+                        <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#33FFC2' }} variant="h4" gutterBottom>
                             Recuperação de Senha
                         </Typography>
 
