@@ -12,7 +12,7 @@ import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
 import { LoginForm } from '../sections/auth/login';
-import background from '../illustrations/banner_login_betspace.png'; // Importe a imagem
+import background from '../illustrations/betspace_tree.png'; // Importe a imagem
 
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
@@ -69,15 +69,6 @@ export default function LoginPage() {
             {/* <img src="/assets/illustrations/Banner Betspace Sistema.png" alt="login" /> */}
           </Container>
         )}
-        {/* 
-        <Logo
-          sx={{
-            position: 'fixed',
-            top: { xs: 16, sm: 24, md: 40 },
-            left: { xs: 16, sm: 24, md: 40 },
-          }}
-        /> */}
-
         <StyledSection>
           <StyledContent>
             <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
@@ -94,7 +85,7 @@ export default function LoginPage() {
 
             <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
+                <Iconify icon="eva:google-fill" color="#ff1743" width={22} height={22} />
               </Button>
 
               <Button fullWidth size="large" color="inherit" variant="outlined">

@@ -9,7 +9,7 @@ import useResponsive from '../hooks/useResponsive';
 import Iconify from '../components/iconify';
 // sections
 import { RegisterForm } from '../sections/auth/register';
-import background from '../illustrations/banner_login_betspace.png';
+import background from '../illustrations/betspace_new.png';
 
 
 const StyledRoot = styled('div')(({ theme }) => ({

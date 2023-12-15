@@ -9,6 +9,7 @@ import CambistasPage from './pages/CambistasPage';
 import RelatoriosPage from './pages/RelatoriosPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import Page404 from './pages/Page404';
 import ProximosJogosPage from './pages/ProximosJogosPage';
 import AoVivoPage from './pages/AoVivoPage';
@@ -49,7 +50,10 @@ export default function Router() {
       path: 'register',
       element: <RegisterPage />,
     },
-
+    {
+      path: 'forgotpassword',
+      element: <ForgotPasswordPage />,
+    },
     {
       element: <SimpleLayout />,
       children: [
