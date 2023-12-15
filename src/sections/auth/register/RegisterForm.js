@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { Stack, TextField, Button } from '@mui/material';
+import { Stack, TextField, Button, InputAdornment, IconButton, Visibility } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
-
 // Função para aplicar a máscara de CPF
 function formatCPF(value) {
     const numericValue = value.replace(/\D/g, '');
@@ -52,6 +52,8 @@ function RegisterForm() {
     const [userError, setUserError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     const [cpfError, setCPFError] = useState('');
     const [rgError, setRGError] = useState('');
     const [cepError, setCEPError] = useState('');
@@ -100,7 +102,9 @@ function RegisterForm() {
     };
 
     const handleCEPChange = (event) => {
-        const formattedCEP = formatCEP(event.target.value);
+        const numericValue = event.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        const limitedCEP = numericValue.slice(0, 8); // Limita o comprimento para 8 caracteres
+        const formattedCEP = formatCEP(limitedCEP);
         setCep(formattedCEP);
     };
 
@@ -116,18 +120,25 @@ function RegisterForm() {
         setIsPasswordValid(validatePassword(newPassword));
     };
 
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handlePasswordBlur = () => {
         // Realiza as validações
         const hasMinLength = password.length >= 8;
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password);
+        const hasNumber = /\d/.test(password); // Verifica se há pelo menos um número
         const hasNoSequentialNumbers = !/(11|22|33|44|55|66|77|88|99|00)/.test(password);
 
         // Atualiza o estado passwordError
         let error = '';
 
-        if (!hasMinLength) {
+        if (password.trim() === '') {
+            error = 'Senha é um campo obrigatório';
+        } else if (!hasMinLength) {
             error = 'Senha muito curta (mínimo 8 caracteres)';
         } else if (!hasUpperCase) {
             error = 'A senha deve conter pelo menos uma letra maiúscula';
@@ -135,6 +146,8 @@ function RegisterForm() {
             error = 'A senha deve conter pelo menos uma letra minúscula';
         } else if (!hasSpecialChar) {
             error = 'A senha deve conter pelo menos um caractere especial';
+        } else if (!hasNumber) {
+            error = 'A senha deve conter pelo menos um número';
         } else if (!hasNoSequentialNumbers) {
             error = 'A senha não pode conter números em sequência (como 11, 22, 33, ...)';
         }
@@ -358,12 +371,21 @@ function RegisterForm() {
                     <TextField
                         name="password"
                         label="Senha"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={handlePasswordChange}
                         onBlur={handlePasswordBlur}
                         error={formSubmitted && (!isPasswordValid || !!passwordError)}
-                        helperText={(formSubmitted && !isPasswordValid) ? 'Senha inválida (mínimo 8 caracteres)' : passwordError || ' '}
+                        helperText={(formSubmitted && !isPasswordValid) ? 'Senha inválida.' : passwordError || ' '}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                                        <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                     <TextField
                         name="cpf"
@@ -389,8 +411,26 @@ function RegisterForm() {
                         error={cepError}
                         helperText={cepError}
                     />
-                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-                        {fotoFileName ? `Foto: ${fotoFileName}` : 'Selecione foto de Perfil'}
+                    <Button
+                        component="label"
+                        variant="contained"
+                        startIcon={<CloudUploadIcon />}
+                        sx={{
+                            backgroundColor: 'transparent',
+                            mb: 10,
+                            height: 70,
+                            position: 'relative',
+                            border: '2px dashed rgb(171, 205, 222, 0.5)',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                            color: '#33FFC2',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgb(171, 205, 222, 0.5)',
+                            },
+                        }}
+                    >
+                        {fotoFileName ? `Foto: ${fotoFileName}` : 'Foto de Perfil'}
                         <input
                             type="file"
                             accept="image/*"

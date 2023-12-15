@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
@@ -9,11 +10,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordHelperText, setPasswordHelperText] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleClickForgotPassword = () => {
+    navigate('/forgotpassword', { replace: true });
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,6 +48,7 @@ export default function LoginForm() {
     const formData = new FormData(event.target);
     const email = formData.get('email');
     const password = formData.get('password');
+
 
     // Verifica se os campos estão vazios
     if (!email && !password) {
@@ -114,14 +121,12 @@ export default function LoginForm() {
           <TextField
             name="email"
             label="Email"
-            sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
             error={emailError}
             helperText={emailError ? 'O Email é obrigatório!' : ''}
             onChange={handleInputChange}
           />
 
           <TextField
-            sx={{ backgroundColor: 'rgba(195, 202, 241, 0.20)' }}
             name="password"
             label="Senha"
             type={showPassword ? 'text' : 'password'}
@@ -141,10 +146,10 @@ export default function LoginForm() {
           />
         </Stack>
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer' }}>
           <Checkbox name="remember" label="Remember me" />
-          <Link variant="subtitle2" underline="hover">
-            Esqueceu sua senha?
+          <Link variant="subtitle2" underline="hover" onClick={handleClickForgotPassword}>
+            Esqueceu minha senha
           </Link>
         </Stack>
 
