@@ -76,7 +76,7 @@ export default function MatchEvents() {
         },
         textContainerCasa: {
             position: 'absolute',
-            width: '100%',
+            width: '50%',
             top: '50%',
             right: '50%',
             textAlign: 'center',
@@ -93,7 +93,7 @@ export default function MatchEvents() {
         },
         textContainerFora: {
             position: 'absolute',
-            width: '100%',
+            width: '50%',
             top: '50%',
             left: '50%',
             textAlign: 'center',
@@ -147,6 +147,12 @@ export default function MatchEvents() {
 
                                     <Grid item xs={6} md={6} sx={styles.textContainerCasa}>
                                         <Typography variant="h6">Fluminense</Typography>
+                                    </Grid>
+                                    <Grid item xs={6} md={6} sx={styles.textContainerCasa}>
+                                        <Typography variant="h6">2</Typography>
+                                    </Grid>
+                                    <Grid item xs={6} md={6} sx={styles.textContainerCasa}>
+                                        <Typography variant="h6">3</Typography>
                                     </Grid>
                                     <Grid item xs={6} md={6} sx={styles.textContainerFora}>
                                         <Typography variant="h6">Vasco</Typography>

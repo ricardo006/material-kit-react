@@ -5,8 +5,6 @@ import { Card, CardHeader, Box } from '@mui/material';
 // components
 import { useChart } from '../../../components/chart';
 
-// ----------------------------------------------------------------------
-
 AppWebsiteVisits.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,

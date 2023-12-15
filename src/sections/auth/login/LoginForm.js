@@ -146,10 +146,10 @@ export default function LoginForm() {
           />
         </Stack>
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer' }}>
-          <Checkbox name="remember" label="Remember me" />
+        <Stack direction="row" alignItems="right" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer', textAlign: 'right' }}>
+          {/* <Checkbox name="remember" label="Remember me" /> */}
           <Link variant="subtitle2" underline="hover" onClick={handleClickForgotPassword}>
-            Esqueceu minha senha
+            Esqueci minha senha
           </Link>
         </Stack>
 
