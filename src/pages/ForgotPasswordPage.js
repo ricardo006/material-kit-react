@@ -68,7 +68,7 @@ export default function ForgotPasswordPage() {
     return (
         <>
             <Helmet>
-                <title>Esqueci minha senha | Betspace</title>
+                <title>Recuperar Senha | Betspace</title>
             </Helmet>
 
             <StyledRoot>
@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
                             <ArrowBackTwoToneIcon /> Ir para Login
                         </StyledBackLink>
 
-                        <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#C6FFEE' }} variant="h4" gutterBottom>
+                        <Typography sx={{ mb: 5, mt: 5, textAlign: 'center', color: '#33FFC2' }} variant="h4" gutterBottom>
                             Recuperação de Senha
                         </Typography>
 

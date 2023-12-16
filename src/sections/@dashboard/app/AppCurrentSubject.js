@@ -6,8 +6,6 @@ import { Card, CardHeader } from '@mui/material';
 // components
 import { useChart } from '../../../components/chart';
 
-// ----------------------------------------------------------------------
-
 const CHART_HEIGHT = 392;
 
 const LEGEND_HEIGHT = 72;

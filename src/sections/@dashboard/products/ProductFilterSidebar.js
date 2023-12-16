@@ -20,8 +20,6 @@ import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 import { ColorMultiPicker } from '../../../components/color-utils';
 
-// ----------------------------------------------------------------------
-
 export const SORT_BY_OPTIONS = [
   { value: 'featured', label: 'Featured' },
   { value: 'newest', label: 'Newest' },
@@ -46,8 +44,6 @@ export const FILTER_COLOR_OPTIONS = [
   '#94D82D',
   '#FFC107',
 ];
-
-// ----------------------------------------------------------------------
 
 ShopFilterSidebar.propTypes = {
   openFilter: PropTypes.bool,

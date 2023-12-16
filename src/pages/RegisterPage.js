@@ -74,7 +74,7 @@ export default function RegisterPage() {
 
                 <StyledSection>
                     <StyledContent>
-                        <Typography sx={{ mb: 2, textAlign: 'center', color: '#C6FFEE' }} variant="h5" gutterBottom>
+                        <Typography sx={{ mb: 2, textAlign: 'center', color: '#33FFC2' }} variant="h5" gutterBottom>
                             Cadastre-se
                         </Typography>
 
