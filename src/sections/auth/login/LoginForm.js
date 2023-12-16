@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
@@ -14,7 +12,6 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordHelperText, setPasswordHelperText] = useState('');
-
   const navigate = useNavigate();
 
   const handleClickForgotPassword = () => {
@@ -24,89 +21,61 @@ export default function LoginForm() {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    // Verifica se o campo está preenchido e remove o HelperText se estiver preenchido
     if (name === 'email') {
       setEmailError(value.trim() === '');
     } else if (name === 'password') {
-      setPasswordError(value.trim() === '' || passwordError); // Mantém o erro anterior se ainda existir
-      setPasswordHelperText(''); // Limpa o HelperText ao alterar o valor do campo de senha
-    }
-  };
-
-  const handlePasswordBlur = (event) => {
-    const { value } = event.target;
-
-    // Verifica se a senha está correta (por exemplo, se atende a critérios específicos)
-    if (value.trim() !== 'senha_correta') {
-      setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
+      setPasswordError(value.trim() === '' || passwordError);
+      setPasswordHelperText('');
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const email = event.target.elements.email.value;
+    const password = event.target.elements.password.value;
 
-
-    // Verifica se os campos estão vazios
     if (!email && !password) {
       setEmailError(true);
       setPasswordError(true);
-      toast.error('Preencha o email e a senha.', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error('Preencha o email e a senha.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
     if (!email) {
       setEmailError(true);
       setPasswordError(false);
-      toast.error('Preencha o campo de email.', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error('Preencha o campo de email.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
     if (!password) {
       setEmailError(false);
       setPasswordError(true);
-      toast.error('Preencha o campo de senha.', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      return;
-    }
-
-    // Verifica se a senha está correta antes de fazer o login
-    if (password.trim() !== 'senha_correta') {
-      setPasswordError(true);
-      setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
+      toast.error('Preencha o campo de senha.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
     try {
-      // Faz a solicitação de login usando o Axios
       const response = await axios.post('http://localhost:8000/api/v1/user/login-YXBpLmJldHNwYWNl', {
         email,
         password,
       });
 
+      console.log(response.data);
+
       if (response.data && response.data.error) {
-        // Se a resposta indicar erro, exibe notificação de erro
         toast.error(response.data.message || 'Erro no login. Verifique suas credenciais.', {
           position: toast.POSITION.TOP_CENTER,
         });
-        setPasswordError(true); // Define erro no campo de senha
-        setPasswordHelperText('Senha incorreta!'); // Define o HelperText para indicar senha incorreta
+        setPasswordError(true);
+        setPasswordHelperText('Senha incorreta!');
       } else {
-        // Se o login for bem-sucedido, exibe notificação de sucesso e navega para a página de dashboard
         toast.success('Login realizado com sucesso!', { position: toast.POSITION.TOP_CENTER });
         console.log('Login bem-sucedido:', response.data);
         navigate('/dashboard', { replace: true });
       }
     } catch (error) {
-      // Se houver um erro na requisição, exibe notificação de erro
       toast.error('Erro ao realizar o login. Tente novamente mais tarde.', {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -141,7 +110,6 @@ export default function LoginForm() {
             }}
             error={passwordError}
             helperText={passwordHelperText}
-            onBlur={handlePasswordBlur}
             onChange={handleInputChange}
           />
         </Stack>
@@ -149,7 +117,7 @@ export default function LoginForm() {
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer' }}>
           <Checkbox name="remember" label="Remember me" />
           <Link variant="subtitle2" underline="hover" onClick={handleClickForgotPassword}>
-            Esqueceu minha senha
+            Esqueci minha senha
           </Link>
         </Stack>
 

@@ -82,7 +82,7 @@ export default function RegisterPage() {
 
                         <Divider sx={{ my: 3 }}>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                Entre usando as redes sociais:
+                                Cadastre-se usando as redes sociais:
                             </Typography>
                         </Divider>
 

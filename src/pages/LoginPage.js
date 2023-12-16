@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+import { Box, Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // routes
@@ -97,15 +97,21 @@ export default function LoginPage() {
               </Button>
             </Stack>
 
-            <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'center' }}>
-              Você não tem uma conta? {''}
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'left' }}>
+                Não tem uma conta? {''}
+              </Typography>
 
-            <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'center' }}>
-              <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClickRegister}>
-                Cadastre-se
-              </Link>
-            </Typography>
+              <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'right', ml: 1 }}>
+                <Link
+                  sx={{ cursor: 'pointer', textDecoration: 'none', color: '#33FFC2' }}
+                  variant="subtitle2"
+                  onClick={handleClickRegister}
+                >
+                  Cadastre-se
+                </Link>
+              </Typography>
+            </Box>
           </StyledContent>
         </StyledSection>
       </StyledRoot>

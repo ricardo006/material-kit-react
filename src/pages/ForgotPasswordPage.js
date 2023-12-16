@@ -58,6 +58,10 @@ export default function ForgotPasswordPage() {
     const navigate = useNavigate();
 
     const handleClickRegister = () => {
+        navigate('/register', { replace: true });
+    };
+
+    const handleClickLogin = () => {
         navigate('/login', { replace: true });
     };
 
@@ -76,7 +80,7 @@ export default function ForgotPasswordPage() {
 
                 <StyledSection>
                     <StyledContent>
-                        <StyledBackLink variant="body2" onClick={handleClickRegister}>
+                        <StyledBackLink variant="body2" onClick={handleClickLogin}>
                             <ArrowBackTwoToneIcon /> Ir para Login
                         </StyledBackLink>
 

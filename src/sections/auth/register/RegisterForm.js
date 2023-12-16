@@ -342,6 +342,7 @@ function RegisterForm() {
 
     return (
         <>
+
             <form onSubmit={handleCadastroClick}>
                 <Stack spacing={1}>
                     <TextField
@@ -424,9 +425,10 @@ function RegisterForm() {
                             borderRadius: 2,
                             overflow: 'hidden',
                             color: '#33FFC2',
+                            boxShadow: 0,
                             '&:hover': {
                                 backgroundColor: 'transparent',
-                                borderColor: 'rgb(171, 205, 222, 0.5)',
+                                borderColor: '#33FFC2',
                             },
                         }}
                     >
@@ -439,7 +441,7 @@ function RegisterForm() {
                         />
                     </Button>
                     <Button
-                        sx={{ backgroundColor: '#33FFC2', mt: 5, boxShadow: 0, color: '#001D3D' }}
+                        sx={{ backgroundColor: '#33FFC2', mt: 3, boxShadow: 0, color: '#001D3D' }}
                         fullWidth
                         size="large"
                         type="submit"
