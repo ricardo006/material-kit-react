@@ -73,6 +73,20 @@ export default function LoginForm() {
       } else {
         toast.success('Login realizado com sucesso!', { position: toast.POSITION.TOP_CENTER });
         console.log('Login bem-sucedido:', response.data);
+
+        // Extrair o token
+        const token = response.data.response?.token;
+
+        // Se o token estiver presente, faça o que for necessário com ele
+        if (token) {
+          console.log('Token:', token);
+          // Salvar o token, redirecionar, etc.
+          // Exemplo: setAuthToken(token);
+        } else {
+          console.error('Token não encontrado na resposta.');
+        }
+
+        // Redirecionar para a página de dashboard
         navigate('/dashboard', { replace: true });
       }
     } catch (error) {
@@ -81,12 +95,13 @@ export default function LoginForm() {
       });
       console.error('Erro no login:', error.message);
     }
+
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Stack spacing={3}>
+        <Stack spacing={4}>
           <TextField
             name="email"
             label="Email"
