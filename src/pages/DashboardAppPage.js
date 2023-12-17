@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import ReceiptTwoToneIcon from '@mui/icons-material/ReceiptTwoTone';
@@ -9,6 +9,9 @@ import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
+
+// import useAuthData from '../api/betspace/AuthData';
+// import useAuth from '../hooks/useAuth';
 
 // components
 // sections
@@ -28,6 +31,7 @@ import {
 export default function DashboardAppPage() {
   const theme = useTheme();
 
+
   return (
     <>
       <Helmet>
@@ -36,7 +40,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Olá, seja bem-vindo
+          {/* {userData ? `Olá, ${userData.nome_completo}!` : 'Carregando...'} */}
         </Typography>
 
         <Grid container spacing={3}>

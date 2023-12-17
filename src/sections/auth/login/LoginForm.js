@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Iconify from '../../../components/iconify';
+import useAuth from '../../../hooks/useAuth';
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordHelperText, setPasswordHelperText] = useState('');
   const navigate = useNavigate();
+
+  const {
+    emailError: authEmailError,
+    passwordError: authPasswordError,
+    passwordHelperText: authPasswordHelperText,
+    setEmailError: authSetEmailError,
+    setPasswordError: authSetPasswordError,
+    setPasswordHelperText: authSetPasswordHelperText,
+    login,
+  } = useAuth();
 
   const handleClickForgotPassword = () => {
     navigate('/forgotpassword', { replace: true });
@@ -22,10 +29,10 @@ export default function LoginForm() {
     const { name, value } = event.target;
 
     if (name === 'email') {
-      setEmailError(value.trim() === '');
+      authSetEmailError(value.trim() === '');
     } else if (name === 'password') {
-      setPasswordError(value.trim() === '' || passwordError);
-      setPasswordHelperText('');
+      authSetPasswordError(value.trim() === '' || authPasswordError);
+      authSetPasswordHelperText('');
     }
   };
 
@@ -36,66 +43,28 @@ export default function LoginForm() {
     const password = event.target.elements.password.value;
 
     if (!email && !password) {
-      setEmailError(true);
-      setPasswordError(true);
+      authSetEmailError(true);
+      authSetPasswordError(true);
       toast.error('Preencha o email e a senha.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
     if (!email) {
-      setEmailError(true);
-      setPasswordError(false);
+      authSetEmailError(true);
+      authSetPasswordError(false);
       toast.error('Preencha o campo de email.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
     if (!password) {
-      setEmailError(false);
-      setPasswordError(true);
+      authSetEmailError(false);
+      authSetPasswordError(true);
       toast.error('Preencha o campo de senha.', { position: toast.POSITION.TOP_CENTER });
       return;
     }
 
-    try {
-      const response = await axios.post('http://localhost:8000/api/v1/user/login-YXBpLmJldHNwYWNl', {
-        email,
-        password,
-      });
-
-      console.log(response.data);
-
-      if (response.data && response.data.error) {
-        toast.error(response.data.message || 'Erro no login. Verifique suas credenciais.', {
-          position: toast.POSITION.TOP_CENTER,
-        });
-        setPasswordError(true);
-        setPasswordHelperText('Senha incorreta!');
-      } else {
-        toast.success('Login realizado com sucesso!', { position: toast.POSITION.TOP_CENTER });
-        console.log('Login bem-sucedido:', response.data);
-
-        // Extrair o token
-        const token = response.data.response?.token;
-
-        // Se o token estiver presente, faça o que for necessário com ele
-        if (token) {
-          console.log('Token:', token);
-          // Salvar o token, redirecionar, etc.
-          // Exemplo: setAuthToken(token);
-        } else {
-          console.error('Token não encontrado na resposta.');
-        }
-
-        // Redirecionar para a página de dashboard
-        navigate('/dashboard', { replace: true });
-      }
-    } catch (error) {
-      toast.error('Erro ao realizar o login. Tente novamente mais tarde.', {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      console.error('Erro no login:', error.message);
-    }
-
+    // Chamar a função de login do hook useAuth
+    login(email, password, navigate);
   };
 
   return (
@@ -105,8 +74,8 @@ export default function LoginForm() {
           <TextField
             name="email"
             label="Email"
-            error={emailError}
-            helperText={emailError ? 'O Email é obrigatório!' : ''}
+            error={authEmailError}
+            helperText={authEmailError ? 'O Email é obrigatório!' : ''}
             onChange={handleInputChange}
           />
 
@@ -123,8 +92,8 @@ export default function LoginForm() {
                 </InputAdornment>
               ),
             }}
-            error={passwordError}
-            helperText={passwordHelperText}
+            error={authPasswordError}
+            helperText={authPasswordHelperText}
             onChange={handleInputChange}
           />
         </Stack>
