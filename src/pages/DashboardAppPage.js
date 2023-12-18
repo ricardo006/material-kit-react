@@ -196,11 +196,6 @@ export default function DashboardAppPage() {
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
           </Grid>
-
-
-
-
-
           <Grid item xs={12} md={6} lg={4}>
             <AppTrafficBySite
               title="Traffic by Site"
@@ -228,7 +223,6 @@ export default function DashboardAppPage() {
               ]}
             />
           </Grid>
-
           <Grid item xs={12} md={6} lg={8}>
             <AppTasks
               title="Tasks"
