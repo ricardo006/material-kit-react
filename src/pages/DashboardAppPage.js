@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import ReceiptTwoToneIcon from '@mui/icons-material/ReceiptTwoTone';
@@ -9,9 +10,8 @@ import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
-
-// import useAuthData from '../api/betspace/AuthData';
-// import useAuth from '../hooks/useAuth';
+import { useAuthContext } from '../context/AuthContext';
+import { getUserData } from '../api/betspace/AuthData';
 
 // components
 // sections
@@ -30,7 +30,22 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    // Chame getUserData ao montar o componente
+    const fetchData = async () => {
+      try {
+        const data = await getUserData();
+        setUserData(data);
+        console.log('Dados do usuário:', data);
+      } catch (error) {
+        console.error('Erro ao obter dados do usuário:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -40,7 +55,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          {/* {userData ? `Olá, ${userData.nome_completo}!` : 'Carregando...'} */}
+          Olá, {userData ? `${userData.nome_completo}!` : 'Carregando...'}
         </Typography>
 
         <Grid container spacing={3}>
