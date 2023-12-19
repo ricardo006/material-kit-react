@@ -34,10 +34,10 @@ export default function Input(theme) {
             backgroundColor: alpha(theme.palette.grey[500], 0.16),
           },
           '&.Mui-focused': {
-            backgroundColor: theme.palette.action.focus,
+            backgroundColor: '#cbf3f0',
           },
           '&.Mui-disabled': {
-            backgroundColor: theme.palette.action.disabledBackground,
+            backgroundColor: '#cbf3f0',
           },
           '& input:-webkit-autofill': {
             backgroundColor: '#cbf3f0',
