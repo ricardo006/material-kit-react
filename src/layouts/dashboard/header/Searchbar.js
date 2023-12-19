@@ -54,7 +54,7 @@ export default function Searchbar() {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder="Search…"
+              placeholder="Pesquisar"
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
@@ -63,7 +63,8 @@ export default function Searchbar() {
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
             <Button variant="contained" onClick={handleClose}>
-              Search
+              Pesquisar
+              <Iconify icon="eva:search-fill" sx={{ color: '#263238', width: 30, height: 30, ml: 2 }} />
             </Button>
           </StyledSearchbar>
         </Slide>
