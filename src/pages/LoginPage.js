@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 import useResponsive from '../hooks/useResponsive';
@@ -102,12 +101,8 @@ export default function LoginPage() {
             </Divider>
 
             <Stack spacing={2}>
+              {/* 949134044481-8oa9g1ji7huvs252t7s7lbcdln2imips.apps.googleusercontent.com */}
 
-              <GoogleLogin
-                clientId="949134044481-8oa9g1ji7huvs252t7s7lbcdln2imips.apps.googleusercontent.com"
-                buttonText="Login com Google"
-                onSuccess={responseGoogle}
-              />
 
               <FullWidthButton variant="outlined" color="inherit">
                 <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />

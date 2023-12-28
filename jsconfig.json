@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "types": [
+      "node",
+      "babel__generator"
+    ],
     "module": "commonjs",
     "baseUrl": "./src",
     "paths": {

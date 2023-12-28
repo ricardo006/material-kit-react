@@ -11,16 +11,18 @@ import ScrollToTop from './components/scroll-to-top';
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <ThemeProvider>
-            <ScrollToTop />
-            <StyledChart />
-            <Router />
-          </ThemeProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </HelmetProvider>
+    <>
+      <AuthProvider>
+        <HelmetProvider>
+          <BrowserRouter>
+            <ThemeProvider>
+              <ScrollToTop />
+              <StyledChart />
+              <Router />
+            </ThemeProvider>
+          </BrowserRouter>
+        </HelmetProvider>
+      </AuthProvider>
+    </>
   );
 }

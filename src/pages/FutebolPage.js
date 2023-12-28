@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Stack, Typography } from '@mui/material';
@@ -14,8 +13,6 @@ import {
 } from '../sections/@dashboard/app';
 
 export default function FutebolPage() {
-    const theme = useTheme();
-
     return (
         <>
             <Helmet>

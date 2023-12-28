@@ -30,22 +30,13 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const [userData, setUserData] = useState(null);
+  const { authToken, userData, login, logout } = useAuthContext();
 
   useEffect(() => {
-    // Chame getUserData ao montar o componente
-    const fetchData = async () => {
-      try {
-        const data = await getUserData();
-        setUserData(data);
-        console.log('Dados do usuário:', data);
-      } catch (error) {
-        console.error('Erro ao obter dados do usuário:', error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
+    // Exemplo de como você pode usar as informações no Dashboard
+    console.log('Token:', authToken);
+    console.log('Dados do usuário:', userData);
+  }, [authToken, userData]);
 
   return (
     <>

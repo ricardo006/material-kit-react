@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { Stack, TextField, Button, InputAdornment, IconButton, Visibility } from '@mui/material';
+import { Stack, TextField, Button, InputAdornment, IconButton } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Iconify from '../../../components/iconify';
-import Scrollbar from '../../../components/scrollbar';
 // Função para aplicar a máscara de CPF
 function formatCPF(value) {
     const numericValue = value.replace(/\D/g, '');
@@ -18,18 +17,6 @@ function formatCEP(value) {
     const numericValue = value.replace(/\D/g, '');
     return numericValue.replace(/(\d{5})(\d{3})/, '$1-$2');
 }
-
-const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-});
 
 function RegisterForm() {
     const navigate = useNavigate();
