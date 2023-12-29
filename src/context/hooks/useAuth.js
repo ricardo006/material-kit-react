@@ -67,16 +67,19 @@ export default function useAuth() {
             if (data.response.error === 'true') {
                 setAuthenticated(false);
                 setError(data.response.message);
-
-                // Limpa a mensagem de erro após exibir o Toast
-                setTimeout(() => {
-                    setError(null);
-                }, 3000); // Defina um tempo adequado para limpar a mensagem
             }
         } catch (error) {
             console.error('Erro no login:', error.message);
         }
     }
 
-    return { authenticated, loading, userData, handleLogin, errorMessage, handleNavigate: navigate };
+    async function handleLogout() {
+        localStorage.removeItem('token');
+        delete axios.defaults.headers.Authorization;
+        setAuthenticated(false);
+        setUserData(null)
+        navigate('/login');
+    };
+
+    return { authenticated, loading, userData, handleLogin, errorMessage, handleNavigate: navigate, handleLogout };
 }

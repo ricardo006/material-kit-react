@@ -1,15 +1,13 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 // mocks_
 import account from '../../../_mock/account';
 
+import { Context } from '../../../context/AuthContext';
+
 const MENU_OPTIONS = [
-  {
-    label: 'Dashboard',
-    icon: 'eva:home-fill',
-  },
   {
     label: 'Meu Perfil',
     icon: 'eva:person-fill',
@@ -27,9 +25,15 @@ export default function AccountPopover() {
     setOpen(event.currentTarget);
   };
 
+  const { handleLogout, userData } = useContext(Context);
+
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handleLogoutPopover = () => {
+    handleLogout();
+  }
 
   return (
     <>
@@ -58,28 +62,24 @@ export default function AccountPopover() {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            p: 0,
-            mt: 1.5,
-            ml: 0.75,
-            width: 240,
-            '& .MuiMenuItem-root': {
-              typography: 'body2',
-              borderRadius: 0.75,
-            },
-          },
-        }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userData && userData.nome_completo}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {userData && userData.email}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.tipo}
+            {
+              userData && userData.id_tipo_usuario === 1
+                ? 'Administrador'
+                : userData && userData.id_tipo_usuario === 2
+                  ? 'Cambista'
+                  : userData && userData.id_tipo_usuario === 3
+                    ? 'Apostador'
+                    : ''
+            }
           </Typography>
         </Box>
 
@@ -95,7 +95,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'solid' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleLogoutPopover} sx={{ m: 1 }}>
           Sair
         </MenuItem>
       </Popover>

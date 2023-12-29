@@ -10,15 +10,6 @@ import { Context } from '../../../context/AuthContext';
 export default function LoginForm() {
   const { userData, authenticated, handleLogin, errorMessage, handleNavigate } = useContext(Context);
   console.log('Login', authenticated);
-  alert('Message', errorMessage);
-
-  useEffect(() => {
-    // Exibir o erro do contexto se houver
-    if (errorMessage) {
-      toast.error(errorMessage, { position: toast.POSITION.TOP_CENTER });
-    }
-  }, [errorMessage]);
-
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -60,7 +51,6 @@ export default function LoginForm() {
     console.log('Password:', password);
 
     handleLogin(email, password);
-
   };
 
   return (
