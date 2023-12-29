@@ -1,6 +1,7 @@
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AuthProvider } from './context/AuthContext'; // Importe o AuthProvider
+import { AuthProvider } from './context/AuthContext';
 // routes
 import Router from './routes';
 // theme
@@ -9,20 +10,22 @@ import ThemeProvider from './theme';
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
 
-export default function App() {
+function App() {
   return (
     <>
-      <AuthProvider>
-        <HelmetProvider>
-          <BrowserRouter>
-            <ThemeProvider>
-              <ScrollToTop />
-              <StyledChart />
+      <HelmetProvider>
+        <BrowserRouter>
+          <ThemeProvider>
+            <ScrollToTop />
+            <StyledChart />
+            <AuthProvider>
               <Router />
-            </ThemeProvider>
-          </BrowserRouter>
-        </HelmetProvider>
-      </AuthProvider>
+            </AuthProvider>
+          </ThemeProvider>
+        </BrowserRouter>
+      </HelmetProvider>
     </>
   );
 }
+
+export default App;

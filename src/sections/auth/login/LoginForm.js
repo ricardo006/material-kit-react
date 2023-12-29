@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link, Stack, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Iconify from '../../../components/iconify';
-
-import useAuth from '../../../hooks/useAuth';
+import { Context } from '../../../context/AuthContext';
 
 export default function LoginForm() {
+  const { authenticated, handleLogin } = useContext(Context);
+  console.debug('Login', authenticated);
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    emailError: authEmailError,
-    passwordError: authPasswordError,
-    passwordHelperText: authPasswordHelperText,
-    setEmailError: authSetEmailError,
-    setPasswordError: authSetPasswordError,
-    setPasswordHelperText: authSetPasswordHelperText,
-    login,
-  } = useAuth();
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleClickForgotPassword = () => {
     navigate('/forgotpassword', { replace: true });
@@ -30,92 +25,88 @@ export default function LoginForm() {
     const { name, value } = event.target;
 
     if (name === 'email') {
-      authSetEmailError(value.trim() === '');
+      setEmailError(value.trim() === '');
     } else if (name === 'password') {
-      authSetPasswordError(value.trim() === '' || authPasswordError);
-      authSetPasswordHelperText('');
+      setPasswordError(value.trim() === '' || passwordError);
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const email = event.target.elements.email.value;
-    const password = event.target.elements.password.value;
+    // const email = event.target.email.value;
+    // const password = event.target.password.value;
 
-    if (!email && !password) {
-      authSetEmailError(true);
-      authSetPasswordError(true);
-      toast.error('Preencha o email e a senha.', { position: toast.POSITION.TOP_CENTER });
-      return;
-    }
+    // if (!email && !password) {
+    //   setEmailError(true);
+    //   setPasswordError(true);
+    //   toast.error('Preencha o email e a senha.', { position: toast.POSITION.TOP_CENTER });
+    //   return;
+    // }
 
-    if (!email) {
-      authSetEmailError(true);
-      authSetPasswordError(false);
-      toast.error('Preencha o campo de email.', { position: toast.POSITION.TOP_CENTER });
-      return;
-    }
+    // if (!email) {
+    //   setEmailError(true);
+    //   setPasswordError(false);
+    //   toast.error('Preencha o campo de email.', { position: toast.POSITION.TOP_CENTER });
+    //   return;
+    // }
 
-    if (!password) {
-      authSetEmailError(false);
-      authSetPasswordError(true);
-      toast.error('Preencha o campo de senha.', { position: toast.POSITION.TOP_CENTER });
-      return;
-    }
+    // if (!password) {
+    //   setEmailError(false);
+    //   setPasswordError(true);
+    //   toast.error('Preencha o campo de senha.', { position: toast.POSITION.TOP_CENTER });
+    //   return;
+    // }
 
-    // Chamar a função de login do hook useAuth
-    login(email, password, navigate);
+    // Chama a função de login do contexto, passando email e senha
+    handleLogin('rycardo.19@gmail.com', '96106aA@');
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={4}>
-          <TextField
-            name="email"
-            label="Email"
-            error={authEmailError}
-            helperText={authEmailError ? 'O Email é obrigatório!' : ''}
-            onChange={handleInputChange}
-          />
+      <Stack spacing={4}>
+        <TextField
+          name="email"
+          label="Email"
+          error={emailError}
+          helperText={emailError ? 'O Email é obrigatório!' : ''}
+          onChange={handleInputChange}
+        />
 
-          <TextField
-            name="password"
-            label="Senha"
-            type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={authPasswordError}
-            helperText={authPasswordHelperText}
-            onChange={handleInputChange}
-          />
-        </Stack>
+        <TextField
+          name="password"
+          label="Senha"
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          error={passwordError}
+          onChange={handleInputChange}
+        />
+      </Stack>
 
-        <Stack direction="row" alignItems="right" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer', textAlign: 'right' }}>
-          {/* <Checkbox name="remember" label="Remember me" /> */}
-          <Link variant="subtitle2" underline="hover" onClick={handleClickForgotPassword}>
-            Esqueci minha senha
-          </Link>
-        </Stack>
+      <Stack direction="row" alignItems="right" justifyContent="space-between" sx={{ my: 2, cursor: 'pointer', textAlign: 'right' }}>
+        <Link variant="subtitle2" underline="hover" onClick={handleClickForgotPassword}>
+          Esqueci minha senha
+        </Link>
+      </Stack>
 
-        <LoadingButton
-          sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }}
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-        >
-          Entrar
-        </LoadingButton>
-      </form>
+      <LoadingButton onClick={handleSubmit}
+        sx={{ backgroundColor: '#33FFC2', boxShadow: 0, color: '#001D3D' }}
+        fullWidth
+        size="large"
+        type="button"
+        variant="contained"
+      >
+        Entrar
+      </LoadingButton>
+
       <ToastContainer />
     </>
   );
