@@ -1,51 +1,55 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useAuthData } from '../api/betspace/AuthData';
+import axios from 'axios';
 
-const AuthContext = createContext();
+const Context = createContext();
 
-export const AuthProvider = ({ children }) => {
-    const [authToken, setAuthToken] = useState(null);
-    const [userData, setUserData] = useState(null);
-    const { setToken, getUserData } = useAuthData();
+function AuthProvider({ children }) {
+    const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    const fetchUserData = async () => {
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            axios.defaults.headers.Authorization = `Bearer ${token}`;
+            setAuthenticated(true);
+        }
+
+        setLoading(false);
+    }, []);
+
+    const handleLogin = async (email, password) => {
         try {
-            if (authToken) {
-                setToken(authToken);
-                const data = await getUserData();
+            const { data } = await axios.post("http://localhost:8000/api/v1/user/login-YXBpLmJldHNwYWNl", {
+                email,
+                password,
+            });
 
-                if (data) {
-                    setUserData(data.user_auth);
-                }
+            const { token, error } = data.response; // Ajuste aqui
+
+            localStorage.setItem('token', JSON.stringify(token));
+            axios.defaults.headers.Authorization = `Bearer ${token}`;
+
+            console.log(token);
+
+            if (error) {
+                console.log('Senha incorreta!');
+            } else {
+                console.log('Token:', token);
+                setAuthenticated(true);
+                // Chama a função setToken diretamente de AuthData
+                // navigate('/dashboard', { replace: true });
             }
         } catch (error) {
-            console.error('Erro ao obter dados de usuário:', error.message);
+            console.error('Erro no login:', error.message);
         }
     };
 
-    useEffect(() => {
-        fetchUserData();
-    }, [authToken]);
-
-    const login = (token) => {
-        setAuthToken(token);
-        setToken(token);
-    };
-
-    const logout = () => {
-        setAuthToken(null);
-        setUserData(null);
-        setToken(null);
-        localStorage.removeItem('authToken');
-    };
-
     return (
-        <AuthContext.Provider value={{ authToken, userData, login, logout }}>
+        <Context.Provider value={{ loading, authenticated, handleLogin }}>
             {children}
-        </AuthContext.Provider>
+        </Context.Provider>
     );
-};
+}
 
-export const useAuthContext = () => {
-    return useContext(AuthContext);
-};
+export { Context, AuthProvider };

@@ -10,8 +10,6 @@ import { faker } from '@faker-js/faker';
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
-import { useAuthContext } from '../context/AuthContext';
-import { getUserData } from '../api/betspace/AuthData';
 
 // components
 // sections
@@ -30,13 +28,6 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const { authToken, userData, login, logout } = useAuthContext();
-
-  useEffect(() => {
-    // Exemplo de como você pode usar as informações no Dashboard
-    console.log('Token:', authToken);
-    console.log('Dados do usuário:', userData);
-  }, [authToken, userData]);
 
   return (
     <>
@@ -46,7 +37,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Olá, {userData ? `${userData.nome_completo}!` : 'Carregando...'}
+          Olá, Ricardo teste
         </Typography>
 
         <Grid container spacing={3}>
