@@ -30,11 +30,7 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const { userData } = useContext(Context); // Utilize o useContext para acessar o contexto
-
-  useEffect(() => {
-    console.log('Dados do usuário Dashboard:', userData);
-  }, [userData]);
+  const { userData } = useContext(Context);
 
   return (
     <>

@@ -6,6 +6,7 @@ import SimpleLayout from './layouts/simple';
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
 import CambistasPage from './pages/CambistasPage';
+import ClientesPage from './pages/ClientesPage';
 import RelatoriosPage from './pages/RelatoriosPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -29,6 +30,7 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'cambistas', element: <CambistasPage /> },
+        { path: 'clientes', element: <ClientesPage /> },
         { path: 'proximosjogos', element: <ProximosJogosPage /> },
         { path: 'aovivo', element: <AoVivoPage /> },
         { path: 'relatorios', element: <RelatoriosPage /> },

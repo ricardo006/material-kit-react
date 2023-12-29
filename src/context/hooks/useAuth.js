@@ -6,6 +6,7 @@ export default function useAuth() {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
+    const [errorMessage, setError] = useState({ message: '' });
     const navigate = useNavigate();
 
     const fetchUserData = async (token) => {
@@ -31,7 +32,6 @@ export default function useAuth() {
         const initAuth = async () => {
             if (token) {
                 axios.defaults.headers.Authorization = `Bearer ${token}`;
-                setAuthenticated(true);
 
                 if (storedUserData) {
                     const parsedUserData = JSON.parse(storedUserData);
@@ -39,13 +39,10 @@ export default function useAuth() {
                 } else {
                     await fetchUserData(token);
                 }
-
+                setAuthenticated(true);
                 setLoading(false);
-
-
             }
         };
-
         initAuth();
     }, [navigate]);
 
@@ -58,26 +55,28 @@ export default function useAuth() {
 
             const { token, error } = data.response;
 
-            localStorage.setItem('token', JSON.stringify(token));
-            axios.defaults.headers.Authorization = `Bearer ${token}`;
-
-            console.log(token);
+            console.log('Resposta da API', data.response.message);
 
             if (token) {
-                console.log('Token  auth:', token);
-                setAuthenticated(true);
+                console.log('Token auth:', token);
                 await fetchUserData(token);
-
-                // Define o caminho de redirecionamento
                 navigate('/dashboard');
-            } else if (error) {
-                // Lida com o erro de login, se necessário
+                setAuthenticated(true);
+            }
+
+            if (data.response.error === 'true') {
+                setAuthenticated(false);
+                setError(data.response.message);
+
+                // Limpa a mensagem de erro após exibir o Toast
+                setTimeout(() => {
+                    setError(null);
+                }, 3000); // Defina um tempo adequado para limpar a mensagem
             }
         } catch (error) {
             console.error('Erro no login:', error.message);
         }
     }
 
-    // Retorne handleNavigate junto com os outros valores
-    return { authenticated, loading, userData, handleLogin, handleNavigate: navigate };
+    return { authenticated, loading, userData, handleLogin, errorMessage, handleNavigate: navigate };
 }
