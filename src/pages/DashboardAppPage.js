@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
@@ -9,6 +9,8 @@ import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
+import { Context } from '../context/AuthContext';
+
 import Iconify from '../components/iconify';
 
 // components
@@ -28,6 +30,11 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const { userData } = useContext(Context); // Utilize o useContext para acessar o contexto
+
+  useEffect(() => {
+    console.log('Dados do usuário Dashboard:', userData);
+  }, [userData]);
 
   return (
     <>
@@ -35,9 +42,9 @@ export default function DashboardAppPage() {
         <title> Dashboard | Betspace </title>
       </Helmet>
 
-      <Container maxWidth="xl">
+      <Container maxWidth={'xl'}>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Olá, Ricardo teste
+          Olá, {userData && userData.nome_completo}!
         </Typography>
 
         <Grid container spacing={3}>

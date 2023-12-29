@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext';
 // routes
@@ -12,19 +11,15 @@ import ScrollToTop from './components/scroll-to-top';
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <HelmetProvider>
-        <BrowserRouter>
-          <ThemeProvider>
-            <ScrollToTop />
-            <StyledChart />
-            <AuthProvider>
-              <Router />
-            </AuthProvider>
-          </ThemeProvider>
-        </BrowserRouter>
+        <ThemeProvider>
+          <ScrollToTop />
+          <StyledChart />
+          <Router />
+        </ThemeProvider>
       </HelmetProvider>
-    </>
+    </AuthProvider >
   );
 }
 

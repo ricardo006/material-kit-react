@@ -9,12 +9,6 @@ import Iconify from '../components/iconify';
 import { LoginForm } from '../sections/auth/login';
 import background from '../illustrations/betspace_tree.png';
 
-// Certifique-se de importar useEffect corretamente
-// Se você ainda está enfrentando problemas, certifique-se de que o React está instalado corretamente em seu projeto.
-// Você pode reinstalar o React usando o comando: npm install react
-// ou se estiver usando yarn: yarn add react
-// Certifique-se de estar usando uma versão compatível do React.
-
 const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
@@ -45,7 +39,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 const FullWidthButton = styled(Button)({
-  width: '100%', // Garante que o botão ocupa 100% da largura
+  width: '100%',
   padding: 0, marginLeft: 0
 });
 
@@ -59,17 +53,7 @@ export default function LoginPage() {
 
   const responseGoogle = (response) => {
     console.log('Resposta do Google:', response);
-    // Aqui você pode manipular os dados do perfil do usuário, como armazenar no estado do componente ou enviá-los para o servidor.
   };
-
-  useEffect(() => {
-    // A função `responseGoogle` será chamada sempre que o componente for montado
-
-    // Se você precisar de uma lógica específica quando o componente for desmontado, você pode retornar uma função de limpeza do useEffect
-    return () => {
-      // Lógica de limpeza, se necessário
-    };
-  }, []); // O array de dependências vazio [] significa que o useEffect será executado apenas uma vez, quando o componente for montado
 
   return (
     <>

@@ -8,7 +8,7 @@ import Iconify from '../../../components/iconify';
 import { Context } from '../../../context/AuthContext';
 
 export default function LoginForm() {
-  const { authenticated, handleLogin } = useContext(Context);
+  const { loading, userData, authenticated, handleLogin, handleNavigate } = useContext(Context);
   console.debug('Login', authenticated);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +58,7 @@ export default function LoginForm() {
     //   return;
     // }
 
+    handleNavigate('/dashboard');
     // Chama a função de login do contexto, passando email e senha
     handleLogin('rycardo.19@gmail.com', '96106aA@');
   };
