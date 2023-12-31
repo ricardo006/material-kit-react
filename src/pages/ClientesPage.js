@@ -196,7 +196,7 @@ export default function ClientesPage() {
                                 />
                                 <TableBody>
                                     {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
-                                        const { id, nomeUsuario, cambistaId, nomeCompleto, vendaId, createdAt, updatedAt, status } = clientes;
+                                        const { id } = clientes;
                                         const selectedUser = selected.indexOf(clientes.nome_usuario) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
 
                                         return (
