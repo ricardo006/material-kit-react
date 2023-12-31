@@ -6,6 +6,7 @@ import InsightsTwoToneIcon from '@mui/icons-material/InsightsTwoTone';
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
+import ArticleTwoToneIcon from '@mui/icons-material/ArticleTwoTone';
 
 import SvgColor from '../../../components/svg-color';
 
@@ -43,9 +44,14 @@ const navConfig = [
     icon: <PersonPinTwoToneIcon />,
   },
   {
+    title: 'Bilhetes',
+    path: 'bilhetes',
+    icon: <AutoAwesomeMotionTwoToneIcon />,
+  },
+  {
     title: 'Relatórios',
     path: '/dashboard/relatorios',
-    icon: <InsightsTwoToneIcon />,
+    icon: <ArticleTwoToneIcon />,
   },
   {
     title: 'Caixa',

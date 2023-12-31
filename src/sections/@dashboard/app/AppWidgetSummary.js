@@ -53,9 +53,9 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
       </StyledIcon>
 
       {title === 'Total de Vendas' ? (
-        <Typography variant="h3">{fCurrency(total)}</Typography>
+        <Typography variant="h3">{`R${fCurrency(total)}`}</Typography>
       ) : title === 'Comissão Anterior' ? (
-        <Typography variant="h3">{fCurrency(total)}</Typography>
+        <Typography variant="h3">{`R${fCurrency(total)}`}</Typography>
       ) : title === 'Total de Clientes' || title === 'Total de Bilhetes' ? (
         <Typography variant="h3">{(total)}</Typography>
       ) : (

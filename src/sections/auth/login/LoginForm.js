@@ -8,11 +8,12 @@ import Iconify from '../../../components/iconify';
 import { Context } from '../../../context/AuthContext';
 
 export default function LoginForm() {
-  const { userData, authenticated, handleLogin, errorMessage, handleNavigate } = useContext(Context);
-  console.log('Login', authenticated);
+  const navigate = useNavigate();
+
+  const { userData, loading, authenticated, handleLogin, errorMessage, handleNavigate } = useContext(Context);
+  console.log('loading', loading);
 
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +32,8 @@ export default function LoginForm() {
 
       if (value.trim() === '') {
         toast.error('O Email não pode ser vazio.', { position: toast.POSITION.TOP_CENTER });
+        setEmailError('O Email não pode ser vazio.');
+
       }
       setEmailError(value.trim() === '');
     }
@@ -50,7 +53,11 @@ export default function LoginForm() {
     console.log('Email:', email);
     console.log('Password:', password);
 
-    handleLogin(email, password);
+    const errorMessage = await handleLogin(email, password);
+
+    if (errorMessage) {
+      toast.error(errorMessage, { position: toast.POSITION.TOP_CENTER });
+    }
   };
 
   return (
@@ -96,9 +103,8 @@ export default function LoginForm() {
         type="button"
         variant="contained"
       >
-        Entrar
+        {loading ? 'Carregando...' : 'Entrar'}
       </LoadingButton>
-
       <ToastContainer />
     </>
   );

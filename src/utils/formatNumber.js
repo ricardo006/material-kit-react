@@ -10,6 +10,11 @@ export function fCurrency(number) {
   return result(format, '.00');
 }
 
+export function fMoney(number) {
+  const format = number ? numeral(number).format('$0,0.00') : '';
+  return format;
+}
+
 export function fPercent(number) {
   const format = number ? numeral(Number(number) / 100).format('0.0%') : '';
 
@@ -18,7 +23,7 @@ export function fPercent(number) {
 
 export function fDecimal(number) {
   if (typeof number !== 'number') {
-      return ''; // Retorna uma string vazia se o número não for válido
+    return ''; // Retorna uma string vazia se o número não for válido
   }
   return number.toFixed(2); // Formata o número com duas casas decimais
 }

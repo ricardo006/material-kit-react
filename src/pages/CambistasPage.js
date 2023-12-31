@@ -71,17 +71,11 @@ function applySortFilter(array, comparator, query) {
 
 export default function CambistasPage() {
     const [open, setOpen] = useState(null);
-
     const [page, setPage] = useState(0);
-
     const [order, setOrder] = useState('asc');
-
     const [selected, setSelected] = useState([]);
-
     const [orderBy, setOrderBy] = useState('name');
-
     const [filterName, setFilterName] = useState('');
-
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const handleOpenMenu = (event) => {
@@ -158,7 +152,7 @@ export default function CambistasPage() {
                         Cambistas
                     </Typography>
                     <Button variant="contained" onClick={handleButtonClick} startIcon={<Iconify icon="eva:plus-fill" />}>
-                        Cadastrar Cambistas
+                        Criar Venda
                     </Button>
                 </Stack>
 

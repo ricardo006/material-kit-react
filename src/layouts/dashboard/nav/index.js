@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
@@ -12,10 +12,14 @@ import useResponsive from '../../../hooks/useResponsive';
 import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
-//
+
+import { Context } from '../../../context/AuthContext';
+
+import { fCurrency, fMoney } from '../../../utils/formatNumber';
+
 import navConfig from './config';
 
-const NAV_WIDTH = 260;
+const NAV_WIDTH = 280;
 
 const StyledAccount = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -35,11 +39,12 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
+  const { userData, loading, authenticated } = useContext(Context);
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
@@ -62,16 +67,26 @@ export default function Nav({ openNav, onCloseNav }) {
             <Avatar src={account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+              <Typography variant="subtitle2" sx={{ color: 'text.primary', fontSize: 14 }}>
+                {userData && userData.nome_usuario}
               </Typography>
 
               <Typography variant="subtitle2" sx={{ color: 'text.success' }}>
-                {account.saldo}
+                {`R${fMoney(userData && userData.saldo)}`}
               </Typography>
 
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+
+                {
+                  userData &&
+                  (userData.id_tipo_usuario === 1
+                    ? 'Administrador'
+                    : userData.id_tipo_usuario === 2
+                      ? 'Cambista'
+                      : userData.id_tipo_usuario === 3
+                        ? 'Apostador'
+                        : '')
+                }
               </Typography>
             </Box>
           </StyledAccount>
