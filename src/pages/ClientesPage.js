@@ -32,7 +32,6 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 import { getMeusClientes } from '../services/meusClientes';
 
-
 const TABLE_HEAD = [
     { id: 'nome_usuario', label: 'Usuário', alignRight: false },
     { id: 'company', label: 'Nome', alignRight: false },
