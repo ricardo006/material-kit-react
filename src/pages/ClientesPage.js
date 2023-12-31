@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
 // @mui
 import {
     Card,
@@ -30,14 +30,16 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
+import { getMeusClientes } from '../services/meusClientes';
+
 
 const TABLE_HEAD = [
-    { id: 'user', label: 'Usuário', alignRight: false },
-    { id: 'company', label: 'Company', alignRight: false },
+    { id: 'nome_usuario', label: 'Usuário', alignRight: false },
+    { id: 'company', label: 'Nome', alignRight: false },
     { id: 'role', label: 'Role', alignRight: false },
-    { id: 'isVerified', label: 'Verified', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
-    { id: '' },
+    { id: 'created_at', label: 'Data de Criação', alignRight: false },
+    { id: 'updated_at', label: 'Status', alignRight: false },
+    { id: 'actions', label: 'Ações', alignRight: false },
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -71,18 +73,34 @@ function applySortFilter(array, comparator, query) {
 
 export default function ClientesPage() {
     const [open, setOpen] = useState(null);
-
     const [page, setPage] = useState(0);
-
     const [order, setOrder] = useState('asc');
-
     const [selected, setSelected] = useState([]);
-
     const [orderBy, setOrderBy] = useState('name');
-
     const [filterName, setFilterName] = useState('');
-
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [clientes, setClientes] = useState([]);
+
+    useEffect(() => {
+        const fetchClientes = async () => {
+            try {
+                const response = await getMeusClientes();
+
+                if (response && Array.isArray(response.clientes)) {
+                    setClientes(response.clientes);
+                } else {
+                    console.warn('Resposta inválida ou nenhum bilhete encontrado.');
+                }
+            } catch (error) {
+                console.error('Erro ao obter os bilhetes:', error);
+            }
+        };
+
+        fetchClientes();
+    }, []);
+
+    console.log(clientes)
 
     const handleOpenMenu = (event) => {
         setOpen(event.currentTarget);
@@ -178,33 +196,35 @@ export default function ClientesPage() {
                                     onSelectAllClick={handleSelectAllClick}
                                 />
                                 <TableBody>
-                                    {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                                        const selectedUser = selected.indexOf(name) !== -1;
+                                    {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
+                                        const { id, nomeUsuario, cambistaId, nomeCompleto, vendaId, createdAt, updatedAt, status } = clientes;
+                                        const selectedUser = selected.indexOf(clientes.nome_usuario) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
 
                                         return (
                                             <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
                                                 <TableCell padding="checkbox">
-                                                    <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                                                    <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, cliente.nome_usuario)} />
                                                 </TableCell>
 
                                                 <TableCell component="th" scope="row" padding="none">
                                                     <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={name} src={avatarUrl} />
+                                                        <Avatar alt={cliente.nome_usuario} src='' />
                                                         <Typography variant="subtitle2" noWrap>
-                                                            {name}
+                                                            {cliente.nome_usuario}
                                                         </Typography>
                                                     </Stack>
                                                 </TableCell>
 
-                                                <TableCell align="left">{company}</TableCell>
+                                                <TableCell align="left">{cliente.nome_completo}</TableCell>
 
-                                                <TableCell align="left">{role}</TableCell>
+                                                <TableCell align="left">{cliente.cambistaId}</TableCell>
 
-                                                <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                                                <TableCell align="left">{cliente.created_at}</TableCell>
 
                                                 <TableCell align="left">
-                                                    <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
+                                                    <Label color={cliente.status === 'A' ? 'success' : 'error'}>
+                                                        {cliente.status === 'A' ? 'Ativo' : 'Inativo'}
+                                                    </Label>
                                                 </TableCell>
 
                                                 <TableCell align="right">
