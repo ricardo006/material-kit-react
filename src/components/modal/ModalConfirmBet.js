@@ -43,7 +43,7 @@ function ModalConfirmBet({ data, isOpen, onClose }) {
                 open={isOpen}
             >
                 <DialogTitle sx={{ m: 0, p: 2, fontSize: 14 }} id="customized-dialog-title">
-                    Aposta realizada com sucesso!
+                    Aposta realizada!
                 </DialogTitle>
 
                 <IconButton

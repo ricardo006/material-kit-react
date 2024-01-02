@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import {
     FormControl,
     styled,
-    Dialog,
-    DialogTitle,
     TextField,
     FormControlLabel,
     DialogActions,
@@ -32,22 +30,7 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
         setStatusEnabled(!statusEnabled);
     };
 
-    const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-        p: 1,
-        m: 2,
-        '& .MuiDialogContent-root': {
-            padding: theme.spacing(2),
-            width: '100%',
-            maxWidth: '600px',
-            margin: '0 auto',
-        },
-        '& .MuiDialogActions-root': {
-            padding: theme.spacing(2),
-        },
-    }));
-
     const CustomButton = styled(Button)(({ theme }) => ({
-        p: 1,
         backgroundColor: '#33ffc2',
         color: '#263238',
         '&:hover': {
@@ -97,9 +80,9 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
 
             <FormControl fullWidth margin="normal">
                 <TextField
-                    value={usuario}
-                    onChange={(e) => setUsuario(e.target.value)}
-                    label="Usuário"
+                    value={nomeCompleto}
+                    onChange={(e) => setNomeCompleto(e.target.value)}
+                    label="Nome Completo"
                     variant="outlined"
                     fullWidth
                 />
@@ -107,9 +90,9 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
 
             <FormControl fullWidth margin="normal">
                 <TextField
-                    value={nomeCompleto}
-                    onChange={(e) => setNomeCompleto(e.target.value)}
-                    label="Nome Completo"
+                    value={usuario}
+                    onChange={(e) => setUsuario(e.target.value)}
+                    label="Usuário"
                     variant="outlined"
                     fullWidth
                 />

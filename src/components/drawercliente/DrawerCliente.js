@@ -11,17 +11,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import ClienteForm from '../forms/ClienteForm';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    p: 1,
-    m: 2,
     '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
         width: '100%',
-        maxWidth: '600px',
-        margin: '0 auto',
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(2),
-    },
+        maxWidth: '800px',
+    }
 }));
 
 
@@ -54,7 +47,7 @@ function DrawerCliente({ isOpen, onClose }) {
                 onClick={onClose}
                 sx={{
                     position: 'absolute',
-                    right: 8,
+                    right: 2,
                     top: 8,
                     // color: (theme) => theme.palette.grey[700],
                     color: '#33ffc2'

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 // @mui
@@ -36,10 +37,10 @@ import { getMeusClientes } from '../services/meusClientes';
 const TABLE_HEAD = [
     { id: 'nome_usuario', label: 'Usuário', alignRight: false },
     { id: 'nome_completo', label: 'Nome', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
+    { id: 'login', label: 'Faz login?', alignRight: false },
     { id: 'created_at', label: 'Data de Criação', alignRight: false },
     { id: 'status', label: 'Status', alignRight: false },
-    { id: 'actions', label: 'Ações', alignRight: false },
+    { id: 'actions', label: 'Ações', alignCenter: true },
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -181,6 +182,18 @@ export default function ClientesPage() {
         setIsModalOpen(true);
     };
 
+    const handleEdit = (clienteId) => {
+        // Lógica para editar o cliente com o ID 'clienteId'
+        console.log(`Editar cliente com ID ${clienteId}`);
+        // Implemente a lógica de edição aqui, como abrir um modal de edição, etc.
+    };
+
+    const handleDelete = (clienteId) => {
+        // Lógica para excluir o cliente com o ID 'clienteId'
+        console.log(`Excluir cliente com ID ${clienteId}`);
+        // Implemente a lógica de exclusão aqui, como abrir um modal de confirmação, etc.
+    };
+
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
     const filteredUsers = applySortFilter(clientes, getComparator(order, orderBy), filterName);
     const isNotFound = !filteredUsers.length && !!filterName;
@@ -255,7 +268,15 @@ export default function ClientesPage() {
                                                             </Label>
                                                         </TableCell>
 
-                                                        <TableCell align="right">
+                                                        <TableCell align="left">
+                                                            <IconButton variant="primary" size="medium" color="inherit" onClick={() => handleEdit(cliente.id)}>
+                                                                <EditIcon variant="primary" />
+                                                            </IconButton>
+
+                                                            <IconButton size="medium" color="inherit" onClick={() => handleDelete(cliente.id)}>
+                                                                <Iconify icon={'eva:trash-outline'} />
+                                                            </IconButton>
+
                                                             <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                                                                 <Iconify icon={'eva:more-vertical-fill'} />
                                                             </IconButton>
