@@ -133,18 +133,19 @@ export default function ClientesPage() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = clientes.map((n) => n.name);
+            const newSelecteds = clientes.map((cliente) => cliente.id);
             setSelected(newSelecteds);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event, name) => {
-        const selectedIndex = selected.indexOf(name);
+    const handleClick = (event, id) => {
+        const selectedIndex = selected.indexOf(id);
         let newSelected = [];
+
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
+            newSelected = newSelected.concat(selected, id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
         } else if (selectedIndex === selected.length - 1) {
@@ -152,6 +153,7 @@ export default function ClientesPage() {
         } else if (selectedIndex > 0) {
             newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
         }
+
         setSelected(newSelected);
     };
 
@@ -224,12 +226,12 @@ export default function ClientesPage() {
                                         <TableBody>
                                             {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
                                                 const { id } = cliente;
-                                                const selectedUser = selected.indexOf(cliente.nome_usuario) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
+                                                const selectedUser = selected.indexOf(cliente.id) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
 
                                                 return (
                                                     <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
                                                         <TableCell padding="checkbox">
-                                                            <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, cliente.nome_usuario)} />
+                                                            <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, cliente.id)} />
                                                         </TableCell>
 
                                                         <TableCell component="th" scope="row" padding="none">
