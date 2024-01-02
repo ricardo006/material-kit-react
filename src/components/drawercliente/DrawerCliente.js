@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { useSpring } from 'react-spring';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
+import {
+    Button,
+    FormControl,
+    styled,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    IconButton,
+    TextField,
+    FormControlLabel,
+    Checkbox,
+    Switch,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Switch from '@mui/material/Switch';
+import ClienteForm from '../forms/ClienteForm';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     p: 1,
@@ -81,25 +84,7 @@ function DrawerCliente({ isOpen, onClose }) {
             </IconButton>
 
             <DialogContent>
-                <FormControlLabel
-                    control={<Checkbox checked={loginEnabled} onChange={(event) => handleCheckboxChange(event, setLoginEnabled)} />}
-                    label="Permitir que o cliente faça login"
-                />
-
-                <FormControlLabel control={<Switch defaultChecked />} label="Status do Cliente" />
-
-                <FormControl fullWidth margin="normal">
-                    <TextField label="Usuário" variant="outlined" fullWidth />
-                </FormControl>
-
-                <FormControl fullWidth margin="normal">
-                    <TextField label="Nome Completo" variant="outlined" fullWidth />
-                </FormControl>
-
-
-                <FormControl fullWidth margin="normal">
-                    <TextField sx={{ color: '#fff' }} label="Cambista Associado" variant="outlined" fullWidth disabled />
-                </FormControl>
+                <ClienteForm />
             </DialogContent>
 
             <DialogActions>
