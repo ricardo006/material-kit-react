@@ -802,7 +802,7 @@ export default function UserPage() {
     const [selectedCountryId, setSelectedCountryId] = useState(null);
     const [competitionsData, setCompetitionsData] = useState([]);
     const [countryId, setCountryId] = useState(152);
-    const [dataBet, setDataBet] = useState([]); // Inicialize o array de dados como vazio
+    const [dataBet, setDataBet] = useState([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [selectedTab, setSelectedTab] = useState(false);
     const [selectedChips, setSelectedChips] = useState([]);
@@ -945,7 +945,6 @@ export default function UserPage() {
                     oddKey = 'odd2x';
                     break;
                 default:
-                    // Trate qualquer outro tipo de evento ou erro aqui
                     break;
             }
 
@@ -2075,7 +2074,7 @@ export default function UserPage() {
 
                         <ModalConfirmBet
                             data={dataBet}
-                            isOpen={isModalOpen} // Passe o estado para controlar a abertura do modal
+                            isOpen={isModalOpen}
                             onClose={() => setIsModalOpen(false)} // Passe a função para fechar o modal
                         />
                     </div>

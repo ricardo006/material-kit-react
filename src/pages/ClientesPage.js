@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 // @mui
 import {
     Card,
@@ -26,6 +25,7 @@ import {
 import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
+import ClienteDrawer from '../components/drawercliente/DrawerCliente';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
@@ -78,6 +78,11 @@ export default function ClientesPage() {
     const [orderBy, setOrderBy] = useState('name');
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [popoverOpen, setPopoverOpen] = useState(null);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [dataBet, setDataBet] = useState([]);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const [clientes, setClientes] = useState([]);
 
@@ -98,8 +103,6 @@ export default function ClientesPage() {
 
         fetchClientes();
     }, []);
-
-    console.log(clientes)
 
     const handleOpenMenu = (event) => {
         setOpen(event.currentTarget);
@@ -153,15 +156,27 @@ export default function ClientesPage() {
         setFilterName(event.target.value);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
-
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
-
-    const isNotFound = !filteredUsers.length && !!filterName;
-
     const handleButtonClick = () => {
-        alert('teste');
+        setOpenDrawer(true);
     };
+
+    const handleDrawerClose = () => {
+        setOpenDrawer(false);
+    };
+
+    const handleDrawerOpen = () => {
+        setDrawerOpen(true);
+    };
+
+    const handleClickOpenModal = () => {
+        const newData = ['Item 1', 'Item 2', 'Item 3'];
+        setDataBet(newData);
+        setIsModalOpen(true);
+    };
+
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const isNotFound = !filteredUsers.length && !!filterName;
 
     return (
         <>
@@ -174,11 +189,16 @@ export default function ClientesPage() {
                     <Typography variant="h4" gutterBottom>
                         Clientes
                     </Typography>
-                    <Button variant="contained" onClick={handleButtonClick} startIcon={<Iconify icon="eva:plus-fill" />}>
+                    <Button variant="contained" onClick={handleClickOpenModal} startIcon={<Iconify icon="eva:plus-fill" />}>
                         Cadastrar Clientes
                     </Button>
                 </Stack>
 
+                <ClienteDrawer
+                    data={dataBet}
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                />
                 <Card>
                     <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
@@ -278,11 +298,14 @@ export default function ClientesPage() {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </Card>
+                <ClienteDrawer open={openDrawer} onClose={handleDrawerClose} />
+
             </Container>
 
+
             <Popover
-                open={Boolean(open)}
-                anchorEl={open}
+                open={Boolean(popoverOpen)}
+                anchorEl={popoverOpen}
                 onClose={handleCloseMenu}
                 anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -308,6 +331,7 @@ export default function ClientesPage() {
                     Excluir
                 </MenuItem>
             </Popover>
+
         </>
     );
 }

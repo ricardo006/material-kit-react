@@ -7,8 +7,6 @@ import { fNumber } from '../../../utils/formatNumber';
 // components
 import { useChart } from '../../../components/chart';
 
-// ----------------------------------------------------------------------
-
 AppConversionRates.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,

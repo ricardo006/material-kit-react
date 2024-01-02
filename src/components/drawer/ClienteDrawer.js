@@ -20,7 +20,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-function ModalConfirmBet({ data, isOpen, onClose }) {
+function ClienteDrawer({ data, isOpen, onClose }) {
     const [animatedIconStyle, setAnimatedIconStyle] = useSpring(() => ({
         transform: 'scale(0)',
     }));
@@ -87,5 +87,3 @@ function ModalConfirmBet({ data, isOpen, onClose }) {
         </animated.div>
     );
 }
-
-export default ModalConfirmBet;
