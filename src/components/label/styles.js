@@ -62,7 +62,7 @@ export const StyledLabel = styled(Box)(({ theme, ownerState }) => {
     justifyContent: 'center',
     textTransform: 'capitalize',
     padding: theme.spacing(0, 1),
-    color: theme.palette.grey[800],
+    // color: theme.palette.grey[800],
     fontSize: theme.typography.pxToRem(12),
     fontFamily: theme.typography.fontFamily,
     backgroundColor: theme.palette.grey[300],

@@ -35,30 +35,6 @@ export default function LanguagePopover() {
 
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        sx={{
-          padding: 0,
-          width: 140,
-          height: 40,
-          boxShadow: 0,
-          backgroundColor: '#33FFC2',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          flexDirection: 'row',
-          ...(open && {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
-          }),
-        }}
-        variant="contained"
-        endIcon={<CardGiftcardTwoToneIcon sx={{ width: 24, height: 24 }} />}
-      >
-        <Typography sx={{ fontSize: 12, ml: 2, alignSelf: 'center', fontWeight: 800, }}>
-          Promoções
-        </Typography>
-      </Button>
-
       <Popover
         open={Boolean(open)}
         anchorEl={open}
