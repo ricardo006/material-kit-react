@@ -30,7 +30,7 @@ const submitCliente = async (formData, userData) => {
             headers,
         });
 
-        return response.data; // Retornar os dados recebidos da resposta
+        return response.data;
     } catch (error) {
         console.error('Erro ao enviar dados para a API:', error);
         throw error;

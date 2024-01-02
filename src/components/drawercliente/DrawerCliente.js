@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { useSpring } from 'react-spring';
 import {
-    Button,
-    FormControl,
     styled,
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
     IconButton,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Switch,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ClienteForm from '../forms/ClienteForm';
@@ -31,15 +24,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const CustomButton = styled(Button)(({ theme }) => ({
-    p: 1,
-    backgroundColor: '#33ffc2',
-    color: '#263238',
-    '&:hover': {
-        backgroundColor: '#023047',
-        color: '#33ffc2',
-    },
-}));
 
 function DrawerCliente({ isOpen, onClose }) {
     const [animatedIconStyle, setAnimatedIconStyle] = useSpring(() => ({
@@ -55,23 +39,19 @@ function DrawerCliente({ isOpen, onClose }) {
         }
     }, [isOpen, setAnimatedIconStyle]);
 
-    const handleClose = () => {
-        onClose();
-    };
-
     const handleCheckboxChange = (event, setterFunction) => {
         setterFunction(event.target.checked);
     };
 
     return (
-        <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={isOpen}>
+        <BootstrapDialog onClose={onClose} aria-labelledby="customized-dialog-title" open={isOpen}>
             <DialogTitle sx={{ m: 0, p: 2, border: 0, fontSize: 14, color: '#33ffc2', backgroundColor: '#023047', borderBottomRightRadius: 20, borderBottomLeftRadius: 20 }} id="customized-dialog-title">
                 Cadastrar Cliente
             </DialogTitle>
 
             <IconButton
                 aria-label="close"
-                onClick={handleClose}
+                onClick={onClose}
                 sx={{
                     position: 'absolute',
                     right: 8,
@@ -84,12 +64,8 @@ function DrawerCliente({ isOpen, onClose }) {
             </IconButton>
 
             <DialogContent>
-                <ClienteForm />
+                <ClienteForm onCloseDrawer={onClose} />
             </DialogContent>
-
-            <DialogActions>
-                <CustomButton onClick={handleClose}>Cadastrar</CustomButton>
-            </DialogActions>
         </BootstrapDialog>
     );
 }

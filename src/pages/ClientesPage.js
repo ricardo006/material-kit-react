@@ -30,16 +30,15 @@ import Scrollbar from '../components/scrollbar';
 import ClienteDrawer from '../components/drawercliente/DrawerCliente';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
-// mock
-import USERLIST from '../_mock/user';
+// data
 import { getMeusClientes } from '../services/meusClientes';
 
 const TABLE_HEAD = [
     { id: 'nome_usuario', label: 'Usuário', alignRight: false },
-    { id: 'company', label: 'Nome', alignRight: false },
+    { id: 'nome_completo', label: 'Nome', alignRight: false },
     { id: 'role', label: 'Role', alignRight: false },
     { id: 'created_at', label: 'Data de Criação', alignRight: false },
-    { id: 'updated_at', label: 'Status', alignRight: false },
+    { id: 'status', label: 'Status', alignRight: false },
     { id: 'actions', label: 'Ações', alignRight: false },
 ];
 
@@ -66,10 +65,16 @@ function applySortFilter(array, comparator, query) {
         if (order !== 0) return order;
         return a[1] - b[1];
     });
+
+    const filteredArray = stabilizedThis.map((el) => el[0]);
+
     if (query) {
-        return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return filter(filteredArray, (_user) =>
+            _user.nome_usuario.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        );
     }
-    return stabilizedThis.map((el) => el[0]);
+
+    return filteredArray;
 }
 
 export default function ClientesPage() {
@@ -79,7 +84,7 @@ export default function ClientesPage() {
     const [selected, setSelected] = useState([]);
     const [orderBy, setOrderBy] = useState('name');
     const [filterName, setFilterName] = useState('');
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [popoverOpen, setPopoverOpen] = useState(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -94,7 +99,7 @@ export default function ClientesPage() {
                 // Simulação de uma requisição assíncrona
                 const response = await getMeusClientes();
 
-                // Aguarda 3 segundos para simular o carregamento
+                // Aguarda 2 segundos para simular o carregamento
                 await new Promise((resolve) => setTimeout(resolve, 2000));
 
                 // Verifica se a resposta é válida antes de marcar como carregado
@@ -128,7 +133,7 @@ export default function ClientesPage() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = USERLIST.map((n) => n.name);
+            const newSelecteds = clientes.map((n) => n.name);
             setSelected(newSelecteds);
             return;
         }
@@ -174,8 +179,8 @@ export default function ClientesPage() {
         setIsModalOpen(true);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
+    const filteredUsers = applySortFilter(clientes, getComparator(order, orderBy), filterName);
     const isNotFound = !filteredUsers.length && !!filterName;
 
     return (
@@ -211,7 +216,7 @@ export default function ClientesPage() {
                                             order={order}
                                             orderBy={orderBy}
                                             headLabel={TABLE_HEAD}
-                                            rowCount={USERLIST.length}
+                                            rowCount={clientes.length}
                                             numSelected={selected.length}
                                             onRequestSort={handleRequestSort}
                                             onSelectAllClick={handleSelectAllClick}
@@ -243,7 +248,7 @@ export default function ClientesPage() {
                                                         <TableCell align="left">{cliente.created_at}</TableCell>
 
                                                         <TableCell align="left">
-                                                            <Label color={cliente.status === 'A' ? 'success' : 'error'}>
+                                                            <Label color={cliente.status === 'A' ? 'success' : 'info'}>
                                                                 {cliente.status === 'A' ? 'Ativo' : 'Inativo'}
                                                             </Label>
                                                         </TableCell>
@@ -291,9 +296,9 @@ export default function ClientesPage() {
                             </Scrollbar>
 
                             <TablePagination
-                                rowsPerPageOptions={[5, 10, 25]}
+                                rowsPerPageOptions={[10, 20, 30, 50, 100, 1000]}
                                 component="div"
-                                count={USERLIST.length}
+                                count={clientes.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 onPageChange={handleChangePage}

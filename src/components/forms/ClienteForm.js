@@ -1,22 +1,28 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     FormControl,
+    styled,
+    Dialog,
+    DialogTitle,
     TextField,
     FormControlLabel,
+    DialogActions,
     Checkbox,
     Switch,
     Button,
 } from '@mui/material';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { submitCliente } from '../../services/submitCliente';
 import { Context } from '../../context/AuthContext';
 
-function ClienteForm({ onSubmit }) {
+function ClienteForm({ onSubmit, onCloseDrawer }) {
     const [loginEnabled, setLoginEnabled] = useState(false);
     const [statusEnabled, setStatusEnabled] = useState(true);
     const [usuario, setUsuario] = useState('');
     const [nomeCompleto, setNomeCompleto] = useState('');
     const { userData, loading } = useContext(Context);
+    const navigate = useNavigate();
 
     const handleCheckboxChange = (event) => {
         setLoginEnabled(event.target.checked);
@@ -25,6 +31,30 @@ function ClienteForm({ onSubmit }) {
     const handleSwitchChange = () => {
         setStatusEnabled(!statusEnabled);
     };
+
+    const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+        p: 1,
+        m: 2,
+        '& .MuiDialogContent-root': {
+            padding: theme.spacing(2),
+            width: '100%',
+            maxWidth: '600px',
+            margin: '0 auto',
+        },
+        '& .MuiDialogActions-root': {
+            padding: theme.spacing(2),
+        },
+    }));
+
+    const CustomButton = styled(Button)(({ theme }) => ({
+        p: 1,
+        backgroundColor: '#33ffc2',
+        color: '#263238',
+        '&:hover': {
+            backgroundColor: '#023047',
+            color: '#33ffc2',
+        },
+    }));
 
     const handleSubmit = async () => {
         const formData = {
@@ -39,19 +69,18 @@ function ClienteForm({ onSubmit }) {
             console.log('Dados enviados com sucesso:', response);
 
             // Exibir mensagem de sucesso
-            toast.success('Dados enviados com sucesso!', { position: toast.POSITION.TOP_CENTER });
-
-            // Fechar o modal ou executar outras ações necessárias
-            // handleCloseModal();
-
-            // Chamar a função onSubmit se necessário
-            onSubmit(formData);
+            await new Promise((resolve) => {
+                toast.success(response.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    onClose: resolve,
+                });
+            });
+            onCloseDrawer();
         } catch (error) {
             console.error('Erro ao enviar dados para a API:', error);
-
-            // Exibir mensagem de erro
             toast.error('Erro ao enviar dados para a API.', { position: toast.POSITION.TOP_CENTER });
         }
+        window.location.reload();
     };
 
     return (
@@ -97,9 +126,10 @@ function ClienteForm({ onSubmit }) {
                 />
             </FormControl>
 
-            <Button onClick={handleSubmit} variant="contained" color="primary">
-                Cadastrar
-            </Button>
+            <DialogActions>
+                <CustomButton onClick={handleSubmit}>Cadastrar</CustomButton>
+            </DialogActions>
+            <ToastContainer />
         </>
     );
 }
