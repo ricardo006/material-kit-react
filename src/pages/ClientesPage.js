@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 // @mui
 import {
+    Box,
     Card,
     Table,
     Stack,
@@ -83,25 +85,31 @@ export default function ClientesPage() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [dataBet, setDataBet] = useState([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+    const [dataLoaded, setDataLoaded] = useState(false);
     const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
-        const fetchClientes = async () => {
+        const fetchData = async () => {
             try {
+                // Simulação de uma requisição assíncrona
                 const response = await getMeusClientes();
 
+                // Aguarda 3 segundos para simular o carregamento
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+
+                // Verifica se a resposta é válida antes de marcar como carregado
                 if (response && Array.isArray(response.clientes)) {
                     setClientes(response.clientes);
+                    setDataLoaded(true);
                 } else {
-                    console.warn('Resposta inválida ou nenhum bilhete encontrado.');
+                    console.warn('Resposta inválida ou nenhum cliente encontrado.');
                 }
             } catch (error) {
-                console.error('Erro ao obter os bilhetes:', error);
+                console.error('Erro ao carregar clientes:', error);
             }
         };
 
-        fetchClientes();
+        fetchData();
     }, []);
 
     const handleOpenMenu = (event) => {
@@ -156,16 +164,8 @@ export default function ClientesPage() {
         setFilterName(event.target.value);
     };
 
-    const handleButtonClick = () => {
-        setOpenDrawer(true);
-    };
-
     const handleDrawerClose = () => {
         setOpenDrawer(false);
-    };
-
-    const handleDrawerOpen = () => {
-        setDrawerOpen(true);
     };
 
     const handleClickOpenModal = () => {
@@ -185,121 +185,128 @@ export default function ClientesPage() {
             </Helmet>
 
             <Container maxWidth="xl">
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom>
-                        Clientes
-                    </Typography>
-                    <Button variant="contained" onClick={handleClickOpenModal} startIcon={<Iconify icon="eva:plus-fill" />}>
-                        Cadastrar Clientes
-                    </Button>
-                </Stack>
+                {dataLoaded ? (
+                    <>
+                        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                            <Typography variant="h4" gutterBottom>
+                                Clientes
+                            </Typography>
+                            <Button variant="contained" onClick={handleClickOpenModal} startIcon={<Iconify icon="eva:plus-fill" />}>
+                                Cadastrar Cliente
+                            </Button>
+                        </Stack>
 
-                <ClienteDrawer
-                    data={dataBet}
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                />
-                <Card>
-                    <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+                        <ClienteDrawer
+                            data={dataBet}
+                            isOpen={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                        />
+                        <Card>
+                            <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
-                    <Scrollbar>
-                        <TableContainer sx={{ minWidth: 800 }}>
-                            <Table>
-                                <UserListHead
-                                    order={order}
-                                    orderBy={orderBy}
-                                    headLabel={TABLE_HEAD}
-                                    rowCount={USERLIST.length}
-                                    numSelected={selected.length}
-                                    onRequestSort={handleRequestSort}
-                                    onSelectAllClick={handleSelectAllClick}
-                                />
-                                <TableBody>
-                                    {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
-                                        const { id } = clientes;
-                                        const selectedUser = selected.indexOf(clientes.nome_usuario) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
+                            <Scrollbar>
+                                <TableContainer sx={{ minWidth: 800 }}>
+                                    <Table>
+                                        <UserListHead
+                                            order={order}
+                                            orderBy={orderBy}
+                                            headLabel={TABLE_HEAD}
+                                            rowCount={USERLIST.length}
+                                            numSelected={selected.length}
+                                            onRequestSort={handleRequestSort}
+                                            onSelectAllClick={handleSelectAllClick}
+                                        />
+                                        <TableBody>
+                                            {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
+                                                const { id } = cliente;
+                                                const selectedUser = selected.indexOf(cliente.nome_usuario) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
 
-                                        return (
-                                            <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, cliente.nome_usuario)} />
-                                                </TableCell>
+                                                return (
+                                                    <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
+                                                        <TableCell padding="checkbox">
+                                                            <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, cliente.nome_usuario)} />
+                                                        </TableCell>
 
-                                                <TableCell component="th" scope="row" padding="none">
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={cliente.nome_usuario} src='' />
-                                                        <Typography variant="subtitle2" noWrap>
-                                                            {cliente.nome_usuario}
-                                                        </Typography>
-                                                    </Stack>
-                                                </TableCell>
+                                                        <TableCell component="th" scope="row" padding="none">
+                                                            <Stack direction="row" alignItems="center" spacing={2}>
+                                                                <Avatar alt={cliente.nome_usuario} src='' />
+                                                                <Typography variant="subtitle2" noWrap>
+                                                                    {cliente.nome_usuario}
+                                                                </Typography>
+                                                            </Stack>
+                                                        </TableCell>
 
-                                                <TableCell align="left">{cliente.nome_completo}</TableCell>
+                                                        <TableCell align="left">{cliente.nome_completo}</TableCell>
 
-                                                <TableCell align="left">{cliente.cambistaId}</TableCell>
+                                                        <TableCell align="left">{cliente.cambistaId}</TableCell>
 
-                                                <TableCell align="left">{cliente.created_at}</TableCell>
+                                                        <TableCell align="left">{cliente.created_at}</TableCell>
 
-                                                <TableCell align="left">
-                                                    <Label color={cliente.status === 'A' ? 'success' : 'error'}>
-                                                        {cliente.status === 'A' ? 'Ativo' : 'Inativo'}
-                                                    </Label>
-                                                </TableCell>
+                                                        <TableCell align="left">
+                                                            <Label color={cliente.status === 'A' ? 'success' : 'error'}>
+                                                                {cliente.status === 'A' ? 'Ativo' : 'Inativo'}
+                                                            </Label>
+                                                        </TableCell>
 
-                                                <TableCell align="right">
-                                                    <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                                                        <Iconify icon={'eva:more-vertical-fill'} />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                    {emptyRows > 0 && (
-                                        <TableRow style={{ height: 53 * emptyRows }}>
-                                            <TableCell colSpan={6} />
-                                        </TableRow>
-                                    )}
-                                </TableBody>
+                                                        <TableCell align="right">
+                                                            <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                                                                <Iconify icon={'eva:more-vertical-fill'} />
+                                                            </IconButton>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                );
+                                            })}
+                                            {emptyRows > 0 && (
+                                                <TableRow style={{ height: 53 * emptyRows }}>
+                                                    <TableCell colSpan={6} />
+                                                </TableRow>
+                                            )}
+                                        </TableBody>
 
-                                {isNotFound && (
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                                                <Paper
-                                                    sx={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    <Typography variant="h6" paragraph>
-                                                        Nada encontrado
-                                                    </Typography>
+                                        {isNotFound && (
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
+                                                        <Paper
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                            }}
+                                                        >
+                                                            <Typography variant="h6" paragraph>
+                                                                Nada encontrado
+                                                            </Typography>
 
-                                                    <Typography variant="body2">
-                                                        Não foram encontrados resultados para &nbsp;
-                                                        <strong>&quot;{filterName}&quot;</strong>.
-                                                        <br /> Tente verificar erros de digitação ou usar palavras completas.
-                                                    </Typography>
-                                                </Paper>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                )}
-                            </Table>
-                        </TableContainer>
-                    </Scrollbar>
+                                                            <Typography variant="body2">
+                                                                Não foram encontrados resultados para &nbsp;
+                                                                <strong>&quot;{filterName}&quot;</strong>.
+                                                                <br /> Tente verificar erros de digitação ou usar palavras completas.
+                                                            </Typography>
+                                                        </Paper>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        )}
+                                    </Table>
+                                </TableContainer>
+                            </Scrollbar>
 
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={USERLIST.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Card>
-                <ClienteDrawer open={openDrawer} onClose={handleDrawerClose} />
-
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={USERLIST.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </Card>
+                        <ClienteDrawer open={openDrawer} onClose={handleDrawerClose} />
+                    </>
+                ) : (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                        <CircularProgress />
+                    </Box>
+                )}
             </Container>
 
 

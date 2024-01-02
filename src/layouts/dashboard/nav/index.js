@@ -71,10 +71,6 @@ export default function Nav({ openNav, onCloseNav }) {
                 {userData && userData.nome_usuario}
               </Typography>
 
-              <Typography variant="subtitle2" sx={{ color: 'text.success' }}>
-                {`R${fMoney(userData && userData.saldo)}`}
-              </Typography>
-
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
 
                 {
@@ -88,12 +84,28 @@ export default function Nav({ openNav, onCloseNav }) {
                         : '')
                 }
               </Typography>
+
+              <Typography variant="subtitle2" sx={{ color: 'text.success' }}>
+                {`R${fMoney(userData && userData.saldo)}`}
+              </Typography>
             </Box>
           </StyledAccount>
         </Link>
       </Box>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
+
+      <Box sx={{ m: 1 }}>
+        <Box sx={{ display: 'flex', m: 1 }}>
+          <Button fullWidth variant="outlined" color="primary" sx={{ mr: 1, ml: 0 }}>
+            Promoções
+          </Button>
+
+          <Button fullWidth variant="contained" color="primary">
+            Depositar
+          </Button>
+        </Box>
+      </Box>
 
       <NavSection data={navConfig} />
 
