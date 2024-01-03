@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext';
+import { LoadingProvider } from './context/LoadingContext';
 // routes
 import Router from './routes';
 // theme
@@ -11,15 +12,17 @@ import ScrollToTop from './components/scroll-to-top';
 
 function App() {
   return (
-    <AuthProvider>
-      <HelmetProvider>
-        <ThemeProvider>
-          <ScrollToTop />
-          <StyledChart />
-          <Router />
-        </ThemeProvider>
-      </HelmetProvider>
-    </AuthProvider >
+    <LoadingProvider>
+      <AuthProvider>
+        <HelmetProvider>
+          <ThemeProvider>
+            <ScrollToTop />
+            <StyledChart />
+            <Router />
+          </ThemeProvider>
+        </HelmetProvider>
+      </AuthProvider >
+    </LoadingProvider>
   );
 }
 
