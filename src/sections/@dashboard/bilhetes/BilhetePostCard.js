@@ -1,66 +1,83 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardContent, Typography, Grid, Avatar } from '@mui/material';
+import { Button, Card, CardContent, Typography, Grid, Avatar } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { fDate } from '../../../utils/formatTime';
 
 const StyledCardMedia = styled('div')({
   position: 'relative',
-  paddingTop: 'calc(100% * 3 / 4)',
+  borderBottomLeftRadius: 20,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '50%',  // Ajuste a altura conforme necessário
 });
 
+const StyledCover = styled('img')({
+  top: 0,
+  width: '100%',
+  height: '95%',
+  objectFit: 'cover',
+  position: 'absolute',
+  padding: '10px', // Adiciona padding de 10px
+  borderRadius: '20px', // Adiciona border-radius de 20px
+});
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   zIndex: 9,
-  width: 32,
-  height: 32,
+  width: 62,
+  height: 62,
+  left: '50%',
   position: 'absolute',
-  left: theme.spacing(3),
-  bottom: theme.spacing(-2),
+  transform: 'translate(-50%, -50%)',
+  border: '2px solid #005f73'
 }));
+
+const StyledButtonsContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  marginTop: 8,
+});
 
 const StyledInfo = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'flex-end',
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(1),
   color: theme.palette.text.disabled,
 }));
 
-const StyledCover = styled('img')({
-  top: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  position: 'absolute',
-});
-
-const clientId = 'nsFLNPBrUItYQGSbu9PjGcOcbMoIlhP3draLr6oJKv8';
-const searchQuery = 'soccer';
-const apiUrl = `https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${clientId}`;
+const profilePhotoUrl = 'https://api.unsplash.com/photos/random?query=avatar&client_id=nsFLNPBrUItYQGSbu9PjGcOcbMoIlhP3draLr6oJKv8';
+const cardPhotoUrl = 'https://api.unsplash.com/photos/random?query=soccer&client_id=nsFLNPBrUItYQGSbu9PjGcOcbMoIlhP3draLr6oJKv8';
 
 const BilhetePostCard = ({ index, post }) => {
-  const [photoUrl, setPhotoUrl] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState('');
+  const [cardPhoto, setCardPhoto] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProfilePhoto = async () => {
       try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(profilePhotoUrl);
         const data = await response.json();
-
-        if (data.results.length > 0) {
-          const photoIndex = index % data.results.length;
-          const smallPhotoUrl = data.results[photoIndex].urls.small;
-          setPhotoUrl(smallPhotoUrl);
-        } else {
-          console.error('Nenhuma foto disponível');
-        }
+        setProfilePhoto(data.urls.small);
       } catch (error) {
-        console.error('Erro ao obter fotos:', error);
+        console.error('Erro ao obter foto de perfil:', error);
       }
     };
 
-    fetchData();
+    const fetchCardPhoto = async () => {
+      try {
+        const response = await fetch(cardPhotoUrl);
+        const data = await response.json();
+        setCardPhoto(data.urls.small);
+      } catch (error) {
+        console.error('Erro ao obter foto do card:', error);
+      }
+    };
+
+    fetchProfilePhoto();
+    fetchCardPhoto();
   }, [index]);
 
   const {
@@ -71,13 +88,13 @@ const BilhetePostCard = ({ index, post }) => {
 
   return (
     <Grid item xs={12} sm={3} md={3}>
-      <Card sx={{ position: 'relative' }}>
+      <Card sx={{ position: 'relative', backgroundColor: '#023047' }}>
         <StyledCardMedia
           sx={{
             ...((latestPost) && {
               pt: 'calc(100% * 4 / 3)',
               '&:after': {
-                top: 0,
+                top: 10,
                 content: "''",
                 width: '100%',
                 height: '100%',
@@ -91,15 +108,15 @@ const BilhetePostCard = ({ index, post }) => {
             },
           }}
         >
-          <StyledCover alt={`Bilhete ${id}`} src={photoUrl} />
-          <StyledAvatar alt={`Usuário ${post.id}`} src={photoUrl} />
+          <StyledCover alt={`Bilhete ${id}`} src={cardPhoto} />
+          <StyledAvatar alt={`Usuário ${post.id}`} src={profilePhoto} />
         </StyledCardMedia>
 
         <CardContent
           sx={{
-            pt: 2,
+            pt: 1,
             ...((latestPost) && {
-              bottom: 5,
+              bottom: 2,
               width: '100%',
               position: 'absolute',
             }),
@@ -120,6 +137,15 @@ const BilhetePostCard = ({ index, post }) => {
           <Typography variant="body2" color="text.secondary">
             Criado em: {fDate(post.data_criacao)}
           </Typography>
+
+          <StyledButtonsContainer>
+            <Button fullWidth sx={{ mr: 1 }} variant="outlined" color="primary">
+              Visualizar
+            </Button>
+            <Button fullWidth variant="contained" color="primary">
+              Comprar
+            </Button>
+          </StyledButtonsContainer>
         </CardContent>
       </Card>
     </Grid>
