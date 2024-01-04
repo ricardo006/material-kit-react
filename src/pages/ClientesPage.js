@@ -37,11 +37,34 @@ import { getMeusClientes } from '../services/meusClientes';
 const TABLE_HEAD = [
     { id: 'nome_usuario', label: 'Usuário', alignRight: false },
     { id: 'nome_completo', label: 'Nome', alignRight: false },
-    { id: 'login', label: 'Faz login?', alignRight: false },
+    { id: 'login', label: 'Permissão de login?', alignRight: false },
     { id: 'created_at', label: 'Data de Criação', alignRight: false },
     { id: 'status', label: 'Status', alignRight: false },
     { id: 'actions', label: 'Ações', alignCenter: true },
 ];
+
+const styles = {
+    editButton: {
+        backgroundColor: '#156064',
+        borderRadius: 2,
+        '&:hover': {
+            backgroundColor: '#156064',
+            color: '#156064',
+        },
+    },
+    deleteButton: {
+        backgroundColor: '#d81159',
+        borderRadius: 2,
+        '&:hover': {
+            backgroundColor: '#d81159',
+            color: '#156064',
+        },
+    },
+    moreButton: {
+        size: 'large',
+        color: 'inherit',
+    },
+};
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -183,15 +206,11 @@ export default function ClientesPage() {
     };
 
     const handleEdit = (clienteId) => {
-        // Lógica para editar o cliente com o ID 'clienteId'
         console.log(`Editar cliente com ID ${clienteId}`);
-        // Implemente a lógica de edição aqui, como abrir um modal de edição, etc.
     };
 
     const handleDelete = (clienteId) => {
-        // Lógica para excluir o cliente com o ID 'clienteId'
         console.log(`Excluir cliente com ID ${clienteId}`);
-        // Implemente a lógica de exclusão aqui, como abrir um modal de confirmação, etc.
     };
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
@@ -269,17 +288,19 @@ export default function ClientesPage() {
                                                         </TableCell>
 
                                                         <TableCell align="left">
-                                                            <IconButton variant="primary" size="medium" color="inherit" onClick={() => handleEdit(cliente.id)}>
-                                                                <EditIcon variant="primary" />
-                                                            </IconButton>
+                                                            <Stack direction="row" spacing={1}>
+                                                                <IconButton sx={styles.editButton} size="medium" onClick={() => handleEdit(cliente.id)}>
+                                                                    <EditIcon sx={{ fontSize: 20, color: '#fafafa' }} />
+                                                                </IconButton>
 
-                                                            <IconButton size="medium" color="inherit" onClick={() => handleDelete(cliente.id)}>
-                                                                <Iconify icon={'eva:trash-outline'} />
-                                                            </IconButton>
+                                                                <IconButton sx={styles.deleteButton} size="medium" onClick={() => handleDelete(cliente.id)}>
+                                                                    <Iconify sx={{ color: '#fafafa' }} icon={'eva:trash-outline'} />
+                                                                </IconButton>
 
-                                                            <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
-                                                                <Iconify icon={'eva:more-vertical-fill'} />
-                                                            </IconButton>
+                                                                <IconButton sx={styles.moreButton}>
+                                                                    <Iconify icon={'eva:more-vertical-fill'} />
+                                                                </IconButton>
+                                                            </Stack>
                                                         </TableCell>
                                                     </TableRow>
                                                 );

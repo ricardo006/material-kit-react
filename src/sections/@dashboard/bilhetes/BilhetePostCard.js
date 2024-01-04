@@ -99,7 +99,6 @@ const BilhetePostCard = ({ index, post }) => {
   const latestPost = 0;
 
   return (
-
     <>
       <Grid item xs={12} sm={3} md={3}>
         {loading ? (
@@ -125,10 +124,8 @@ const BilhetePostCard = ({ index, post }) => {
                 },
               }}
             >
-
               <StyledCover alt={`Bilhete ${id}`} src={cardPhoto} />
               <StyledAvatar alt={`Usuário ${post.id}`} src={profilePhoto} />
-
             </StyledCardMedia>
 
             <CardContent
@@ -141,7 +138,7 @@ const BilhetePostCard = ({ index, post }) => {
                 }),
               }}
             >
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography variant="h5" component="div">
                 Bilhete #{id}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -169,7 +166,6 @@ const BilhetePostCard = ({ index, post }) => {
           </Card>
         )}
       </Grid>
-
     </>
   );
 };
