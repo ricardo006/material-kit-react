@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { toast, ToastContainer } from 'react-toastify';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
@@ -33,6 +34,7 @@ import ClienteDrawer from '../components/drawercliente/DrawerCliente';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // data
 import { getMeusClientes } from '../services/meusClientes';
+import clienteService from '../services/clienteService';
 
 const TABLE_HEAD = [
     { id: 'nome_usuario', label: 'Usuário', alignRight: false },
@@ -118,28 +120,47 @@ export default function ClientesPage() {
     const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Simulação de uma requisição assíncrona
-                const response = await getMeusClientes();
-
-                // Aguarda 2 segundos para simular o carregamento
-                await new Promise((resolve) => setTimeout(resolve, 2000));
-
-                // Verifica se a resposta é válida antes de marcar como carregado
-                if (response && Array.isArray(response.clientes)) {
-                    setClientes(response.clientes);
-                    setDataLoaded(true);
-                } else {
-                    console.warn('Resposta inválida ou nenhum cliente encontrado.');
-                }
-            } catch (error) {
-                console.error('Erro ao carregar clientes:', error);
-            }
-        };
-
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        try {
+            // Simulação de uma requisição assíncrona
+            const response = await getMeusClientes();
+
+            // Aguarda 2 segundos para simular o carregamento
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            // Verifica se a resposta é válida antes de marcar como carregado
+            if (response && Array.isArray(response.clientes)) {
+                setClientes(response.clientes);
+                setDataLoaded(true);
+            } else {
+                console.warn('Resposta inválida ou nenhum cliente encontrado.');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar clientes:', error);
+        }
+    };
+
+    const handleEdit = (clienteId) => {
+        console.log(`Editar cliente com ID ${clienteId}`);
+    };
+
+    const handleDelete = async (clienteId) => {
+        try {
+            const response = await clienteService.deleteCliente(clienteId);
+            // Exibe um toast de sucesso
+            toast.success(response.message, { position: toast.POSITION.TOP_CENTER });
+
+            // Após excluir, carrega os dados atualizados
+            fetchData();
+        } catch (error) {
+            // Exibe um toast de erro
+            toast.error('Erro ao excluir cliente.', { position: toast.POSITION.TOP_CENTER });
+            console.error('Erro ao excluir cliente:', error);
+        }
+    };
 
     const handleOpenMenu = (event) => {
         setOpen(event.currentTarget);
@@ -205,20 +226,14 @@ export default function ClientesPage() {
         setIsModalOpen(true);
     };
 
-    const handleEdit = (clienteId) => {
-        console.log(`Editar cliente com ID ${clienteId}`);
-    };
-
-    const handleDelete = (clienteId) => {
-        console.log(`Excluir cliente com ID ${clienteId}`);
-    };
-
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
     const filteredUsers = applySortFilter(clientes, getComparator(order, orderBy), filterName);
     const isNotFound = !filteredUsers.length && !!filterName;
 
     return (
         <>
+            <ToastContainer />
+
             <Helmet>
                 <title> Clientes | Betspace </title>
             </Helmet>
@@ -258,7 +273,7 @@ export default function ClientesPage() {
                                         <TableBody>
                                             {clientes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((cliente) => {
                                                 const { id } = cliente;
-                                                const selectedUser = selected.indexOf(cliente.id) !== -1; // Ajuste a propriedade usada para seleção conforme necessário
+                                                const selectedUser = selected.indexOf(cliente.id) !== -1;
 
                                                 return (
                                                     <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
