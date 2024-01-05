@@ -33,7 +33,6 @@ import ClienteDrawer from '../components/drawercliente/DrawerCliente';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // data
-import { getMeusClientes } from '../services/meusClientes';
 import clienteService from '../services/clienteService';
 
 const TABLE_HEAD = [
@@ -57,6 +56,7 @@ const styles = {
     deleteButton: {
         backgroundColor: '#d81159',
         borderRadius: 2,
+        p: 1,
         '&:hover': {
             backgroundColor: '#d81159',
             color: '#156064',
@@ -126,10 +126,10 @@ export default function ClientesPage() {
     const fetchData = async () => {
         try {
             // Simulação de uma requisição assíncrona
-            const response = await getMeusClientes();
+            const response = await clienteService.getClientes();
 
-            // Aguarda 2 segundos para simular o carregamento
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            // Aguarda 1 segundos para simular o carregamento
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
             // Verifica se a resposta é válida antes de marcar como carregado
             if (response && Array.isArray(response.clientes)) {

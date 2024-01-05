@@ -11,7 +11,7 @@ import {
     Button,
 } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
-import { submitCliente } from '../../services/submitCliente';
+import clienteService from '../../services/clienteService';
 import { Context } from '../../context/AuthContext';
 
 function ClienteForm({ onSubmit, onCloseDrawer }) {
@@ -48,7 +48,7 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
         };
 
         try {
-            const response = await submitCliente(formData, userData);
+            const response = await clienteService.createCliente(formData, userData);
             console.log('Dados enviados com sucesso:', response);
 
             // Exibir mensagem de sucesso

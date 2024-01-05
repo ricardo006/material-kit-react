@@ -17,7 +17,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     }
 }));
 
-
 function DrawerCliente({ isOpen, onClose }) {
     const [animatedIconStyle, setAnimatedIconStyle] = useSpring(() => ({
         transform: 'scale(0)',
