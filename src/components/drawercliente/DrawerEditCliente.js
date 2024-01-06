@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpring } from 'react-spring';
 import {
     styled,
@@ -8,7 +8,7 @@ import {
     IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import ClienteForm from '../forms/clientes/ClienteForm';
+import EditCliente from '../forms/clientes/EditCliente';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -17,18 +17,17 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     }
 }));
 
-function DrawerCliente({ isOpen, onClose }) {
+function DrawerEditCliente({ isOpen, clientId, onClose }) {
+    console.log(isOpen)
     const [animatedIconStyle, setAnimatedIconStyle] = useSpring(() => ({
-        transform: 'scale(0)',
+        transform: isOpen ? 'scale(1)' : 'scale(0)',
     }));
 
     const [loginEnabled, setLoginEnabled] = useState(false);
     const [statusEnabled, setStatusEnabled] = useState(false);
 
-    React.useEffect(() => {
-        if (isOpen) {
-            setAnimatedIconStyle({ transform: 'scale(1)' });
-        }
+    useEffect(() => {
+        setAnimatedIconStyle({ transform: isOpen ? 'scale(1)' : 'scale(0)' });
     }, [isOpen, setAnimatedIconStyle]);
 
     const handleCheckboxChange = (event, setterFunction) => {
@@ -38,7 +37,7 @@ function DrawerCliente({ isOpen, onClose }) {
     return (
         <BootstrapDialog onClose={onClose} aria-labelledby="customized-dialog-title" open={isOpen}>
             <DialogTitle sx={{ m: 0, p: 2, border: 0, fontSize: 14, color: '#33ffc2', backgroundColor: '#023047', borderBottomRightRadius: 20, borderBottomLeftRadius: 20 }} id="customized-dialog-title">
-                Cadastrar Cliente
+                Editar Cliente
             </DialogTitle>
 
             <IconButton
@@ -48,18 +47,24 @@ function DrawerCliente({ isOpen, onClose }) {
                     position: 'absolute',
                     right: 2,
                     top: 8,
-                    // color: (theme) => theme.palette.grey[700],
                     color: '#33ffc2'
                 }}
             >
-                <CloseIcon />
+                <CloseIcon style={animatedIconStyle} />
             </IconButton>
 
             <DialogContent>
-                <ClienteForm onCloseDrawer={onClose} />
+                <EditCliente
+                    clientId={clientId}
+                    loginEnabled={loginEnabled}
+                    statusEnabled={statusEnabled}
+                    onLoginCheckboxChange={(event) => handleCheckboxChange(event, setLoginEnabled)}
+                    onStatusCheckboxChange={(event) => handleCheckboxChange(event, setStatusEnabled)}
+                    onCloseDrawer={onClose}
+                />
             </DialogContent>
         </BootstrapDialog>
     );
 }
 
-export default DrawerCliente;
+export default DrawerEditCliente;

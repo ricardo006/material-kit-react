@@ -11,10 +11,10 @@ import {
     Button,
 } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
-import clienteService from '../../services/clienteService';
-import { Context } from '../../context/AuthContext';
+import clienteService from '../../../services/clienteService';
+import { Context } from '../../../context/AuthContext';
 
-function ClienteForm({ onSubmit, onCloseDrawer }) {
+function EditCliente({ onSubmit, onCloseDrawer }) {
     const [loginEnabled, setLoginEnabled] = useState(false);
     const [statusEnabled, setStatusEnabled] = useState(true);
     const [usuario, setUsuario] = useState('');
@@ -53,12 +53,12 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
 
             // Exibir mensagem de sucesso
             await new Promise((resolve) => {
+                onCloseDrawer();
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_CENTER,
                     onClose: resolve,
                 });
             });
-            onCloseDrawer();
         } catch (error) {
             console.error('Erro ao enviar dados para a API:', error);
             toast.error('Erro ao enviar dados para a API.', { position: toast.POSITION.TOP_CENTER });
@@ -110,11 +110,11 @@ function ClienteForm({ onSubmit, onCloseDrawer }) {
             </FormControl>
 
             <DialogActions>
-                <CustomButton onClick={handleSubmit}>Cadastrar</CustomButton>
+                <CustomButton onClick={handleSubmit}>Salvar alterações</CustomButton>
             </DialogActions>
             <ToastContainer />
         </>
     );
 }
 
-export default ClienteForm;
+export default EditCliente;

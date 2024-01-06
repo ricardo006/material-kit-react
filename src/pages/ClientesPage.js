@@ -30,6 +30,7 @@ import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 import ClienteDrawer from '../components/drawercliente/DrawerCliente';
+import EditClienteDrawer from '../components/drawercliente/DrawerEditCliente';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // data
@@ -112,12 +113,14 @@ export default function ClientesPage() {
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [openDrawerEdit, setOpenDrawerEdit] = useState(false);
     const [popoverOpen, setPopoverOpen] = useState(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [dataBet, setDataBet] = useState([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [clientes, setClientes] = useState([]);
+    const [selectedClientId, setSelectedClientId] = useState(null);
 
     useEffect(() => {
         fetchData();
@@ -125,7 +128,6 @@ export default function ClientesPage() {
 
     const fetchData = async () => {
         try {
-            // Simulação de uma requisição assíncrona
             const response = await clienteService.getClientes();
 
             // Aguarda 1 segundos para simular o carregamento
@@ -143,10 +145,6 @@ export default function ClientesPage() {
         }
     };
 
-    const handleEdit = (clienteId) => {
-        console.log(`Editar cliente com ID ${clienteId}`);
-    };
-
     const handleDelete = async (clienteId) => {
         try {
             const response = await clienteService.deleteCliente(clienteId);
@@ -160,10 +158,6 @@ export default function ClientesPage() {
             toast.error('Erro ao excluir cliente.', { position: toast.POSITION.TOP_CENTER });
             console.error('Erro ao excluir cliente:', error);
         }
-    };
-
-    const handleOpenMenu = (event) => {
-        setOpen(event.currentTarget);
     };
 
     const handleCloseMenu = () => {
@@ -220,10 +214,20 @@ export default function ClientesPage() {
         setOpenDrawer(false);
     };
 
+    const handleDrawerCloseEdit = () => {
+        setOpenDrawerEdit(false);
+    };
+
     const handleClickOpenModal = () => {
         const newData = ['Item 1', 'Item 2', 'Item 3'];
         setDataBet(newData);
         setIsModalOpen(true);
+    };
+
+    const handleEdit = (clienteId) => {
+        console.log(clienteId);
+        setSelectedClientId(clienteId);
+        setOpenDrawerEdit(true);
     };
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
@@ -255,9 +259,15 @@ export default function ClientesPage() {
                             isOpen={isModalOpen}
                             onClose={() => setIsModalOpen(false)}
                         />
+
+                        <EditClienteDrawer
+                            isOpen={openDrawerEdit}
+                            clientId={selectedClientId}
+                            onClose={handleDrawerCloseEdit}
+                        />
+
                         <Card>
                             <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
-
                             <Scrollbar>
                                 <TableContainer sx={{ minWidth: 800 }}>
                                     <Table>
@@ -317,6 +327,8 @@ export default function ClientesPage() {
                                                                 </IconButton>
                                                             </Stack>
                                                         </TableCell>
+                                                        {console.log(openDrawerEdit)}
+
                                                     </TableRow>
                                                 );
                                             })}
