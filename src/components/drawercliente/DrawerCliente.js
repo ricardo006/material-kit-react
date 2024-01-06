@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpring } from 'react-spring';
 import {
     styled,
@@ -25,7 +25,7 @@ function DrawerCliente({ isOpen, onClose }) {
     const [loginEnabled, setLoginEnabled] = useState(false);
     const [statusEnabled, setStatusEnabled] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (isOpen) {
             setAnimatedIconStyle({ transform: 'scale(1)' });
         }

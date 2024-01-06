@@ -26,6 +26,19 @@ const clienteService = {
             throw error;
         }
     },
+    listarClientePorId: async (clienteId) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}listar-cliente/${clienteId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Erro ao obter cliente com ID ${clienteId}:`, error.message);
+            throw error;
+        }
+    },
     deleteCliente: async (clienteId) => {
         try {
             if (!token) {

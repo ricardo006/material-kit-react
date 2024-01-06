@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     FormControl,
@@ -10,25 +10,27 @@ import {
     Switch,
     Button,
 } from '@mui/material';
+
 import { toast, ToastContainer } from 'react-toastify';
 import clienteService from '../../../services/clienteService';
 import { Context } from '../../../context/AuthContext';
 
-function EditCliente({ onSubmit, onCloseDrawer }) {
-    const [loginEnabled, setLoginEnabled] = useState(false);
-    const [statusEnabled, setStatusEnabled] = useState(true);
+function EditCliente({ clienteData, onLoginCheckboxChange, onStatusCheckboxChange, onCloseDrawer }) {
     const [usuario, setUsuario] = useState('');
     const [nomeCompleto, setNomeCompleto] = useState('');
+    const [status, setStatus] = useState(false); // Adicionando estado para o Switch
     const { userData, loading } = useContext(Context);
     const navigate = useNavigate();
 
-    const handleCheckboxChange = (event) => {
-        setLoginEnabled(event.target.checked);
-    };
-
-    const handleSwitchChange = () => {
-        setStatusEnabled(!statusEnabled);
-    };
+    // Use useEffect para carregar dados do cliente quando clienteData for alterado
+    useEffect(() => {
+        console.log(clienteData);
+        if (clienteData) {
+            setUsuario(clienteData.nome_usuario);
+            setNomeCompleto(clienteData.nome_completo);
+            setStatus(clienteData.status === 'A');
+        }
+    }, [clienteData]);
 
     const CustomButton = styled(Button)(({ theme }) => ({
         backgroundColor: '#33ffc2',
@@ -41,8 +43,8 @@ function EditCliente({ onSubmit, onCloseDrawer }) {
 
     const handleSubmit = async () => {
         const formData = {
-            loginEnabled,
-            statusEnabled,
+            loginEnabled: clienteData.loginEnabled,
+            statusEnabled: status,
             usuario,
             nomeCompleto,
         };
@@ -69,12 +71,12 @@ function EditCliente({ onSubmit, onCloseDrawer }) {
     return (
         <>
             <FormControlLabel
-                control={<Checkbox checked={loginEnabled} onChange={handleCheckboxChange} />}
+                control={<Checkbox checked={clienteData?.loginEnabled} onChange={onLoginCheckboxChange} />}
                 label="Permitir que o cliente faça login"
             />
 
             <FormControlLabel
-                control={<Switch checked={statusEnabled} onChange={handleSwitchChange} />}
+                control={<Switch checked={status} onChange={() => setStatus(!status)} />}
                 label="Status do Cliente"
             />
 
@@ -100,7 +102,7 @@ function EditCliente({ onSubmit, onCloseDrawer }) {
 
             <FormControl fullWidth margin="normal">
                 <TextField
-                    value={userData?.nome_completo}
+                    value={userData?.nome_completo || ''}
                     sx={{ color: '#fff' }}
                     label="Cambista Associado"
                     variant="outlined"

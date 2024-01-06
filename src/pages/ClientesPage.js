@@ -225,9 +225,8 @@ export default function ClientesPage() {
     };
 
     const handleEdit = (clienteId) => {
-        console.log(clienteId);
-        setSelectedClientId(clienteId);
         setOpenDrawerEdit(true);
+        setSelectedClientId(clienteId);
     };
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
