@@ -106,7 +106,48 @@ const clienteService = {
             console.error('Erro ao enviar dados para a API:', error.message);
             throw error;
         }
-    }
+    },
+    editCliente: async (formData, userData, clienteId) => {
+        try {
+            if (!token) {
+                throw new Error('Token não encontrado no localStorage.');
+            }
+
+            const idUsuarioAuth = userData.id;
+
+            const dataPost = {
+                nome_usuario: formData.usuario,
+                nome_completo: formData.nomeCompleto,
+                cambista_id: idUsuarioAuth,
+                venda_id: 0,
+                status: formData.status === 'A' ? 'A' : 'I',
+            };
+
+            const headers = {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            };
+
+            const response = await axios.post(`${API_BASE_URL}editar-cliente/${clienteId}`, dataPost, {
+                headers,
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            }
+
+            if (response.status === 401) {
+                console.error('Acesso não autorizado. O token pode ter expirado.');
+                // Lidar com acesso não autorizado, por exemplo, realizar logout ou renovar o token
+            }
+
+            console.error('Erro ao enviar dados para a API:', response.data);
+            throw new Error('Erro ao enviar dados para a API.');
+        } catch (error) {
+            console.error('Erro ao enviar dados para a API:', error.message);
+            throw error;
+        }
+    },
 };
 
 export default clienteService;

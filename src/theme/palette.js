@@ -60,7 +60,7 @@ const WARNING = {
 };
 
 const ERROR = {
-  lighter: '#FF99AC',
+  lighter: '#fafaff',
   light: '#F32A50',
   main: '#FF1743',
   dark: '#B72136',

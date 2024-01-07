@@ -35,14 +35,15 @@ import EditClienteDrawer from '../components/drawercliente/DrawerEditCliente';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // data
 import clienteService from '../services/clienteService';
+import { useLoading } from '../context/LoadingContext';
 
 const TABLE_HEAD = [
-    { id: 'nome_usuario', label: 'Usuário', alignRight: false },
     { id: 'nome_completo', label: 'Nome', alignRight: false },
-    { id: 'login', label: 'Permissão de login?', alignRight: false },
-    { id: 'created_at', label: 'Data de Criação', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
-    { id: 'actions', label: 'Ações', alignCenter: true },
+    { id: 'nome_usuario', label: 'Usuário', alignRight: false },
+    { id: 'login', label: 'Permissão de login?' },
+    { id: 'created_at', label: 'Data de Criação' },
+    { id: 'status', label: 'Status' },
+    { id: 'actions', label: 'Ações' },
 ];
 
 const styles = {
@@ -109,18 +110,18 @@ export default function ClientesPage() {
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('nome_usuario');
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [openDrawer, setOpenDrawer] = useState(false);
     const [openDrawerEdit, setOpenDrawerEdit] = useState(false);
     const [popoverOpen, setPopoverOpen] = useState(null);
-    const [drawerOpen, setDrawerOpen] = useState(false);
     const [dataBet, setDataBet] = useState([]);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [clientes, setClientes] = useState([]);
     const [selectedClientId, setSelectedClientId] = useState(null);
+    const { loading, showLoading, hideLoading } = useLoading();
 
     useEffect(() => {
         fetchData();
@@ -128,9 +129,10 @@ export default function ClientesPage() {
 
     const fetchData = async () => {
         try {
+            showLoading(); // Mostrar loading antes da requisição
             const response = await clienteService.getClientes();
 
-            // Aguarda 1 segundos para simular o carregamento
+            // Aguarda 1 segundos para simular o carregamento 
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             // Verifica se a resposta é válida antes de marcar como carregado
@@ -142,13 +144,14 @@ export default function ClientesPage() {
             }
         } catch (error) {
             console.error('Erro ao carregar clientes:', error);
+        } finally {
+            hideLoading();
         }
     };
 
     const handleDelete = async (clienteId) => {
         try {
             const response = await clienteService.deleteCliente(clienteId);
-            // Exibe um toast de sucesso
             toast.success(response.message, { position: toast.POSITION.TOP_CENTER });
 
             // Após excluir, carrega os dados atualizados
@@ -158,6 +161,14 @@ export default function ClientesPage() {
             toast.error('Erro ao excluir cliente.', { position: toast.POSITION.TOP_CENTER });
             console.error('Erro ao excluir cliente:', error);
         }
+    };
+
+    const handleEdit = (clienteId) => {
+        showLoading();
+        setOpenDrawerEdit(true);
+        setSelectedClientId(clienteId);
+        fetchData();
+        hideLoading();
     };
 
     const handleCloseMenu = () => {
@@ -224,11 +235,6 @@ export default function ClientesPage() {
         setIsModalOpen(true);
     };
 
-    const handleEdit = (clienteId) => {
-        setOpenDrawerEdit(true);
-        setSelectedClientId(clienteId);
-    };
-
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - clientes.length) : 0;
     const filteredUsers = applySortFilter(clientes, getComparator(order, orderBy), filterName);
     const isNotFound = !filteredUsers.length && !!filterName;
@@ -241,7 +247,7 @@ export default function ClientesPage() {
                 <title> Clientes | Betspace </title>
             </Helmet>
 
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" >
                 {dataLoaded ? (
                     <>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -292,21 +298,21 @@ export default function ClientesPage() {
 
                                                         <TableCell component="th" scope="row" padding="none">
                                                             <Stack direction="row" alignItems="center" spacing={2}>
-                                                                <Avatar alt={cliente.nome_usuario} src='' />
+                                                                <Avatar alt={cliente.nome_completo} src='' />
                                                                 <Typography variant="subtitle2" noWrap>
-                                                                    {cliente.nome_usuario}
+                                                                    {cliente.nome_completo}
                                                                 </Typography>
                                                             </Stack>
                                                         </TableCell>
 
-                                                        <TableCell align="left">{cliente.nome_completo}</TableCell>
+                                                        <TableCell align="left">{cliente.nome_usuario}</TableCell>
 
                                                         <TableCell align="left">{cliente.cambistaId}</TableCell>
 
                                                         <TableCell align="left">{cliente.created_at}</TableCell>
 
                                                         <TableCell align="left">
-                                                            <Label color={cliente.status === 'A' ? 'success' : 'info'}>
+                                                            <Label color={cliente.status === 'A' ? 'success' : 'error'}>
                                                                 {cliente.status === 'A' ? 'Ativo' : 'Inativo'}
                                                             </Label>
                                                         </TableCell>
