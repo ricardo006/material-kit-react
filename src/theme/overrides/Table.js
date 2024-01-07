@@ -4,7 +4,7 @@ export default function Table(theme) {
       styleOverrides: {
         head: {
           color: theme.palette.text.secondary,
-          backgroundColor: theme.palette.background.neutral,
+          backgroundColor: '#023047',
         },
       },
     },

@@ -390,7 +390,6 @@ export default function ClientesPage() {
                 )}
             </Container>
 
-
             <Popover
                 open={Boolean(popoverOpen)}
                 anchorEl={popoverOpen}

@@ -1,4 +1,3 @@
-// ----------------------------------------------------------------------
 
 export default function Paper() {
   return {
@@ -9,6 +8,7 @@ export default function Paper() {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
+          backgroundColor: '#082747',
         },
       },
     },

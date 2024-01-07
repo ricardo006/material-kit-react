@@ -7,6 +7,7 @@ export default function Input(theme) {
         root: {
           '&.Mui-disabled': {
             '& svg': { color: theme.palette.text.disabled },
+            backgroundColor: 'tranparent'
           },
         },
         input: {
@@ -22,6 +23,7 @@ export default function Input(theme) {
         underline: {
           '&:before': {
             borderBottomColor: alpha(theme.palette.grey[500], 0.56),
+            backgroundColor: 'transparent'
           },
         },
       },
