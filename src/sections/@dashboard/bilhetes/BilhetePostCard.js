@@ -56,6 +56,8 @@ const BilhetePostCard = ({ index, post }) => {
   const [profilePhoto, setProfilePhoto] = useState('');
   const [cardPhoto, setCardPhoto] = useState('');
   const { loading, showLoading, hideLoading } = useLoading();
+  const { id } = post;
+  const latestPost = 0;
 
   useEffect(() => {
     const fetchProfilePhoto = async () => {
@@ -91,12 +93,6 @@ const BilhetePostCard = ({ index, post }) => {
     fetchProfilePhoto();
     fetchCardPhoto();
   }, [index]);
-
-  const {
-    id,
-  } = post;
-
-  const latestPost = 0;
 
   return (
     <>
