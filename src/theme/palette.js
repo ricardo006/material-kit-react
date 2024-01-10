@@ -80,7 +80,7 @@ const CARD_VENDAS = {
 const CARD_CLIENTES = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#731dd8',
+  main: '#3d348b',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
@@ -89,7 +89,7 @@ const CARD_CLIENTES = {
 const CARD_BILHETES = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#28ada8',
+  main: '#07beb8',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
@@ -98,7 +98,7 @@ const CARD_BILHETES = {
 const CARD_COMISSAO = {
   lighter: '#B9DAFF',
   light: '#B9DAFF',
-  main: '#f79d65',
+  main: '#e6af2e',
   dark: '#FFF',
   darker: '#FFF',
   contrastText: '#fff',
