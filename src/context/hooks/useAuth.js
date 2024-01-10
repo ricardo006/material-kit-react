@@ -59,9 +59,10 @@ export default function useAuth() {
                 password,
             });
 
-            const { token, error, message } = data.response;
+            // Simular um atraso de 10 segundos
+            // await new Promise(resolve => setTimeout(resolve, 10000));
 
-            console.log('Resposta da API', message);
+            const { token, error, message } = data.response;
 
             if (token) {
                 console.log('Token auth:', token);

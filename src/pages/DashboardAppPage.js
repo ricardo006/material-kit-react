@@ -14,6 +14,9 @@ import { Context } from '../context/AuthContext';
 
 import Iconify from '../components/iconify';
 
+import LoadingWebM from '../components/loadingwebm/LoadingWebm';
+
+
 // sections
 import {
   AppTasks,
@@ -32,8 +35,23 @@ export default function DashboardAppPage() {
   const theme = useTheme();
   const { userData, loading } = useContext(Context);
 
+  // Estado local para controlar o loading simulado
+  const [simulatedLoading, setSimulatedLoading] = useState(true);
+
   // Se userData estiver disponível, então os dados foram carregados
   const isDataLoaded = !!userData;
+
+  // Simula o loading por 15 segundos
+  useEffect(() => {
+    const simulatedLoadingTimer = setTimeout(() => {
+      setSimulatedLoading(false);
+    }, 15000);
+
+    return () => clearTimeout(simulatedLoadingTimer);
+  }, []); // Executa apenas uma vez durante a montagem
+
+
+  console.log('teste', loading)
 
   return (
     <>
@@ -42,13 +60,12 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth={'xl'}>
-        {loading && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <CircularProgress />
-          </Box>
-        )}
+        {/* {simulatedLoading && (
+          // Mostra o componente de loading enquanto o loading é simulado
+          <LoadingWebM src="https://drive.google.com/file/d/16IdQ-CMWW4tVq3i3Ntr57REDae53hmPx/view?usp=drive_link/preview" />
+        )} */}
 
-        {isDataLoaded && (
+        {isDataLoaded && !loading && !simulatedLoading && (
           <>
             <Typography variant="h4" sx={{ mb: 1.5 }}>
               Olá, {userData && userData.nome_completo}!
