@@ -14,8 +14,7 @@ import { Context } from '../context/AuthContext';
 
 import Iconify from '../components/iconify';
 
-import LoadingWebM from '../components/loadingwebm/LoadingWebm';
-
+import Loading from '../components/loading/Loading';
 
 // sections
 import {
@@ -51,7 +50,7 @@ export default function DashboardAppPage() {
   }, []); // Executa apenas uma vez durante a montagem
 
 
-  console.log('teste', loading)
+  console.log('teste aqui', loading)
 
   return (
     <>
@@ -60,10 +59,7 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth={'xl'}>
-        {/* {simulatedLoading && (
-          // Mostra o componente de loading enquanto o loading é simulado
-          <LoadingWebM src="https://drive.google.com/file/d/16IdQ-CMWW4tVq3i3Ntr57REDae53hmPx/view?usp=drive_link/preview" />
-        )} */}
+        {simulatedLoading && <Loading />}
 
         {isDataLoaded && !loading && !simulatedLoading && (
           <>

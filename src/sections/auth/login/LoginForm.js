@@ -6,7 +6,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Iconify from '../../../components/iconify';
 import { Context } from '../../../context/AuthContext';
-import LoadingWebM from '../../../components/loadingwebm/LoadingWebm';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -63,8 +62,6 @@ export default function LoginForm() {
 
   return (
     <>
-      {loading && <LoadingWebM src="https://drive.google.com/file/d/16IdQ-CMWW4tVq3i3Ntr57REDae53hmPx/view?usp=drive_link" />}
-
       <Stack spacing={4}>
         <TextField
           name="email"
