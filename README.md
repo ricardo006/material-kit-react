@@ -1,6 +1,6 @@
 ## Minimal [(Free version)] Betspace
 
-![preview](public/assets/preview.jpg)
+![preview]
 
 | [Minimal Free](https://minimal-kit-react.vercel.app/) | [Minimal](https://material-ui.com/store/items/minimal-dashboard/) |
 | ----------------------------------------------------- | :---------------------------------------------------------------- |
