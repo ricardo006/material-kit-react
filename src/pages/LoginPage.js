@@ -86,7 +86,6 @@ export default function LoginPage() {
             </Divider>
 
             <Stack spacing={2}>
-              {/* 949134044481-8oa9g1ji7huvs252t7s7lbcdln2imips.apps.googleusercontent.com */}
               <GoogleLogin
                 clientId='131499348796-mvf5616hogbu8jqbtk1akvqpcs16hljn.apps.googleusercontent.com'
                 buttonText='Cadastre-se com o Google'
