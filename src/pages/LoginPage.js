@@ -92,14 +92,15 @@ export default function LoginPage() {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
               />
+
               <FullWidthButton variant="outlined" color="inherit">
                 <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />
               </FullWidthButton>
-
               <FullWidthButton variant="outlined" color="inherit">
                 <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={22} height={22} />
               </FullWidthButton>
             </Stack>
+
 
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Typography variant="body2" sx={{ mt: 2, color: '#C6FFEE', textAlign: 'left' }}>

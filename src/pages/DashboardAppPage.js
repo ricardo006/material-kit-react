@@ -29,7 +29,6 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
-
 export default function DashboardAppPage() {
   const theme = useTheme();
   const { userData, loading } = useContext(Context);
@@ -44,14 +43,10 @@ export default function DashboardAppPage() {
   useEffect(() => {
     const simulatedLoadingTimer = setTimeout(() => {
       setSimulatedLoading(false);
-    }, 15000);
+    }, 1000);
 
     return () => clearTimeout(simulatedLoadingTimer);
   }, []); // Executa apenas uma vez durante a montagem
-
-
-  console.log('teste aqui', loading)
-
   return (
     <>
       <Helmet>
