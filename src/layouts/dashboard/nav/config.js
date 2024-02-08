@@ -34,6 +34,11 @@ const navConfig = [
     icon: <PeopleAltTwoToneIcon />,
   },
   {
+    title: 'Administradores',
+    path: 'administradores',
+    icon: <PersonPinTwoToneIcon />,
+  },
+  {
     title: 'Cambistas',
     path: 'cambistas',
     icon: <PersonPinTwoToneIcon />,

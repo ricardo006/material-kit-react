@@ -6,6 +6,7 @@ import SimpleLayout from './layouts/simple';
 // pages
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
+import AdministradorPage from './pages/AdministradorPage';
 import CambistasPage from './pages/CambistasPage';
 import BilhetesPage from './pages/BilhetesPage';
 import ClientesPage from './pages/ClientesPage';
@@ -48,6 +49,7 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
+        { path: 'administradores', element: <AdministradorPage /> },
         { path: 'cambistas', element: <CambistasPage /> },
         { path: 'clientes', element: <ClientesPage /> },
         { path: 'proximosjogos', element: <ProximosJogosPage /> },
