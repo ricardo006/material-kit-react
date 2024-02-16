@@ -32,7 +32,7 @@ export default function CaixaPage() {
           <CaixaPostsSort options={SORT_OPTIONS} />
         </Stack>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {CAIXAS.map((post, index) => (
             <CaixaPostCard key={post.id} post={post} index={index} />
           ))}

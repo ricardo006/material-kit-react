@@ -22,6 +22,7 @@ import FutebolPage from './pages/FutebolPage';
 import CaixaPage from './pages/CaixaPage';
 import ApostasPage from './pages/ApostasPage';
 import MatchPage from './pages/MatchPage';
+import ConfigurationsPage from './pages/ConfigurationsPage';
 
 import { Context } from './context/AuthContext';
 
@@ -60,6 +61,7 @@ export default function Router() {
         { path: 'caixa', element: <CaixaPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'futebol', element: <FutebolPage /> },
+        { path: 'configuracoes', element: <ConfigurationsPage /> },
         {
           path: 'match',
           element: <MatchPage />

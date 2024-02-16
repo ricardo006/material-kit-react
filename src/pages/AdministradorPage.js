@@ -29,8 +29,8 @@ import {
 import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
-import ClienteDrawer from '../components/drawercliente/DrawerCliente';
-import EditClienteDrawer from '../components/drawercliente/DrawerEditCliente';
+import AdminDrawer from '../components/draweradmin/DrawerAdmin';
+import EditAdminDrawer from '../components/draweradmin/DrawerEditAdmin';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // data
@@ -255,17 +255,17 @@ export default function AdministradorPage() {
                                 Administradores
                             </Typography>
                             <Button variant="contained" onClick={handleClickOpenModal} startIcon={<Iconify icon="eva:plus-fill" />}>
-                                Cadastrar Administradores
+                                Criar Administrador
                             </Button>
                         </Stack>
 
-                        <ClienteDrawer
+                        <AdminDrawer
                             data={dataBet}
                             isOpen={isModalOpen}
                             onClose={() => setIsModalOpen(false)}
                         />
 
-                        <EditClienteDrawer
+                        <EditAdminDrawer
                             isOpen={openDrawerEdit}
                             clientId={selectedClientId}
                             onClose={handleDrawerCloseEdit}
@@ -381,7 +381,7 @@ export default function AdministradorPage() {
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                             />
                         </Card>
-                        <ClienteDrawer open={openDrawer} onClose={handleDrawerClose} />
+                        <AdminDrawer open={openDrawer} onClose={handleDrawerClose} />
                     </>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>

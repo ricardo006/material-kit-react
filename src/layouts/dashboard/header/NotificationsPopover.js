@@ -102,8 +102,8 @@ export default function NotificationsPopover() {
 
   return (
     <>
-      <IconButton color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 40, height: 40 }}>
-        <Badge badgeContent={totalUnRead} color="error">
+      <IconButton color={open ? '#success' : 'default'} onClick={handleOpen} sx={{ width: 40, height: 40 }}>
+        <Badge badgeContent={totalUnRead} color="secondary">
           <Iconify icon="eva:bell-fill" />
         </Badge>
       </IconButton>

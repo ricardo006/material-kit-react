@@ -2,16 +2,11 @@ import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Link, Card, Grid, Avatar, Typography, CardContent } from '@mui/material';
-// utils
-import { fDate } from '../../../utils/formatTime';
-import { fShortenNumber } from '../../../utils/formatNumber';
-//
-import SvgColor from '../../../components/svg-color';
-import Iconify from '../../../components/iconify';
 
 const StyledCardMedia = styled('div')({
   position: 'relative',
   paddingTop: 'calc(100% * 3 / 4)',
+  height: '100%',
 });
 
 const StyledTitle = styled(Link)({
@@ -21,23 +16,6 @@ const StyledTitle = styled(Link)({
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
 });
-
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  zIndex: 9,
-  width: 32,
-  height: 32,
-  position: 'absolute',
-  left: theme.spacing(3),
-  bottom: theme.spacing(-2),
-}));
-
-const StyledInfo = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'flex-end',
-  marginTop: theme.spacing(3),
-  color: theme.palette.text.disabled,
-}));
 
 const StyledCover = styled('img')({
   top: 0,
@@ -54,8 +32,7 @@ CaixaPostCard.propTypes = {
 
 export default function CaixaPostCard({ post, index }) {
   const { cover, title, view, comment, share, author, createdAt, saldo } = post;
-  const latestPostLarge = index === 0;
-  const latestPost = index === 1 || index === 2;
+  const latestPost = index <= post.length;
 
   const POST_INFO = [
     { number: comment, icon: 'eva:message-circle-fill' },
@@ -64,70 +41,26 @@ export default function CaixaPostCard({ post, index }) {
   ];
 
   return (
-    <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
-      <Card sx={{ position: 'relative' }}>
-        <StyledCardMedia
-          sx={{
-            ...((latestPostLarge || latestPost) && {
-              pt: 'calc(100% * 4 / 3)',
-              '&:after': {
-                top: 0,
-                content: "''",
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
-              },
-            }),
-            ...(latestPostLarge && {
-              pt: {
-                xs: 'calc(100% * 4 / 3)',
-                sm: 'calc(100% * 3 / 4.66)',
-              },
-            }),
-          }}
-        >
-          <SvgColor
-            color="paper"
-            src="/assets/icons/shape-avatar.svg"
-            sx={{
-              width: 80,
-              height: 36,
-              zIndex: 9,
-              bottom: -15,
-              position: 'absolute',
-              color: 'background.paper',
-              ...((latestPostLarge || latestPost) && { display: 'none' }),
-            }}
-          />
-          <StyledAvatar
-            alt={author.name}
-            src={author.avatarUrl}
-            sx={{
-              ...((latestPostLarge || latestPost) && {
-                zIndex: 9,
-                top: 24,
-                left: 24,
-                width: 40,
-                height: 40,
-              }),
-            }}
-          />
-
+    <Grid item xs={12} sm={6} md={index === 0 ? 3 : 3}>
+      <Card>
+        <StyledCardMedia sx={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
           <StyledCover alt={title} src={cover} />
         </StyledCardMedia>
 
         <CardContent
           sx={{
             pt: 4,
-            ...((latestPostLarge || latestPost) && {
+            ...(index <= 7 && {
               bottom: 0,
               width: '100%',
               position: 'absolute',
+              cursor: 'pointer',
+              color: 'white',
+              padding: '16px',
             }),
           }}
         >
-          <Typography gutterBottom variant="caption" sx={{ color: 'text.success', display: 'block', fontSize: 20, fontWeight: 600 }}>
+          <Typography gutterBottom variant="caption" sx={{ color: 'text.success', display: 'block', fontSize: 26, fontWeight: 600 }}>
             {title}
           </Typography>
 
@@ -136,8 +69,7 @@ export default function CaixaPostCard({ post, index }) {
             variant="subtitle2"
             underline="hover"
             sx={{
-              ...(latestPostLarge && { typography: 'h5', height: 60 }),
-              ...((latestPostLarge || latestPost) && {
+              ...((latestPost) && {
                 color: 'common.white',
               }),
             }}
@@ -146,6 +78,6 @@ export default function CaixaPostCard({ post, index }) {
           </StyledTitle>
         </CardContent>
       </Card>
-    </Grid>
+    </Grid >
   );
 }

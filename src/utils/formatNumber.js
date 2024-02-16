@@ -1,5 +1,10 @@
 import numeral from 'numeral';
 
+export function fCpf(number) {
+  const format = number ? numeral(number).format('000.000.000-00') : '';
+  return result(format, '-00');
+}
+
 export function fNumber(number) {
   return numeral(number).format();
 }

@@ -4,7 +4,7 @@ const CAIXA_TITLES = [
   'Saldo Total',
   'Entradas',
   'Saídas',
-  'Lançamentos', // totais de lançamentos 
+  'Lançamentos',
   'Comissões',
   'Saldo do dia',
   'Lucro Total',
@@ -14,16 +14,15 @@ const SALDO_TITLES = [
   '2.200,00',
   '600,00',
   '15.000,00',
+  'Ver Lançamentos ->',
+  'Ver Comissões ->',
   '✨What is Done is Done ✨',
-  'Fresh Prince',
-  'Six Socks Studio',
-  'vincenzo de cotiis’ crossing over showcases a research on contamination',
-  'Simple, Great Looking Animations in Your Project | Video Tutorial',
+  '✨What is Done is Done ✨',
 ];
 
 const posts = [...Array(7)].map((_, index) => ({
   id: faker.datatype.uuid(),
-  cover: `/assets/images/covers/cover_${index + 1}.jpg`,
+  cover: `/assets/images/covers/cover_${index + 14}.jpg`,
   title: CAIXA_TITLES[index],
   createdAt: faker.date.past(),
   view: faker.datatype.number(),
@@ -33,7 +32,7 @@ const posts = [...Array(7)].map((_, index) => ({
   favorite: faker.datatype.number(),
   author: {
     name: faker.name.fullName(),
-    avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+    avatarUrl: `/assets/images/avatars/avatar_${index + 2}.jpg`,
   },
 }));
 

@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Iconify from '../../../components/iconify';
+
 // Função para aplicar a máscara de CPF
 function formatCPF(value) {
     const numericValue = value.replace(/\D/g, '');

@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
@@ -20,6 +22,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -35,6 +38,15 @@ export default function AccountPopover() {
     handleLogout();
   }
 
+  const handleRedirect = (label) => {
+    if (label === 'Configurações') {
+      navigate('/dashboard/configuracoes', { replace: true });
+      handleClose();
+    } else if (label === 'Meu Perfil') {
+      // Adicione o código para redirecionar para a página do perfil do usuário
+    }
+  }
+
   return (
     <>
       <IconButton
@@ -47,7 +59,7 @@ export default function AccountPopover() {
               content: "''",
               width: '100%',
               height: '100%',
-              borderRadius: '40%',
+              borderRadius: '20px',
               position: 'absolute',
             },
           }),
@@ -67,9 +79,11 @@ export default function AccountPopover() {
           <Typography variant="subtitle2" noWrap>
             {userData && userData.nome_completo}
           </Typography>
+
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {userData && userData.email}
           </Typography>
+
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {
               userData && userData.id_tipo_usuario === 1
@@ -87,7 +101,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem key={option.label} onClick={() => handleRedirect(option.label)}>
               {option.label}
             </MenuItem>
           ))}
