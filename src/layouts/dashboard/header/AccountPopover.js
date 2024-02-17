@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import CopyLink from '../../../components/copylink';
 // mocks_
 import account from '../../../_mock/account';
 
@@ -45,6 +46,10 @@ export default function AccountPopover() {
     } else if (label === 'Meu Perfil') {
       // Adicione o código para redirecionar para a página do perfil do usuário
     }
+  }
+
+  const handleCopyPasteLink = () => {
+    // Adicione o código para copiar e colar o link
   }
 
   return (
@@ -95,6 +100,8 @@ export default function AccountPopover() {
                     : ''
             }
           </Typography>
+
+          <CopyLink handleCopyPasteLink={handleCopyPasteLink} />
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

@@ -14,6 +14,7 @@ import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 
 import { Context } from '../../../context/AuthContext';
+import CopyLink from '../../../components/copylink';
 
 import { fCurrency, fMoney } from '../../../utils/formatNumber';
 
@@ -59,10 +60,12 @@ export default function Nav({ openNav, onCloseNav }) {
         px: 1, ml: 1, mr: 1, mt: 2, py: 3, display: 'inline-flex', backgroundColor: '#001D3D', boxShadow: '0px 5px 15px 0px rgba(0, 0, 0, 0.15)', borderRadius: '10px'
       }}>
         <Logo />
+
       </Box>
 
       <Box sx={{ mb: 2, m: 1, mt: 2 }}>
         <Link underline="none">
+
           <StyledAccount>
             <Avatar src={account.photoURL} alt="photoURL" />
 
@@ -88,8 +91,12 @@ export default function Nav({ openNav, onCloseNav }) {
               <Typography variant="subtitle2" sx={{ color: 'text.success' }}>
                 {`R${fMoney(userData && userData.saldo)}`}
               </Typography>
+
             </Box>
+
           </StyledAccount>
+          {/* <CopyLink /> */}
+
         </Link>
       </Box>
 
