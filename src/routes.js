@@ -23,12 +23,12 @@ import CaixaPage from './pages/CaixaPage';
 import ApostasPage from './pages/ApostasPage';
 import MatchPage from './pages/MatchPage';
 import ConfigurationsPage from './pages/ConfigurationsPage';
+import PresentationPage from './pages/PresentantionPage';
 
 import { Context } from './context/AuthContext';
 
 export default function Router() {
   const { userData, loading, authenticated } = useContext(Context);
-
 
   const PrivateRoute = ({ element, ...props }) => {
     const { authenticated } = useContext(Context);
@@ -62,11 +62,12 @@ export default function Router() {
         { path: 'blog', element: <BlogPage /> },
         { path: 'futebol', element: <FutebolPage /> },
         { path: 'configuracoes', element: <ConfigurationsPage /> },
-        {
-          path: 'match',
-          element: <MatchPage />
-        },
+        { path: 'match', element: <MatchPage /> },
       ],
+    },
+    {
+      path: 'presentation',
+      element: <PresentationPage />,
     },
     {
       path: 'login',
