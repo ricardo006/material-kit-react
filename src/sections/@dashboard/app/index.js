@@ -7,7 +7,7 @@ export { default as AppWebsiteVisits } from './AppWebsiteVisits';
 export { default as AppWidgetSummary } from './AppWidgetSummary';
 export { default as AppCurrentSubject } from './AppCurrentSubject';
 export { default as AppConversionRates } from './AppConversionRates';
-export { default as AppChipMercados } from './AppChipMercados';
+export { default as AppChipMercados } from './AppChipMercados/AppChipMercados';
 export { default as AppStadings } from './AppStadings';
 export { default as BannersEvents } from './BannersEvents';
 export { default as MatchEvents } from './MatchEvents';

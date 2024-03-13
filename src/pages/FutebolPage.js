@@ -1,10 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Stack, Typography } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
-// components
-import Iconify from '../components/iconify';
 // sections
 import {
     SoccerOptions,
