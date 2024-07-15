@@ -1,53 +1,53 @@
 import React, { useState, useEffect } from 'react';
+
 import AutoAwesomeMotionTwoToneIcon from '@mui/icons-material/AutoAwesomeMotionTwoTone';
-import {
-    Fab,
-    Grid,
-    Typography,
-} from '@mui/material';
-import NavigationIcon from '@mui/icons-material/Navigation';
 
-function FabButton({ eventosClicados, onNavigateClick }) {
-    const [totalSelecoes, setTotalSelecoes] = useState(0);
+import { Fab, Grid, Typography } from '@mui/material';
 
-    const calcularTotalSelecoes = () => {
-        return eventosClicados.length;
-    };
+import palette from '../../theme/palette';
 
-    useEffect(() => {
-        setTotalSelecoes(calcularTotalSelecoes());
-    }, [eventosClicados]);
+function FabButton({ clickedEvents, onNavigateClick }) {
+  const [totalSelections, setTotalSelections] = useState(0);
 
-    return (
-        <>
-            {totalSelecoes > 0 && (
-                <Grid item xs={12} md={12} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                    <Fab
-                        onClick={onNavigateClick}
-                        variant="extended"
-                        sx={{
-                            backgroundColor: '#33FFC2',
-                            '&:hover': {
-                                backgroundColor: '#023047',
-                                color: '#33FFC2',
-                            },
-                            color: '#023047',
-                        }}
-                    >
-                        <AutoAwesomeMotionTwoToneIcon sx={{ mr: 1 }} />
-                        <Typography sx={{ fontWeight: 600 }}>
-                            Apostar {' '}
-                            {totalSelecoes > 1
-                                ? `${totalSelecoes} seleções`
-                                : totalSelecoes === 1
-                                    ? '1 seleção'
-                                    : ''}
-                        </Typography>
-                    </Fab>
-                </Grid>
-            )}
-        </>
-    );
+  const calculateTotalSelecoes = () => {
+    return clickedEvents.length;
+  };
+
+  useEffect(() => {
+    setTotalSelections(calculateTotalSelecoes());
+  }, [clickedEvents]);
+
+  const styles = {
+    'bet-container': {
+      position: 'fixed',
+      bottom: 16,
+      right: 16,
+    },
+    bet__button: {
+      backgroundColor: palette.primary.main,
+      '&:hover': {
+        backgroundColor: palette.primary.lighter,
+        color: palette.primary.main,
+      },
+      color: palette.primary.lighter,
+    },
+  };
+
+  return (
+    <>
+      {totalSelections > 0 && (
+        <Grid item xs={12} md={12} sx={styles['bet-container']}>
+          <Fab onClick={onNavigateClick} variant="extended" sx={styles.bet__button}>
+            <AutoAwesomeMotionTwoToneIcon sx={{ mr: 1 }} />
+
+            <Typography sx={{ fontWeight: 600 }}>
+              Apostar {totalSelections > 1 ? `${totalSelections} seleções` : totalSelections === 1 ? '1 seleção' : ''}
+            </Typography>
+          </Fab>
+        </Grid>
+      )}
+    </>
+  );
 }
 
 export default FabButton;
